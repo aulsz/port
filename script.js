@@ -325,12 +325,22 @@ document.querySelectorAll(".case-study, .bento-card").forEach((card) => {
   card.addEventListener("pointermove", (event) => {
     if (!window.matchMedia("(pointer: fine)").matches || reducedMotion) return;
     const rect = card.getBoundingClientRect();
-    const rotateX = ((event.clientY - rect.top) / rect.height - .5) * -2.4;
-    const rotateY = ((event.clientX - rect.left) / rect.width - .5) * 2.4;
+    const localX = (event.clientX - rect.left) / rect.width;
+    const localY = (event.clientY - rect.top) / rect.height;
+    const rotateX = (localY - .5) * -2.1;
+    const rotateY = (localX - .5) * 2.1;
+    card.style.setProperty("--glass-x", `${localX * 100}%`);
+    card.style.setProperty("--glass-y", `${localY * 100}%`);
+    card.style.setProperty("--glass-shift-x", `${(localX - .5) * 5}px`);
+    card.style.setProperty("--glass-shift-y", `${(localY - .5) * 5}px`);
     card.style.transform = `perspective(1200px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
   });
 
   card.addEventListener("pointerleave", () => {
     card.style.transform = "";
+    card.style.setProperty("--glass-x", "50%");
+    card.style.setProperty("--glass-y", "35%");
+    card.style.setProperty("--glass-shift-x", "0px");
+    card.style.setProperty("--glass-shift-y", "0px");
   });
 });

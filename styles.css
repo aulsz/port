@@ -593,8 +593,72 @@ main,
 }
 
 .case-study {
+  --glass-x: 50%;
+  --glass-y: 35%;
+  --glass-shift-x: 0px;
+  --glass-shift-y: 0px;
+  position: relative;
+  isolation: isolate;
   overflow: hidden;
   border-radius: var(--radius-lg);
+  background: rgba(11, 15, 16, .42);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, .1),
+    0 18px 48px rgba(0, 0, 0, .16);
+}
+
+.case-study::before,
+.bento-card::before {
+  content: "";
+  position: absolute;
+  z-index: 0;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  background:
+    linear-gradient(120deg, rgba(255, 255, 255, .075), transparent 33%, rgba(var(--accent-rgb), .045) 68%, rgba(255, 255, 255, .025)),
+    rgba(10, 14, 15, .22);
+  backdrop-filter: blur(10px) saturate(155%);
+  -webkit-backdrop-filter: blur(10px) saturate(155%);
+  transform: translate(var(--glass-shift-x), var(--glass-shift-y)) scale(1.018);
+  transition: transform .22s ease-out, background .3s ease;
+}
+
+.case-study::after,
+.bento-card::after {
+  content: "";
+  position: absolute;
+  z-index: 2;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  border: 1px solid rgba(225, 255, 253, .13);
+  background:
+    radial-gradient(
+      circle at var(--glass-x) var(--glass-y),
+      rgba(255, 255, 255, .22) 0,
+      rgba(var(--accent-rgb), .08) 11%,
+      transparent 28%
+    ),
+    linear-gradient(145deg, rgba(255, 255, 255, .2), transparent 18% 76%, rgba(var(--accent-rgb), .14));
+  background-blend-mode: screen;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, .2),
+    inset 1px 0 0 rgba(143, 231, 238, .05),
+    inset 0 -1px 0 rgba(151, 130, 255, .08);
+  opacity: .72;
+  transition: opacity .25s ease;
+}
+
+.case-study > *,
+.bento-card > * {
+  position: relative;
+  z-index: 1;
+}
+
+.case-study:hover::after,
+.bento-card:hover::after {
+  opacity: 1;
 }
 
 .case-feature {
@@ -969,6 +1033,10 @@ main,
 }
 
 .bento-card {
+  --glass-x: 50%;
+  --glass-y: 35%;
+  --glass-shift-x: 0px;
+  --glass-shift-y: 0px;
   min-height: 18rem;
   padding: 1.4rem;
   border-radius: var(--radius-md);
@@ -976,7 +1044,12 @@ main,
   flex-direction: column;
   justify-content: space-between;
   position: relative;
+  isolation: isolate;
   overflow: hidden;
+  background: rgba(12, 16, 17, .38);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, .09),
+    0 14px 36px rgba(0, 0, 0, .14);
   transition: transform .35s ease, border-color .35s ease;
 }
 
@@ -1039,8 +1112,8 @@ main,
 
 .bento-accent {
   background:
-    linear-gradient(135deg, rgba(var(--accent-rgb), .12), rgba(166, 160, 255, .04)),
-    var(--glass);
+    linear-gradient(135deg, rgba(var(--accent-rgb), .1), rgba(166, 160, 255, .035)),
+    rgba(12, 16, 17, .38);
 }
 
 .orb {
@@ -1561,5 +1634,10 @@ main,
 
   .tw-text::after {
     display: none !important;
+  }
+
+  .case-study::before,
+  .bento-card::before {
+    transform: none !important;
   }
 }
