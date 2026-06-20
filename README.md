@@ -12,12 +12,12 @@ The portfolio also includes my GE Aerospace engineering simulation experience, t
 
 ## Design and interaction
 
-The interface combines a dark celestial landscape with restrained engineering telemetry. Its interactive "Signal Mote" is a canvas-rendered field organism that follows the pointer, moves independently while idle, and avoids the main headline.
+The interface combines a dark celestial landscape with restrained engineering telemetry and a consistent terminal-style typographic system.
 
 Other details include:
 
 - Typewriter-style introduction sequence
-- Scroll-triggered content reveals
+- Character-by-character animation the first time each text fragment enters the viewport
 - Slowly moving fog, stars, orbital paths, and background parallax
 - Live Dallas time and time-dependent scene lighting
 - Responsive navigation and layouts
@@ -28,7 +28,7 @@ Other details include:
 - Semantic HTML
 - CSS animations, responsive layouts, and glass effects
 - Vanilla JavaScript
-- Canvas rendering for the star field and Signal Mote
+- Canvas rendering for the animated star field
 
 No frameworks or build tools are required.
 

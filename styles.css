@@ -170,69 +170,6 @@ body.skip-intro .entry-sequence { display: none; }
 @keyframes caret-blink { 50% { opacity: 0; } }
 @keyframes entry-dismiss { to { opacity: 0; visibility: hidden; } }
 
-#signal-mote {
-  position: absolute;
-  z-index: 1;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-  mix-blend-mode: screen;
-}
-
-.hero-reticle {
-  position: absolute;
-  z-index: 1;
-  width: 12rem;
-  aspect-ratio: 1;
-  right: 15%;
-  top: 20%;
-  border: 1px solid rgba(var(--cyan-rgb), .09);
-  border-radius: 50%;
-  animation: reticle-spin 28s linear infinite;
-}
-.hero-reticle::before,
-.hero-reticle::after {
-  content: "";
-  position: absolute;
-  inset: 23%;
-  border: 1px dashed rgba(var(--cyan-rgb), .12);
-  border-radius: 50%;
-}
-.hero-reticle::after { inset: 44%; background: rgba(var(--cyan-rgb), .04); }
-.hero-reticle i { position: absolute; background: rgba(var(--cyan-rgb), .32); }
-.hero-reticle i:first-child { left: -1rem; right: -1rem; top: 50%; height: 1px; }
-.hero-reticle i:nth-child(2) { top: -1rem; bottom: -1rem; left: 50%; width: 1px; }
-.hero-reticle span { position: absolute; right: 8%; top: 18%; color: #61777d; font: .42rem var(--mono); }
-@keyframes reticle-spin { to { transform: rotate(360deg); } }
-
-.hero-telemetry {
-  position: absolute;
-  z-index: 4;
-  top: 46%;
-  display: grid;
-  gap: .28rem;
-  color: #617178;
-  font: .45rem var(--mono);
-  letter-spacing: .15em;
-}
-.hero-telemetry b { color: #aebcc1; font-weight: 500; }
-.telemetry-left { left: 1.1rem; }
-.telemetry-right { right: 1.1rem; text-align: right; }
-
-.type-line,
-.hero-type { visibility: hidden; }
-body.typing .type-line,
-body.typing .hero-type { visibility: visible; }
-.type-line::after,
-.hero-type:last-child::after {
-  content: "_";
-  color: var(--cyan);
-  animation: caret-blink .65s steps(1) infinite;
-}
-body.typed .type-line::after,
-body.typed .hero-type:last-child::after { display: none; }
-
 .hero-enter {
   opacity: 0;
   transform: translateY(20px);
@@ -240,8 +177,42 @@ body.typed .hero-type:last-child::after { display: none; }
 }
 body.typed .hero-enter { opacity: 1; transform: none; }
 .environment-readout.hero-enter { transition-delay: .18s; }
-.telemetry-left.hero-enter { transition-delay: .3s; }
-.telemetry-right.hero-enter { transition-delay: .4s; }
+
+.tw-text {
+  position: relative;
+}
+.tw-word {
+  display: inline-block;
+  white-space: nowrap;
+}
+.tw-char {
+  display: inline;
+  opacity: 0;
+  filter: blur(2px);
+  transform: translateY(.12em);
+}
+.tw-text.tw-active .tw-char {
+  animation: tw-character .045s steps(1, end) forwards;
+  animation-delay: calc(var(--fragment-delay, 0ms) + var(--char-delay, 0ms));
+}
+.tw-text.tw-complete .tw-char {
+  opacity: 1;
+  filter: none;
+  transform: none;
+  animation: none;
+}
+.tw-text.tw-active::after {
+  content: "_";
+  display: inline;
+  margin-left: .08em;
+  color: var(--cyan);
+  animation: tw-caret .65s steps(1) infinite;
+}
+.tw-text.tw-complete::after { display: none; }
+@keyframes tw-character {
+  to { opacity: 1; filter: none; transform: none; }
+}
+@keyframes tw-caret { 50% { opacity: 0; } }
 
 .world-cloud {
   top: -15%;
@@ -882,8 +853,6 @@ h1 .outline {
   .skill-map { grid-template-columns: repeat(2, 1fr); }
   .education-grid { grid-template-columns: 1fr; }
   .education-grid > div:first-child { grid-row: auto; padding: 0 0 4rem; }
-  .hero-telemetry { display: none; }
-  .hero-reticle { right: 7%; top: 22%; transform: scale(.8); }
 }
 
 @media (max-width: 650px) {
@@ -923,8 +892,6 @@ h1 .outline {
   footer > span:last-child { display: none; }
   .world-image { width: 170%; left: -35%; }
   .world-halftone { opacity: .065; background-size: 11px 11px; }
-  .hero-reticle { width: 8rem; right: -2rem; top: 24%; opacity: .55; }
-  #signal-mote { opacity: .75; }
   .entry-mark { margin-bottom: 3rem; }
 }
 
@@ -932,6 +899,7 @@ h1 .outline {
   *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; scroll-behavior: auto !important; }
   .reveal { opacity: 1; transform: none; }
   .entry-sequence { display: none; }
-  .type-line, .hero-type { visibility: visible; }
   .hero-enter { opacity: 1; transform: none; }
+  .tw-char { opacity: 1; filter: none; transform: none; }
+  .tw-text::after { display: none !important; }
 }
