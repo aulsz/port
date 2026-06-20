@@ -200,6 +200,15 @@ if (!reducedMotion) {
       root.style.setProperty("--mouse-y", `${event.clientY}px`);
       root.style.setProperty("--world-x", `${(event.clientX / window.innerWidth - 0.5) * -8}px`);
       root.style.setProperty("--world-y", `${(event.clientY / window.innerHeight - 0.5) * -5}px`);
+
+      const glassEl = event.target.closest && event.target.closest(".glass");
+      if (glassEl) {
+        const rect = glassEl.getBoundingClientRect();
+        const gx = ((event.clientX - rect.left) / rect.width) * 100;
+        const gy = ((event.clientY - rect.top) / rect.height) * 100;
+        glassEl.style.setProperty("--gx", `${gx}%`);
+        glassEl.style.setProperty("--gy", `${gy}%`);
+      }
     },
     { passive: true }
   );
@@ -252,7 +261,7 @@ function drawSky(time = 0) {
   stars.forEach((star) => {
     const alpha = star.a * (0.7 + Math.sin(time * 0.00035 + star.phase) * 0.3);
     skyContext.beginPath();
-    skyContext.fillStyle = `rgba(195, 235, 241, ${alpha})`;
+    skyContext.fillStyle = `rgba(255, 255, 255, ${alpha})`;
     skyContext.arc(star.x, star.y, star.r, 0, Math.PI * 2);
     skyContext.fill();
   });
