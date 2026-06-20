@@ -298,6 +298,7 @@ main,
 }
 
 .hero-title {
+  position: relative;
   max-width: min(100%, 78rem);
   margin: 0;
   padding: .06em .03em .1em 0;
@@ -310,19 +311,42 @@ main,
 
 .hero-title > span {
   display: inline-block;
-  color: transparent;
-  background: linear-gradient(100deg, #fff 5%, #aeb7b8 50%, var(--accent) 100%);
-  background-clip: text;
-  -webkit-background-clip: text;
 }
 
 .hero-title .tw-char {
-  color: var(--white);
+  color: transparent;
+  -webkit-text-stroke: .7px rgba(226, 255, 253, .5);
+  background:
+    radial-gradient(circle at 32% 14%, rgba(255, 255, 255, .96) 0 7%, transparent 24%),
+    linear-gradient(
+      155deg,
+      rgba(255, 255, 255, .9) 0%,
+      rgba(189, 223, 224, .38) 28%,
+      rgba(24, 34, 36, .28) 51%,
+      rgba(147, 245, 240, .62) 76%,
+      rgba(238, 255, 254, .92) 100%
+    );
+  background-clip: text;
+  -webkit-background-clip: text;
+  text-shadow:
+    0 1px 0 rgba(255, 255, 255, .2),
+    0 8px 18px rgba(0, 0, 0, .46),
+    0 0 20px rgba(var(--accent-rgb), .12);
+  filter: drop-shadow(0 1px 0 rgba(255, 255, 255, .16));
 }
 
 .hero-title > span .tw-char {
-  color: transparent;
-  background: linear-gradient(100deg, #fff 5%, #aeb7b8 50%, var(--accent) 100%);
+  -webkit-text-stroke-color: rgba(212, 255, 252, .66);
+  background:
+    radial-gradient(circle at 68% 18%, rgba(255, 255, 255, .92) 0 6%, transparent 22%),
+    linear-gradient(
+      145deg,
+      rgba(240, 255, 254, .82) 0%,
+      rgba(var(--accent-rgb), .28) 34%,
+      rgba(7, 15, 16, .3) 57%,
+      rgba(var(--accent-rgb), .75) 83%,
+      rgba(255, 255, 255, .88) 100%
+    );
   background-clip: text;
   -webkit-background-clip: text;
 }

@@ -1,12 +1,13 @@
 # Collins Culbert | Engineering Portfolio
 
-Personal portfolio for Collins Culbert, an Electrical Systems Engineering Technology student at Texas A&M University. The site presents work in robotics control, embedded firmware, FPGA design, and hardware-software integration.
+Personal portfolio for Collins Culbert, an Electrical Systems Engineering Technology student at Texas A&M University. The site presents work in robotics control, embedded firmware, FPGA design, hardware-software integration, and developing embedded AI skills.
 
 ## Featured engineering
 
 - **Closed-loop robotic hand:** Ten-servo system using AS5600 magnetic encoders, I²C multiplexing, and per-finger PID control.
 - **FPGA motor controller:** Seven-state Moore state machine for PWM motor-speed control on a DE10 FPGA.
 - **STM32F4xx lab:** Register-level GPIO and SysTick programming in C without HAL abstraction.
+- **Embedded AI foundations:** Sensor-data workflows, lightweight inference concepts, Claude API integration, and AI-assisted engineering automation.
 
 ## Interface
 
@@ -48,7 +49,7 @@ Then visit [http://127.0.0.1:4173](http://127.0.0.1:4173).
 |   |   |-- InterVariable.woff2
 |   |   |-- InterVariable-Italic.woff2
 |   |   `-- Inter-OFL.txt
-|   `-- Collins_Culbert_Resume.docx
+|   `-- Collins_Culbert_Resume.pdf
 |-- index.html
 |-- script.js
 `-- styles.css
