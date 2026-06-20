@@ -667,6 +667,10 @@ main,
   grid-template-columns: 1.2fr .8fr;
 }
 
+.ml-feature {
+  margin-bottom: 1.2rem;
+}
+
 .case-visual {
   position: relative;
   min-height: 100%;
@@ -675,6 +679,170 @@ main,
   background:
     radial-gradient(circle at 50% 48%, rgba(var(--accent-rgb), .13), transparent 28%),
     rgba(0, 0, 0, .28);
+}
+
+.vibration-system {
+  background:
+    radial-gradient(circle at 37% 43%, rgba(var(--accent-rgb), .14), transparent 30%),
+    linear-gradient(155deg, rgba(166, 160, 255, .055), transparent 48%),
+    rgba(0, 0, 0, .28);
+}
+
+.signal-axis {
+  position: absolute;
+  left: 8%;
+  right: 8%;
+  top: 48%;
+  height: 1px;
+  background: rgba(255, 255, 255, .12);
+}
+
+.vibration-wave {
+  position: absolute;
+  left: 8%;
+  right: 8%;
+  top: 27%;
+  height: 42%;
+  opacity: .9;
+  background-repeat: repeat-x;
+  background-size: 20rem 100%;
+  mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+}
+
+.wave-raw {
+  background-image: url("data:image/svg+xml,%3Csvg width='320' height='180' viewBox='0 0 320 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 91 C8 80 13 105 20 89 S31 69 39 93 S50 117 58 88 S69 56 78 94 S88 127 98 87 S110 51 120 96 S132 126 142 84 S154 51 165 98 S177 123 188 82 S201 55 211 99 S224 117 235 84 S249 64 260 97 S275 108 287 87 S305 73 320 91' fill='none' stroke='%23a5f4f2' stroke-opacity='.82'/%3E%3C/svg%3E");
+  animation: vibration-drift 9s linear infinite;
+  filter: drop-shadow(0 0 7px rgba(var(--accent-rgb), .36));
+}
+
+.wave-filtered {
+  top: 35%;
+  height: 26%;
+  opacity: .32;
+  background-image: url("data:image/svg+xml,%3Csvg width='320' height='120' viewBox='0 0 320 120' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 60 C20 22 40 98 60 60 S100 22 120 60 S160 98 180 60 S220 22 240 60 S280 98 320 60' fill='none' stroke='%23a6a0ff'/%3E%3C/svg%3E");
+  animation: vibration-drift 13s linear infinite reverse;
+}
+
+@keyframes vibration-drift {
+  to { background-position-x: 20rem; }
+}
+
+.frequency-marker {
+  position: absolute;
+  bottom: 18%;
+  display: grid;
+  justify-items: center;
+  gap: .45rem;
+  color: #778081;
+  font-size: .5rem;
+}
+
+.frequency-marker i {
+  width: 1px;
+  height: 2.8rem;
+  background: linear-gradient(transparent, rgba(var(--accent-rgb), .55));
+}
+
+.frequency-50 { left: 20%; }
+.frequency-100 { left: 37%; }
+.frequency-200 { left: 68%; }
+
+.model-path {
+  position: absolute;
+  left: 8%;
+  right: 8%;
+  bottom: 7%;
+  display: flex;
+  align-items: center;
+  gap: .65rem;
+  color: #7c8585;
+  font-size: .5rem;
+}
+
+.model-path i {
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, rgba(var(--accent-rgb), .12), rgba(var(--accent-rgb), .5));
+}
+
+.classification-readout {
+  position: absolute;
+  right: 7%;
+  top: 16%;
+  width: 10.5rem;
+  padding: 1rem;
+  border: 1px solid var(--line);
+  border-radius: .8rem;
+  background: rgba(5, 10, 11, .72);
+  backdrop-filter: blur(14px);
+}
+
+.classification-readout small,
+.classification-readout span {
+  display: block;
+  color: #727b7c;
+  font-size: .48rem;
+}
+
+.classification-readout strong {
+  display: block;
+  margin: .55rem 0 .35rem;
+  color: var(--accent);
+  font-size: .82rem;
+  font-weight: 600;
+}
+
+.verification-strip {
+  margin-top: 2rem;
+  padding: 1rem 0;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.verification-strip > div {
+  display: grid;
+  gap: .25rem;
+}
+
+.verification-strip > div + div {
+  padding-left: 1rem;
+  border-left: 1px solid var(--line);
+}
+
+.verification-strip strong {
+  font-size: 1.35rem;
+  font-weight: 500;
+  letter-spacing: -.04em;
+}
+
+.verification-strip span,
+.validation-note {
+  color: var(--muted);
+  font-size: .52rem;
+  line-height: 1.45;
+}
+
+.case-actions {
+  margin-top: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.case-link {
+  padding-bottom: .25rem;
+  border-bottom: 1px solid rgba(var(--accent-rgb), .45);
+  color: var(--accent);
+  font-size: .62rem;
+  font-weight: 600;
+}
+
+.case-link:hover {
+  border-color: var(--accent);
 }
 
 .visual-grid {
@@ -1548,6 +1716,17 @@ main,
 
   .case-copy {
     padding: 1.5rem;
+  }
+
+  .classification-readout {
+    right: 5%;
+    top: 17%;
+    width: 9.5rem;
+  }
+
+  .case-actions {
+    align-items: flex-start;
+    flex-direction: column;
   }
 
   .case-copy h3 {

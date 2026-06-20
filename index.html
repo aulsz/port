@@ -140,6 +140,77 @@
         <p>Projects that connect software decisions to real hardware behavior.</p>
       </div>
 
+      <article class="case-study case-feature ml-feature glass reveal">
+        <div class="case-visual vibration-system" aria-hidden="true">
+          <div class="visual-grid"></div>
+          <div class="signal-axis"></div>
+          <div class="vibration-wave wave-raw"></div>
+          <div class="vibration-wave wave-filtered"></div>
+          <div class="frequency-marker frequency-50">
+            <i></i><span>50 Hz</span>
+          </div>
+          <div class="frequency-marker frequency-100">
+            <i></i><span>100 Hz</span>
+          </div>
+          <div class="frequency-marker frequency-200">
+            <i></i><span>200 Hz</span>
+          </div>
+          <div class="model-path">
+            <span>256 samples</span>
+            <i></i>
+            <span>10 features</span>
+            <i></i>
+            <span>C inference</span>
+          </div>
+          <div class="classification-readout">
+            <small>Latest classification</small>
+            <strong>Bearing fault</strong>
+            <span>crest factor &gt; 2.53</span>
+          </div>
+          <div class="visual-meta">
+            <span>EDGE AI / 01</span>
+            <span>1 kHz SENSOR PIPELINE</span>
+          </div>
+        </div>
+
+        <div class="case-copy">
+          <div class="case-kicker">
+            <span>Embedded machine learning</span>
+            <span>2026</span>
+          </div>
+          <h3>STM32 vibration<br>fault classifier</h3>
+          <p>
+            A reproducible motor-condition prototype that turns streaming
+            vibration samples into DSP features and readable C inference for
+            resource-constrained microcontrollers.
+          </p>
+          <ul class="case-points">
+            <li>1 kHz sampling with deterministic 256-sample windows</li>
+            <li>RMS, kurtosis, crest factor, and Goertzel frequency features</li>
+            <li>Python-trained decision tree exported directly to embedded C</li>
+          </ul>
+          <div class="verification-strip">
+            <div>
+              <strong>320/320</strong>
+              <span>synthetic holdout predictions</span>
+            </div>
+            <div>
+              <strong>80/80</strong>
+              <span>Python-to-C parity vectors</span>
+            </div>
+          </div>
+          <div class="tag-row">
+            <span>STM32</span><span>C</span><span>Python</span><span>DSP</span><span>Edge ML</span>
+          </div>
+          <div class="case-actions">
+            <a class="case-link" href="assets/stm32-vibration-ml.zip" download>
+              Download source package
+            </a>
+            <span class="validation-note">Synthetic data prototype · hardware validation next</span>
+          </div>
+        </div>
+      </article>
+
       <article class="case-study case-feature glass reveal">
         <div class="case-visual hand-system" aria-hidden="true">
           <div class="visual-grid"></div>
@@ -277,7 +348,7 @@
           <span class="bento-index">05</span>
           <div>
             <h3>Embedded AI foundations</h3>
-            <p>Developing experience with sensor-data pipelines, lightweight inference concepts, Claude API integration, and AI-assisted engineering automation.</p>
+            <p>Sensor-data pipelines, interpretable feature extraction, generated C inference, cross-language verification, and model deployment planning.</p>
           </div>
           <div class="orb" aria-hidden="true"></div>
         </article>

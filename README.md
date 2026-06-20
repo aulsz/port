@@ -7,7 +7,10 @@ Personal portfolio for Collins Culbert, an Electrical Systems Engineering Techno
 - **Closed-loop robotic hand:** Ten-servo system using AS5600 magnetic encoders, I²C multiplexing, and per-finger PID control.
 - **FPGA motor controller:** Seven-state Moore state machine for PWM motor-speed control on a DE10 FPGA.
 - **STM32F4xx lab:** Register-level GPIO and SysTick programming in C without HAL abstraction.
-- **Embedded AI foundations:** Sensor-data workflows, lightweight inference concepts, Claude API integration, and AI-assisted engineering automation.
+- **STM32 vibration fault classifier:** Streaming vibration features and a
+  readable C decision-tree model, with Python/C parity verification.
+- **Embedded AI foundations:** Sensor-data workflows, lightweight inference,
+  cross-language verification, and deployment planning.
 
 ## Interface
 
