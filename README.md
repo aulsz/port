@@ -12,14 +12,15 @@ The portfolio also includes my GE Aerospace engineering simulation experience, t
 
 ## Design and interaction
 
-The interface combines a dark celestial landscape with restrained engineering telemetry and a consistent terminal-style typographic system.
+The interface combines a procedural black fluid-node field with restrained engineering telemetry and IBM Plex Mono typography.
 
 Other details include:
 
 - Typewriter-style introduction sequence
 - Character-by-character animation the first time each text fragment enters the viewport
-- Slowly moving fog, stars, orbital paths, and background parallax
-- Live Dallas time and time-dependent scene lighting
+- Connected canvas nodes moving in diagonal wave formations
+- Subtle cursor light and local fluid-field distortion
+- Live Dallas time
 - Responsive navigation and layouts
 - Reduced-motion support
 
@@ -28,9 +29,11 @@ Other details include:
 - Semantic HTML
 - CSS animations, responsive layouts, and glass effects
 - Vanilla JavaScript
-- Canvas rendering for the animated star field
+- Canvas rendering for the animated fluid-node field
 
 No frameworks or build tools are required.
+
+IBM Plex Mono is distributed under the SIL Open Font License included in `assets/fonts/OFL.txt`.
 
 ## Running locally
 
@@ -47,7 +50,9 @@ Then open [http://127.0.0.1:4173](http://127.0.0.1:4173).
 ```text
 .
 |-- assets/
-|   |-- celestial-ruins.png
+|   |-- fonts/
+|   |   |-- IBM Plex Mono webfonts
+|   |   `-- OFL.txt
 |   `-- Collins_Culbert_Resume.docx
 |-- index.html
 |-- script.js

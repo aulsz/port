@@ -20,16 +20,7 @@ function updateDallasTime() {
     minute: "2-digit",
     hour12: false
   }).format(now);
-  const hour = Number(
-    new Intl.DateTimeFormat("en-US", {
-      timeZone: "America/Chicago",
-      hour: "numeric",
-      hourCycle: "h23"
-    }).format(now)
-  );
-
   document.querySelector("#local-time").textContent = `LOCAL TIME / ${time} CT`;
-  root.style.setProperty("--time-light", hour >= 6 && hour < 18 ? 0.78 : hour < 21 ? 0.7 : 0.62);
 }
 
 updateDallasTime();
@@ -198,15 +189,10 @@ if (!reducedMotion) {
     (event) => {
       root.style.setProperty("--mouse-x", `${event.clientX}px`);
       root.style.setProperty("--mouse-y", `${event.clientY}px`);
-      root.style.setProperty("--world-x", `${(event.clientX / window.innerWidth - 0.5) * -8}px`);
-      root.style.setProperty("--world-y", `${(event.clientY / window.innerHeight - 0.5) * -5}px`);
+      fluidPointer.x = event.clientX;
+      fluidPointer.y = event.clientY;
+      fluidPointer.active = true;
     },
-    { passive: true }
-  );
-
-  window.addEventListener(
-    "scroll",
-    () => root.style.setProperty("--world-y", `${Math.min(window.scrollY * 0.014, 24)}px`),
     { passive: true }
   );
 }
@@ -227,38 +213,112 @@ navMenu.querySelectorAll("a").forEach((link) => {
   });
 });
 
-const skyCanvas = document.querySelector("#sky");
-const skyContext = skyCanvas.getContext("2d");
-let stars = [];
+const fluidCanvas = document.querySelector("#fluid-field");
+const fluidContext = fluidCanvas.getContext("2d");
+const fluidPointer = {
+  x: window.innerWidth * 0.68,
+  y: window.innerHeight * 0.3,
+  active: false
+};
+let fluidWidth = window.innerWidth;
+let fluidHeight = window.innerHeight;
+let fluidSpacing = window.innerWidth < 700 ? 31 : 38;
 
-function resizeSky() {
+function resizeFluid() {
   const density = Math.min(window.devicePixelRatio || 1, 2);
-  skyCanvas.width = Math.floor(window.innerWidth * density);
-  skyCanvas.height = Math.floor(window.innerHeight * density);
-  skyCanvas.style.width = `${window.innerWidth}px`;
-  skyCanvas.style.height = `${window.innerHeight}px`;
-  skyContext.setTransform(density, 0, 0, density, 0, 0);
-  stars = Array.from({ length: Math.floor(window.innerWidth / 19) }, () => ({
-    x: Math.random() * window.innerWidth,
-    y: Math.random() * window.innerHeight * 0.64,
-    r: Math.random() * 0.75 + 0.15,
-    a: Math.random() * 0.42 + 0.08,
-    phase: Math.random() * Math.PI * 2
-  }));
+  const rect = fluidCanvas.getBoundingClientRect();
+  fluidWidth = rect.width;
+  fluidHeight = rect.height;
+  fluidSpacing = window.innerWidth < 700 ? 31 : 38;
+  fluidCanvas.width = Math.floor(fluidWidth * density);
+  fluidCanvas.height = Math.floor(fluidHeight * density);
+  fluidContext.setTransform(density, 0, 0, density, 0, 0);
 }
 
-function drawSky(time = 0) {
-  skyContext.clearRect(0, 0, window.innerWidth, window.innerHeight);
-  stars.forEach((star) => {
-    const alpha = star.a * (0.7 + Math.sin(time * 0.00035 + star.phase) * 0.3);
-    skyContext.beginPath();
-    skyContext.fillStyle = `rgba(195, 235, 241, ${alpha})`;
-    skyContext.arc(star.x, star.y, star.r, 0, Math.PI * 2);
-    skyContext.fill();
+function fluidPoint(column, row, time) {
+  const overscan = fluidSpacing * 4;
+  const baseX = column * fluidSpacing - overscan;
+  const baseY = row * fluidSpacing - overscan;
+  const flow = time * 0.00034;
+  const phase = baseX * 0.0092 + baseY * 0.0126 - flow;
+  const secondary = baseX * -0.0038 + baseY * 0.0064 + time * 0.00018;
+  const wave = Math.sin(phase) * 19 + Math.sin(phase * 0.53 + secondary) * 11;
+  const diagonalDrift = (time * 0.004) % fluidSpacing;
+
+  let x = baseX + wave * 0.72 + diagonalDrift;
+  let y = baseY - wave * 0.72 - diagonalDrift * 0.55;
+
+  const pointerDistance = Math.hypot(x - fluidPointer.x, y - fluidPointer.y);
+  if (fluidPointer.active && pointerDistance < 230) {
+    const influence = (1 - pointerDistance / 230) * 9;
+    const pointerAngle = Math.atan2(y - fluidPointer.y, x - fluidPointer.x);
+    x += Math.cos(pointerAngle) * influence;
+    y += Math.sin(pointerAngle) * influence;
+  }
+
+  const crest = Math.pow((Math.sin(phase) + 1) * 0.5, 3);
+  const ribbon = Math.pow((Math.sin(phase * 0.47 + 1.2) + 1) * 0.5, 5);
+  const alpha = 0.035 + crest * 0.22 + ribbon * 0.1;
+  return { x, y, alpha, crest };
+}
+
+function drawFluid(time = 0) {
+  fluidContext.clearRect(0, 0, fluidWidth, fluidHeight);
+  const overscan = fluidSpacing * 4;
+  const columns = Math.ceil((fluidWidth + overscan * 2) / fluidSpacing);
+  const rows = Math.ceil((fluidHeight + overscan * 2) / fluidSpacing);
+  const points = Array.from({ length: rows }, (_, row) =>
+    Array.from({ length: columns }, (_, column) => fluidPoint(column, row, time))
+  );
+
+  const glow = fluidContext.createRadialGradient(
+    fluidWidth * 0.63,
+    fluidHeight * 0.38,
+    0,
+    fluidWidth * 0.63,
+    fluidHeight * 0.38,
+    fluidWidth * 0.65
+  );
+  glow.addColorStop(0, "rgba(34, 67, 75, .11)");
+  glow.addColorStop(0.55, "rgba(7, 20, 24, .035)");
+  glow.addColorStop(1, "rgba(0, 0, 0, 0)");
+  fluidContext.fillStyle = glow;
+  fluidContext.fillRect(0, 0, fluidWidth, fluidHeight);
+
+  fluidContext.lineWidth = 0.55;
+  for (let row = 0; row < rows; row += 1) {
+    fluidContext.beginPath();
+    points[row].forEach((point, column) => {
+      if (column === 0) fluidContext.moveTo(point.x, point.y);
+      else fluidContext.lineTo(point.x, point.y);
+    });
+    const rowAlpha = 0.025 + Math.sin(row * 0.44 + time * 0.00016) * 0.01;
+    fluidContext.strokeStyle = `rgba(126, 183, 193, ${Math.max(0.012, rowAlpha)})`;
+    fluidContext.stroke();
+  }
+
+  for (let column = 0; column < columns; column += 1) {
+    fluidContext.beginPath();
+    points.forEach((row, rowIndex) => {
+      const point = row[column];
+      if (rowIndex === 0) fluidContext.moveTo(point.x, point.y);
+      else fluidContext.lineTo(point.x, point.y);
+    });
+    fluidContext.strokeStyle = "rgba(108, 165, 177, .018)";
+    fluidContext.stroke();
+  }
+
+  points.flat().forEach((point) => {
+    const radius = 0.5 + point.crest * 1.25;
+    fluidContext.beginPath();
+    fluidContext.fillStyle = `rgba(174, 225, 232, ${point.alpha})`;
+    fluidContext.arc(point.x, point.y, radius, 0, Math.PI * 2);
+    fluidContext.fill();
   });
-  if (!reducedMotion) requestAnimationFrame(drawSky);
+
+  if (!reducedMotion) requestAnimationFrame(drawFluid);
 }
 
-resizeSky();
-drawSky();
-window.addEventListener("resize", resizeSky);
+resizeFluid();
+drawFluid(reducedMotion ? 1200 : 0);
+window.addEventListener("resize", resizeFluid);
