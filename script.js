@@ -61,7 +61,7 @@ function prepareTypewriterText() {
     acceptNode(node) {
       if (!node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
       const parent = node.parentElement;
-      if (!parent || parent.closest("script, style, canvas, .tw-text")) {
+      if (!parent || parent.closest("script, style, canvas, .tw-text, [aria-hidden='true']")) {
         return NodeFilter.FILTER_REJECT;
       }
       return NodeFilter.FILTER_ACCEPT;

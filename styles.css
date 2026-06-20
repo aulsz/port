@@ -777,14 +777,14 @@ main,
   backdrop-filter: blur(14px);
 }
 
-.classification-readout small,
-.classification-readout span {
+.classification-readout > small,
+.classification-readout > span {
   display: block;
   color: #727b7c;
   font-size: .48rem;
 }
 
-.classification-readout strong {
+.classification-readout > strong {
   display: block;
   margin: .55rem 0 .35rem;
   color: var(--accent);
