@@ -298,12 +298,14 @@ main,
 }
 
 .hero-title {
-  max-width: 1150px;
+  max-width: min(100%, 78rem);
   margin: 0;
-  font-size: clamp(4.6rem, 9vw, 9.3rem);
-  line-height: .9;
-  letter-spacing: -.078em;
+  padding: .06em .03em .1em 0;
+  font-size: clamp(4.2rem, 8vw, 7.8rem);
+  line-height: .95;
+  letter-spacing: -.062em;
   font-weight: 580;
+  overflow: visible;
 }
 
 .hero-title > span {
@@ -411,7 +413,7 @@ main,
   font-weight: 420;
 }
 
-.hero-proof span {
+.hero-proof > div > span {
   color: var(--muted);
   font-size: .6rem;
   line-height: 1.4;
@@ -424,7 +426,7 @@ main,
   gap: .15rem 1rem !important;
 }
 
-.live-readout small {
+.live-readout > small {
   color: var(--muted);
   font-size: .55rem;
 }
@@ -502,7 +504,7 @@ main,
   gap: .7rem;
 }
 
-.section-label span {
+.section-label > span {
   display: grid;
   place-items: center;
   width: 1.75rem;
@@ -513,7 +515,7 @@ main,
   font-size: .54rem;
 }
 
-.section-label p {
+.section-label > p {
   margin: 0;
   color: var(--muted);
   font-size: .67rem;
@@ -545,7 +547,7 @@ main,
   display: grid;
 }
 
-.focus-list span {
+.focus-list > span {
   padding: .85rem 0;
   border-bottom: 1px solid var(--line);
   color: var(--soft-white);
@@ -789,7 +791,7 @@ main,
   gap: .45rem;
 }
 
-.tag-row span {
+.tag-row > span {
   padding: .48rem .65rem;
   border: 1px solid var(--line);
   border-radius: 2rem;
@@ -1073,13 +1075,13 @@ main,
   align-items: start;
 }
 
-.timeline-row time {
+.timeline-row > time {
   color: var(--accent);
   font-size: .67rem;
   font-weight: 550;
 }
 
-.timeline-row small {
+.timeline-row > div > small {
   color: var(--muted);
   font-size: .56rem;
 }
@@ -1381,8 +1383,10 @@ main,
   }
 
   .hero-title {
-    font-size: clamp(3.7rem, 17vw, 5.2rem);
-    line-height: .92;
+    padding-right: 0;
+    font-size: clamp(3.25rem, 14.5vw, 4.6rem);
+    line-height: .97;
+    letter-spacing: -.055em;
   }
 
   .hero-lower {
@@ -1402,7 +1406,7 @@ main,
 
   .button {
     flex: 1;
-    min-width: 10rem;
+    min-width: 0;
     font-size: .65rem;
   }
 
@@ -1429,7 +1433,7 @@ main,
     font-size: 1.8rem;
   }
 
-  .hero-proof span {
+  .hero-proof > div > span {
     font-size: .5rem;
   }
 
@@ -1526,6 +1530,16 @@ main,
 
   .cursor-glow {
     display: none;
+  }
+}
+
+@media (max-width: 430px) {
+  .hero-actions {
+    flex-direction: column;
+  }
+
+  .hero-actions .button {
+    width: 100%;
   }
 }
 

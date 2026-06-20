@@ -1,4 +1,4 @@
-# Collins Culbert — Engineering Portfolio
+# Collins Culbert | Engineering Portfolio
 
 Personal portfolio for Collins Culbert, an Electrical Systems Engineering Technology student at Texas A&M University. The site presents work in robotics control, embedded firmware, FPGA design, and hardware-software integration.
 
