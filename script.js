@@ -1,29 +1,21 @@
 const body = document.body;
 const root = document.documentElement;
 const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-const skipIntro = new URLSearchParams(window.location.search).has("skipIntro");
-const sleep = (ms) => new Promise((resolve) => window.setTimeout(resolve, ms));
-
-async function typeBootText(element, text, speed = 35) {
-  element.textContent = "";
-  for (const character of text) {
-    element.textContent += character;
-    await sleep(character === " " ? speed * 0.35 : speed + Math.random() * 20);
-  }
-}
 
 function updateDallasTime() {
-  const now = new Date();
   const time = new Intl.DateTimeFormat("en-US", {
     timeZone: "America/Chicago",
     hour: "2-digit",
     minute: "2-digit",
     hour12: false
-  }).format(now);
-  document.querySelector("#local-time").textContent = `LOCAL TIME / ${time} CT`;
+  }).format(new Date());
+
+  const target = document.querySelector("#local-time");
+  if (target) target.textContent = `${time} CT`;
 }
 
 updateDallasTime();
+window.setInterval(updateDallasTime, 60000);
 
 function wrapTextNode(textNode) {
   const text = textNode.nodeValue;
@@ -32,11 +24,11 @@ function wrapTextNode(textNode) {
   const wrapper = document.createElement("span");
   wrapper.className = "tw-text";
   wrapper.setAttribute("aria-label", text.trim());
-  wrapper.setAttribute("role", "text");
 
   let characterIndex = 0;
   text.split(/(\s+)/).forEach((token) => {
     if (!token) return;
+
     if (/^\s+$/.test(token)) {
       wrapper.append(document.createTextNode(token));
       return;
@@ -49,8 +41,7 @@ function wrapTextNode(textNode) {
       const characterSpan = document.createElement("span");
       characterSpan.className = "tw-char";
       characterSpan.setAttribute("aria-hidden", "true");
-      characterSpan.style.setProperty("--char-index", characterIndex);
-      characterSpan.style.setProperty("--char-delay", `${characterIndex * 18}ms`);
+      characterSpan.style.setProperty("--char-delay", `${characterIndex * 13}ms`);
       characterSpan.textContent = character;
       word.append(characterSpan);
       characterIndex += 1;
@@ -64,108 +55,72 @@ function wrapTextNode(textNode) {
   return wrapper;
 }
 
-function prepareTypewriters() {
-  const roots = document.querySelectorAll("header, main");
+function prepareTypewriterText() {
   const fragments = [];
-
-  roots.forEach((contentRoot) => {
-    const walker = document.createTreeWalker(contentRoot, NodeFilter.SHOW_TEXT, {
-      acceptNode(node) {
-        if (!node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
-        const parent = node.parentElement;
-        if (!parent) return NodeFilter.FILTER_REJECT;
-        if (parent.closest("script, style, canvas, .entry-sequence, .tw-text")) {
-          return NodeFilter.FILTER_REJECT;
-        }
-        return NodeFilter.FILTER_ACCEPT;
+  const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, {
+    acceptNode(node) {
+      if (!node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+      const parent = node.parentElement;
+      if (!parent || parent.closest("script, style, canvas, .tw-text")) {
+        return NodeFilter.FILTER_REJECT;
       }
-    });
+      return NodeFilter.FILTER_ACCEPT;
+    }
+  });
 
-    const textNodes = [];
-    while (walker.nextNode()) textNodes.push(walker.currentNode);
-    textNodes.forEach((node) => {
-      const fragment = wrapTextNode(node);
-      if (fragment) fragments.push(fragment);
-    });
+  const nodes = [];
+  while (walker.nextNode()) nodes.push(walker.currentNode);
+  nodes.forEach((node) => {
+    const fragment = wrapTextNode(node);
+    if (fragment) fragments.push(fragment);
   });
 
   return fragments;
 }
 
-const typewriterFragments = prepareTypewriters();
-let typewriterObserver;
+const typewriterFragments = prepareTypewriterText();
 
-function completeFragment(fragment, delay = 0) {
+function activateText(fragment, delay = 0) {
   if (fragment.dataset.typed === "true") return;
   fragment.dataset.typed = "true";
-  const characters = Number(fragment.dataset.characters || 0);
   fragment.style.setProperty("--fragment-delay", `${delay}ms`);
   fragment.classList.add("tw-active");
-  window.setTimeout(
-    () => fragment.classList.add("tw-complete"),
-    delay + characters * 18 + 180
-  );
+
+  const length = Number(fragment.dataset.characters || 0);
+  window.setTimeout(() => {
+    fragment.classList.add("tw-complete");
+  }, delay + length * 13 + 120);
 }
 
-function startTypewriterObserver() {
-  if (reducedMotion) {
-    typewriterFragments.forEach((fragment) => fragment.classList.add("tw-active", "tw-complete"));
-    return;
-  }
-
-  typewriterObserver = new IntersectionObserver(
+if (reducedMotion) {
+  typewriterFragments.forEach((fragment) => fragment.classList.add("tw-active", "tw-complete"));
+} else {
+  const textObserver = new IntersectionObserver(
     (entries) => {
-      const visible = entries
+      const visibleEntries = entries
         .filter((entry) => entry.isIntersecting)
-        .sort((a, b) => a.target.getBoundingClientRect().top - b.target.getBoundingClientRect().top);
+        .sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top);
 
-      visible.forEach((entry, index) => {
-        completeFragment(entry.target, Math.min(index * 55, 330));
-        typewriterObserver.unobserve(entry.target);
+      visibleEntries.forEach((entry, index) => {
+        activateText(entry.target, Math.min(index * 38, 220));
+        textObserver.unobserve(entry.target);
       });
     },
-    { threshold: 0.12, rootMargin: "0px 0px -22px" }
+    { threshold: .08, rootMargin: "0px 0px -18px" }
   );
 
-  typewriterFragments.forEach((fragment) => typewriterObserver.observe(fragment));
+  typewriterFragments.forEach((fragment) => textObserver.observe(fragment));
 
   window.setTimeout(() => {
-    const visible = typewriterFragments.filter((fragment) => {
-      if (fragment.dataset.typed === "true") return false;
+    typewriterFragments.forEach((fragment, index) => {
+      if (fragment.dataset.typed === "true") return;
       const rect = fragment.getBoundingClientRect();
-      return rect.bottom >= 0 &&
-        rect.top <= window.innerHeight &&
-        rect.right >= 0 &&
-        rect.left <= window.innerWidth;
+      if (rect.bottom >= 0 && rect.top <= window.innerHeight) {
+        activateText(fragment, Math.min(index * 18, 260));
+      }
     });
-
-    visible.forEach((fragment, index) => completeFragment(fragment, Math.min(index * 55, 330)));
-  }, 60);
+  }, 80);
 }
-
-async function runEntrySequence() {
-  if (reducedMotion || skipIntro) {
-    if (skipIntro) body.classList.add("skip-intro");
-    body.classList.add("entered", "typed");
-    startTypewriterObserver();
-    return;
-  }
-
-  await sleep(180);
-  await typeBootText(document.querySelector("#boot-text"), "INITIALIZING SIGNAL FIELD");
-  await sleep(700);
-  body.classList.add("entered", "typed");
-  await sleep(420);
-  startTypewriterObserver();
-}
-
-runEntrySequence();
-window.setTimeout(() => {
-  if (!body.classList.contains("entered")) {
-    body.classList.add("entered", "typed");
-    startTypewriterObserver();
-  }
-}, 3600);
 
 const revealObserver = new IntersectionObserver(
   (entries) => {
@@ -175,150 +130,207 @@ const revealObserver = new IntersectionObserver(
       revealObserver.unobserve(entry.target);
     });
   },
-  { threshold: 0.08, rootMargin: "0px 0px -20px" }
+  { threshold: .09, rootMargin: "0px 0px -24px" }
 );
 
 document.querySelectorAll(".reveal").forEach((element, index) => {
-  element.style.transitionDelay = `${Math.min(index % 4, 3) * 75}ms`;
+  element.style.transitionDelay = `${Math.min(index % 4, 3) * 70}ms`;
   revealObserver.observe(element);
 });
 
-if (!reducedMotion) {
-  window.addEventListener(
-    "pointermove",
-    (event) => {
-      root.style.setProperty("--mouse-x", `${event.clientX}px`);
-      root.style.setProperty("--mouse-y", `${event.clientY}px`);
-      fluidPointer.x = event.clientX;
-      fluidPointer.y = event.clientY;
-      fluidPointer.active = true;
-    },
-    { passive: true }
-  );
-}
+window.setTimeout(() => {
+  document.querySelectorAll(".reveal:not(.in)").forEach((element) => {
+    const rect = element.getBoundingClientRect();
+    if (rect.bottom >= 0 && rect.top <= window.innerHeight) {
+      element.classList.add("in");
+      revealObserver.unobserve(element);
+    }
+  });
+}, 90);
 
-const menuButton = document.querySelector(".menu-button");
-const navMenu = document.querySelector(".nav nav");
+const menuToggle = document.querySelector(".menu-toggle");
+const mobileNav = document.querySelector(".mobile-nav");
 
-menuButton.addEventListener("click", () => {
-  const expanded = menuButton.getAttribute("aria-expanded") === "true";
-  menuButton.setAttribute("aria-expanded", String(!expanded));
-  navMenu.classList.toggle("open", !expanded);
+menuToggle.addEventListener("click", () => {
+  const expanded = menuToggle.getAttribute("aria-expanded") === "true";
+  menuToggle.setAttribute("aria-expanded", String(!expanded));
+  mobileNav.classList.toggle("open", !expanded);
+  body.classList.toggle("menu-open", !expanded);
 });
 
-navMenu.querySelectorAll("a").forEach((link) => {
+mobileNav.querySelectorAll("a").forEach((link) => {
   link.addEventListener("click", () => {
-    menuButton.setAttribute("aria-expanded", "false");
-    navMenu.classList.remove("open");
+    menuToggle.setAttribute("aria-expanded", "false");
+    mobileNav.classList.remove("open");
+    body.classList.remove("menu-open");
   });
 });
 
-const fluidCanvas = document.querySelector("#fluid-field");
+const sections = [...document.querySelectorAll("main section[id]")];
+const navLinks = [...document.querySelectorAll(".desktop-nav a")];
+
+const sectionObserver = new IntersectionObserver(
+  (entries) => {
+    entries.forEach((entry) => {
+      if (!entry.isIntersecting) return;
+      navLinks.forEach((link) => {
+        link.classList.toggle("active", link.getAttribute("href") === `#${entry.target.id}`);
+      });
+    });
+  },
+  { rootMargin: "-35% 0px -55% 0px" }
+);
+
+sections.forEach((section) => sectionObserver.observe(section));
+
+function updateScrollProgress() {
+  const scrollable = document.documentElement.scrollHeight - window.innerHeight;
+  const progress = scrollable > 0 ? (window.scrollY / scrollable) * 100 : 0;
+  root.style.setProperty("--scroll-progress", `${progress}%`);
+}
+
+updateScrollProgress();
+window.addEventListener("scroll", updateScrollProgress, { passive: true });
+
+const fluidCanvas = document.querySelector("#fluid-canvas");
 const fluidContext = fluidCanvas.getContext("2d");
-const fluidPointer = {
-  x: window.innerWidth * 0.68,
-  y: window.innerHeight * 0.3,
+const pointer = {
+  x: window.innerWidth * .68,
+  y: window.innerHeight * .28,
   active: false
 };
-let fluidWidth = window.innerWidth;
-let fluidHeight = window.innerHeight;
-let fluidSpacing = window.innerWidth < 700 ? 31 : 38;
 
-function resizeFluid() {
+let canvasWidth = window.innerWidth;
+let canvasHeight = window.innerHeight;
+let nodeSpacing = window.innerWidth < 700 ? 30 : 37;
+
+function resizeFluidCanvas() {
   const density = Math.min(window.devicePixelRatio || 1, 2);
   const rect = fluidCanvas.getBoundingClientRect();
-  fluidWidth = rect.width;
-  fluidHeight = rect.height;
-  fluidSpacing = window.innerWidth < 700 ? 31 : 38;
-  fluidCanvas.width = Math.floor(fluidWidth * density);
-  fluidCanvas.height = Math.floor(fluidHeight * density);
+  canvasWidth = rect.width;
+  canvasHeight = rect.height;
+  nodeSpacing = window.innerWidth < 700 ? 30 : 37;
+  fluidCanvas.width = Math.floor(canvasWidth * density);
+  fluidCanvas.height = Math.floor(canvasHeight * density);
   fluidContext.setTransform(density, 0, 0, density, 0, 0);
 }
 
-function fluidPoint(column, row, time) {
-  const overscan = fluidSpacing * 4;
-  const baseX = column * fluidSpacing - overscan;
-  const baseY = row * fluidSpacing - overscan;
-  const flow = time * 0.00034;
-  const phase = baseX * 0.0092 + baseY * 0.0126 - flow;
-  const secondary = baseX * -0.0038 + baseY * 0.0064 + time * 0.00018;
-  const wave = Math.sin(phase) * 19 + Math.sin(phase * 0.53 + secondary) * 11;
-  const diagonalDrift = (time * 0.004) % fluidSpacing;
+function calculateNode(column, row, time) {
+  const overscan = nodeSpacing * 4;
+  const baseX = column * nodeSpacing - overscan;
+  const baseY = row * nodeSpacing - overscan;
+  const diagonal = baseX * .009 + baseY * .013;
+  const flow = time * .00042;
+  const primaryWave = Math.sin(diagonal - flow) * 22;
+  const secondaryWave = Math.sin(diagonal * .53 + time * .00019 + row * .08) * 12;
+  const sweep = (time * .0036) % nodeSpacing;
 
-  let x = baseX + wave * 0.72 + diagonalDrift;
-  let y = baseY - wave * 0.72 - diagonalDrift * 0.55;
+  let x = baseX + (primaryWave + secondaryWave) * .68 + sweep;
+  let y = baseY - (primaryWave + secondaryWave) * .68 - sweep * .55;
 
-  const pointerDistance = Math.hypot(x - fluidPointer.x, y - fluidPointer.y);
-  if (fluidPointer.active && pointerDistance < 230) {
-    const influence = (1 - pointerDistance / 230) * 9;
-    const pointerAngle = Math.atan2(y - fluidPointer.y, x - fluidPointer.x);
-    x += Math.cos(pointerAngle) * influence;
-    y += Math.sin(pointerAngle) * influence;
+  if (pointer.active) {
+    const distance = Math.hypot(x - pointer.x, y - pointer.y);
+    if (distance < 230) {
+      const force = (1 - distance / 230) * 8;
+      const angle = Math.atan2(y - pointer.y, x - pointer.x);
+      x += Math.cos(angle) * force;
+      y += Math.sin(angle) * force;
+    }
   }
 
-  const crest = Math.pow((Math.sin(phase) + 1) * 0.5, 3);
-  const ribbon = Math.pow((Math.sin(phase * 0.47 + 1.2) + 1) * 0.5, 5);
-  const alpha = 0.035 + crest * 0.22 + ribbon * 0.1;
-  return { x, y, alpha, crest };
+  const crest = Math.pow((Math.sin(diagonal - flow) + 1) / 2, 3);
+  const ribbon = Math.pow((Math.sin(diagonal * .46 + 1.1) + 1) / 2, 5);
+  return {
+    x,
+    y,
+    intensity: .04 + crest * .31 + ribbon * .12,
+    crest
+  };
 }
 
-function drawFluid(time = 0) {
-  fluidContext.clearRect(0, 0, fluidWidth, fluidHeight);
-  const overscan = fluidSpacing * 4;
-  const columns = Math.ceil((fluidWidth + overscan * 2) / fluidSpacing);
-  const rows = Math.ceil((fluidHeight + overscan * 2) / fluidSpacing);
-  const points = Array.from({ length: rows }, (_, row) =>
-    Array.from({ length: columns }, (_, column) => fluidPoint(column, row, time))
+function drawFluidField(time = 0) {
+  fluidContext.clearRect(0, 0, canvasWidth, canvasHeight);
+
+  const overscan = nodeSpacing * 4;
+  const columns = Math.ceil((canvasWidth + overscan * 2) / nodeSpacing);
+  const rows = Math.ceil((canvasHeight + overscan * 2) / nodeSpacing);
+  const nodes = Array.from({ length: rows }, (_, row) =>
+    Array.from({ length: columns }, (_, column) => calculateNode(column, row, time))
   );
 
-  const glow = fluidContext.createRadialGradient(
-    fluidWidth * 0.63,
-    fluidHeight * 0.38,
+  const fieldGlow = fluidContext.createRadialGradient(
+    canvasWidth * .7,
+    canvasHeight * .38,
     0,
-    fluidWidth * 0.63,
-    fluidHeight * 0.38,
-    fluidWidth * 0.65
+    canvasWidth * .7,
+    canvasHeight * .38,
+    canvasWidth * .7
   );
-  glow.addColorStop(0, "rgba(34, 67, 75, .11)");
-  glow.addColorStop(0.55, "rgba(7, 20, 24, .035)");
-  glow.addColorStop(1, "rgba(0, 0, 0, 0)");
-  fluidContext.fillStyle = glow;
-  fluidContext.fillRect(0, 0, fluidWidth, fluidHeight);
+  fieldGlow.addColorStop(0, "rgba(58, 97, 103, .17)");
+  fieldGlow.addColorStop(.5, "rgba(13, 28, 31, .055)");
+  fieldGlow.addColorStop(1, "rgba(0, 0, 0, 0)");
+  fluidContext.fillStyle = fieldGlow;
+  fluidContext.fillRect(0, 0, canvasWidth, canvasHeight);
 
-  fluidContext.lineWidth = 0.55;
-  for (let row = 0; row < rows; row += 1) {
+  fluidContext.lineWidth = .55;
+
+  nodes.forEach((row, rowIndex) => {
     fluidContext.beginPath();
-    points[row].forEach((point, column) => {
-      if (column === 0) fluidContext.moveTo(point.x, point.y);
-      else fluidContext.lineTo(point.x, point.y);
+    row.forEach((node, columnIndex) => {
+      if (columnIndex === 0) fluidContext.moveTo(node.x, node.y);
+      else fluidContext.lineTo(node.x, node.y);
     });
-    const rowAlpha = 0.025 + Math.sin(row * 0.44 + time * 0.00016) * 0.01;
-    fluidContext.strokeStyle = `rgba(126, 183, 193, ${Math.max(0.012, rowAlpha)})`;
+    const alpha = .025 + Math.sin(rowIndex * .4 + time * .0002) * .012;
+    fluidContext.strokeStyle = `rgba(147, 210, 213, ${Math.max(.012, alpha)})`;
     fluidContext.stroke();
-  }
+  });
 
   for (let column = 0; column < columns; column += 1) {
     fluidContext.beginPath();
-    points.forEach((row, rowIndex) => {
-      const point = row[column];
-      if (rowIndex === 0) fluidContext.moveTo(point.x, point.y);
-      else fluidContext.lineTo(point.x, point.y);
+    nodes.forEach((row, rowIndex) => {
+      const node = row[column];
+      if (rowIndex === 0) fluidContext.moveTo(node.x, node.y);
+      else fluidContext.lineTo(node.x, node.y);
     });
-    fluidContext.strokeStyle = "rgba(108, 165, 177, .018)";
+    fluidContext.strokeStyle = "rgba(115, 171, 175, .018)";
     fluidContext.stroke();
   }
 
-  points.flat().forEach((point) => {
-    const radius = 0.5 + point.crest * 1.25;
+  nodes.flat().forEach((node) => {
     fluidContext.beginPath();
-    fluidContext.fillStyle = `rgba(174, 225, 232, ${point.alpha})`;
-    fluidContext.arc(point.x, point.y, radius, 0, Math.PI * 2);
+    fluidContext.fillStyle = `rgba(183, 233, 234, ${node.intensity})`;
+    fluidContext.arc(node.x, node.y, .55 + node.crest * 1.35, 0, Math.PI * 2);
     fluidContext.fill();
   });
 
-  if (!reducedMotion) requestAnimationFrame(drawFluid);
+  if (!reducedMotion) requestAnimationFrame(drawFluidField);
 }
 
-resizeFluid();
-drawFluid(reducedMotion ? 1200 : 0);
-window.addEventListener("resize", resizeFluid);
+resizeFluidCanvas();
+drawFluidField(reducedMotion ? 1200 : 0);
+
+window.addEventListener("resize", resizeFluidCanvas);
+
+if (!reducedMotion) {
+  window.addEventListener("pointermove", (event) => {
+    pointer.x = event.clientX;
+    pointer.y = event.clientY;
+    pointer.active = true;
+    root.style.setProperty("--mouse-x", `${event.clientX}px`);
+    root.style.setProperty("--mouse-y", `${event.clientY}px`);
+  }, { passive: true });
+}
+
+document.querySelectorAll(".case-study, .bento-card").forEach((card) => {
+  card.addEventListener("pointermove", (event) => {
+    if (!window.matchMedia("(pointer: fine)").matches || reducedMotion) return;
+    const rect = card.getBoundingClientRect();
+    const rotateX = ((event.clientY - rect.top) / rect.height - .5) * -2.4;
+    const rotateY = ((event.clientX - rect.left) / rect.width - .5) * 2.4;
+    card.style.transform = `perspective(1200px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+  });
+
+  card.addEventListener("pointerleave", () => {
+    card.style.transform = "";
+  });
+});

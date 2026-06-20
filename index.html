@@ -3,291 +3,353 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#020609">
-  <meta name="description" content="Collins Culbert — electrical engineering student building embedded systems, robotics controls, and FPGA logic.">
-  <title>Collins Culbert | Electrical Engineering</title>
+  <meta name="theme-color" content="#050607">
+  <meta name="description" content="Collins Culbert builds embedded systems, robotics controls, and FPGA logic.">
+  <title>Collins Culbert — Electrical Systems Engineer</title>
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <div class="entry-sequence" aria-hidden="true">
-    <div class="entry-code">
-      <span class="entry-mark">CC / 01</span>
-      <p><span id="boot-text"></span><i></i></p>
-      <div class="entry-progress"><b></b></div>
-      <small>FIELD SYNCHRONIZATION</small>
+  <div class="ambient" aria-hidden="true">
+    <canvas id="fluid-canvas"></canvas>
+    <div class="ambient-wash"></div>
+    <div class="cursor-glow"></div>
+    <div class="noise"></div>
+  </div>
+
+  <div class="page-progress" aria-hidden="true"><i></i></div>
+
+  <header class="site-header">
+    <div class="nav-shell glass">
+      <a class="brand" href="#top" aria-label="Collins Culbert, home">
+        <span class="brand-mark">CC</span>
+        <span class="brand-name">Collins Culbert</span>
+      </a>
+
+      <nav class="desktop-nav" aria-label="Primary navigation">
+        <a href="#work">Work</a>
+        <a href="#profile">Profile</a>
+        <a href="#capabilities">Capabilities</a>
+      </nav>
+
+      <a class="nav-cta" href="#contact">
+        Let's talk <span aria-hidden="true">↗</span>
+      </a>
+
+      <button class="menu-toggle" type="button" aria-label="Open menu" aria-expanded="false">
+        <i></i><i></i>
+      </button>
     </div>
-  </div>
 
-  <div class="world" aria-hidden="true">
-    <canvas id="fluid-field"></canvas>
-    <div class="world-vignette"></div>
-  </div>
-  <div class="grain" aria-hidden="true"></div>
-  <div class="cursor-light" aria-hidden="true"></div>
-
-  <header class="nav glass">
-    <a class="identity" href="#top" aria-label="Collins Culbert, home">
-      <span class="identity-mark">CC</span>
-      <span>COLLINS CULBERT<small>ELECTRICAL SYSTEMS ENGINEERING</small></span>
-    </a>
-
-    <nav aria-label="Primary navigation">
-      <a href="#projects">Projects</a>
-      <a href="#experience">Experience</a>
-      <a href="#skills">Systems</a>
+    <nav class="mobile-nav glass" aria-label="Mobile navigation">
+      <a href="#work">Work</a>
+      <a href="#profile">Profile</a>
+      <a href="#capabilities">Capabilities</a>
       <a href="#contact">Contact</a>
     </nav>
-
-    <a class="resume-link" href="assets/Collins_Culbert_Resume.docx" download>
-      Resume <span>↓</span>
-    </a>
-
-    <button class="menu-button" type="button" aria-label="Open navigation" aria-expanded="false">
-      <i></i><i></i>
-    </button>
   </header>
 
   <main id="top">
-    <section class="hero">
-      <div class="hero-coordinate reveal">
-        <span class="pulse"></span>
-        <p>DALLAS, TEXAS<br><b id="local-time">LOCAL TIME / --:--</b></p>
+    <section class="hero section">
+      <div class="hero-orbit orbit-one" aria-hidden="true"></div>
+      <div class="hero-orbit orbit-two" aria-hidden="true"></div>
+
+      <div class="hero-content">
+        <div class="status-pill glass reveal">
+          <i></i>
+          <span>Electrical systems engineering student</span>
+        </div>
+
+        <h1 class="hero-title reveal">
+          Engineering systems<br>
+          <span>with intention.</span>
+        </h1>
+
+        <div class="hero-lower reveal">
+          <p>
+            I design embedded systems that sense, decide, and move—from
+            closed-loop robotics to FPGA logic and bare-metal firmware.
+          </p>
+
+          <div class="hero-actions">
+            <a class="button button-primary" href="#work">
+              Explore selected work
+              <span aria-hidden="true">↓</span>
+            </a>
+            <a class="button button-secondary glass" href="assets/Collins_Culbert_Resume.docx" download>
+              Download résumé
+            </a>
+          </div>
+        </div>
       </div>
 
-      <div class="hero-copy">
-        <p class="eyebrow type-line" data-type="EMBEDDED SYSTEMS / ROBOTICS CONTROL / FPGA">EMBEDDED SYSTEMS / ROBOTICS CONTROL / FPGA</p>
-        <h1>
-          <span class="hero-type" data-type="ENGINEERING">ENGINEERING</span>
-          <span class="outline hero-type" data-type="WHAT MOVES.">WHAT MOVES.</span>
-        </h1>
-        <div class="hero-intro hero-enter">
-          <p>Electrical engineering student turning sensor data, control logic, and bare-metal code into physical systems that respond with precision.</p>
-          <a class="explore" href="#projects" aria-label="Explore projects">
-            <span>EXPLORE WORK</span>
-            <i>↓</i>
+      <div class="hero-proof glass reveal">
+        <div>
+          <strong>10</strong>
+          <span>servo robotic<br>hand system</span>
+        </div>
+        <div>
+          <strong>1st</strong>
+          <span>best presentation<br>award</span>
+        </div>
+        <div>
+          <strong>2028</strong>
+          <span>expected B.S.<br>completion</span>
+        </div>
+        <div class="live-readout">
+          <small>Dallas, Texas</small>
+          <b id="local-time">--:-- CT</b>
+          <i><em></em><em></em><em></em><em></em></i>
+        </div>
+      </div>
+    </section>
+
+    <section class="statement section" id="profile">
+      <div class="section-label reveal">
+        <span>01</span>
+        <p>Profile</p>
+      </div>
+
+      <div class="statement-copy reveal">
+        <p>
+          From schematic to firmware to live demo, I build across the full
+          system—not just one layer of it.
+        </p>
+      </div>
+
+      <div class="statement-aside reveal">
+        <p>
+          Junior Electrical Systems Engineering Technology student at Texas A&M,
+          focused on control systems, embedded programming, and digital logic.
+        </p>
+        <div class="focus-list">
+          <span>Closed-loop control</span>
+          <span>Embedded firmware</span>
+          <span>FPGA systems</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="work section" id="work">
+      <div class="section-heading reveal">
+        <div class="section-label">
+          <span>02</span>
+          <p>Selected work</p>
+        </div>
+        <h2>Physical systems.<br><span>Measured results.</span></h2>
+        <p>Projects that connect software decisions to real hardware behavior.</p>
+      </div>
+
+      <article class="case-study case-feature glass reveal">
+        <div class="case-visual hand-system" aria-hidden="true">
+          <div class="visual-grid"></div>
+          <div class="system-ring ring-a"></div>
+          <div class="system-ring ring-b"></div>
+          <div class="system-hand">
+            <div class="finger f1"></div>
+            <div class="finger f2"></div>
+            <div class="finger f3"></div>
+            <div class="finger f4"></div>
+            <div class="finger f5"></div>
+            <div class="palm"></div>
+          </div>
+          <div class="sensor-path path-one"><i></i></div>
+          <div class="sensor-path path-two"><i></i></div>
+          <div class="visual-meta">
+            <span>CONTROL SYSTEM / 01</span>
+            <span>PID LOOP ACTIVE</span>
+          </div>
+        </div>
+
+        <div class="case-copy">
+          <div class="case-kicker">
+            <span>Robotics</span>
+            <span>2025</span>
+          </div>
+          <h3>Closed-loop<br>robotic hand</h3>
+          <p>
+            A ten-servo hand with magnetic encoder feedback and per-finger PID
+            control, built for the Texas A&M Robotic Hand Challenge.
+          </p>
+          <ul class="case-points">
+            <li>AS5600 magnetic position sensing</li>
+            <li>PCA9548A I²C sensor multiplexing</li>
+            <li>Live pose calibration in MicroPython</li>
+          </ul>
+          <div class="tag-row">
+            <span>RP2040</span><span>ESP32</span><span>MicroPython</span><span>PID</span>
+          </div>
+          <div class="award-note">
+            <i>✦</i>
+            <span>1st Place — Best Presentation<br>Overall finalist</span>
+          </div>
+        </div>
+      </article>
+
+      <div class="case-grid">
+        <article class="case-study case-small glass reveal">
+          <div class="small-visual fpga-system" aria-hidden="true">
+            <div class="fpga-chip">DE10</div>
+            <div class="fpga-state s0">S0</div>
+            <div class="fpga-state s1">S1</div>
+            <div class="fpga-state s2">S2</div>
+            <div class="fpga-state s3">S3</div>
+            <div class="pwm-wave"><i></i><i></i><i></i><i></i><i></i></div>
+          </div>
+          <div class="small-copy">
+            <span>Digital logic</span>
+            <h3>FPGA motor speed controller</h3>
+            <p>Seven-state Moore machine controlling PWM motor speed and a BCD display.</p>
+            <div class="tag-row"><span>Quartus</span><span>DE10</span><span>Verilog/VHDL</span></div>
+          </div>
+        </article>
+
+        <article class="case-study case-small glass reveal">
+          <div class="small-visual embedded-system" aria-hidden="true">
+            <div class="register-code">
+              <span>RCC_AHB1ENR</span>
+              <span>GPIO_MODER</span>
+              <span>SYST_CSR</span>
+            </div>
+            <div class="mcu">STM32<br>F4XX</div>
+            <div class="board-trace t1"></div>
+            <div class="board-trace t2"></div>
+            <div class="board-trace t3"></div>
+          </div>
+          <div class="small-copy">
+            <span>Embedded firmware</span>
+            <h3>STM32F4xx bare-metal lab</h3>
+            <p>Register-level GPIO and SysTick programming in C, without HAL abstraction.</p>
+            <div class="tag-row"><span>C</span><span>Keil</span><span>GPIO</span><span>SysTick</span></div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="capabilities section" id="capabilities">
+      <div class="section-heading compact reveal">
+        <div class="section-label">
+          <span>03</span>
+          <p>Capabilities</p>
+        </div>
+        <h2>One system.<br><span>Every layer.</span></h2>
+      </div>
+
+      <div class="bento">
+        <article class="bento-card bento-wide glass reveal">
+          <span class="bento-index">01</span>
+          <div>
+            <h3>Control systems</h3>
+            <p>Feedback architecture, PID tuning, encoder integration, and calibration workflows.</p>
+          </div>
+          <div class="bento-signal" aria-hidden="true">
+            <svg viewBox="0 0 500 120" preserveAspectRatio="none">
+              <path d="M0 82 C60 82 62 28 122 28 S184 96 244 70 S308 34 364 51 S430 72 500 24"/>
+            </svg>
+          </div>
+        </article>
+
+        <article class="bento-card glass reveal">
+          <span class="bento-index">02</span>
+          <div>
+            <h3>Embedded hardware</h3>
+            <p>STM32F4xx, RP2040, ESP32, sensors, motor drivers, and test equipment.</p>
+          </div>
+        </article>
+
+        <article class="bento-card glass reveal">
+          <span class="bento-index">03</span>
+          <div>
+            <h3>Programming</h3>
+            <p>Python, C/C++, MicroPython, JavaScript, and register-level firmware.</p>
+          </div>
+        </article>
+
+        <article class="bento-card glass reveal">
+          <span class="bento-index">04</span>
+          <div>
+            <h3>Digital logic</h3>
+            <p>Finite-state machines, PWM, Quartus Prime, and DE10 FPGA development.</p>
+          </div>
+        </article>
+
+        <article class="bento-card bento-accent glass reveal">
+          <span class="bento-index">05</span>
+          <div>
+            <h3>AI workflows</h3>
+            <p>API integration, prompt engineering, and practical engineering automation.</p>
+          </div>
+          <div class="orb" aria-hidden="true"></div>
+        </article>
+      </div>
+    </section>
+
+    <section class="timeline section">
+      <div class="section-label reveal">
+        <span>04</span>
+        <p>Experience + education</p>
+      </div>
+
+      <div class="timeline-list">
+        <article class="timeline-row reveal">
+          <time>2025</time>
+          <div>
+            <small>GE Aerospace / Forage</small>
+            <h3>Electrical Engineering Simulation</h3>
+          </div>
+          <p>
+            Analyzed avionics electrical systems, developed design plans, and
+            contributed to verification and validation planning.
+          </p>
+        </article>
+
+        <article class="timeline-row reveal">
+          <time>2024—Now</time>
+          <div>
+            <small>KCLI Brotherhood</small>
+            <h3>Cohort 2 Member</h3>
+          </div>
+          <p>
+            Support safety-rule compliance and operations for an organization
+            of more than twenty members.
+          </p>
+        </article>
+
+        <article class="timeline-row reveal">
+          <time>2028</time>
+          <div>
+            <small>Texas A&M University</small>
+            <h3>B.S. Electrical Systems Engineering Technology</h3>
+          </div>
+          <p>Expected December 2028. Regents Scholar.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="contact section" id="contact">
+      <div class="contact-card glass reveal">
+        <span class="contact-label">Open to engineering opportunities</span>
+        <h2>Let’s build something<br>that responds.</h2>
+        <p>
+          Interested in embedded systems, robotics, controls, or hardware-software integration?
+          I’d like to hear about it.
+        </p>
+        <div class="contact-actions">
+          <a class="button button-primary" href="mailto:coculbert@icloud.com">
+            Start a conversation <span>↗</span>
+          </a>
+          <a class="button button-secondary glass" href="https://linkedin.com/in/collinsculbert" target="_blank" rel="noreferrer">
+            LinkedIn
           </a>
         </div>
       </div>
-
-      <div class="environment-readout glass hero-enter">
-        <div>
-          <small>ENVIRONMENT</small>
-          <strong>DEEP FIELD</strong>
-        </div>
-        <div>
-          <small>FIELD SYSTEM</small>
-          <strong>ONLINE</strong>
-        </div>
-        <div class="wave" aria-hidden="true">
-          <i></i><i></i><i></i><i></i><i></i><i></i><i></i>
-        </div>
-      </div>
-
-      <div class="scroll-mark" aria-hidden="true"><span></span></div>
-    </section>
-
-    <section class="intro panel" id="about">
-      <div class="section-number reveal">01 / PROFILE</div>
-      <div class="intro-grid">
-        <h2 class="reveal">From schematic<br>to <em>live demo.</em></h2>
-        <div class="intro-body reveal">
-          <p>Junior Electrical Systems Engineering Technology student with hands-on experience across closed-loop robotics control, FPGA digital logic, and register-level embedded programming.</p>
-          <p>I work end to end: architecture, hardware integration, firmware, calibration, testing, and technical presentation.</p>
-        </div>
-      </div>
-
-      <div class="metrics">
-        <div class="metric reveal"><strong>10</strong><span>SERVO ROBOTIC<br>HAND SYSTEM</span></div>
-        <div class="metric reveal"><strong>1st</strong><span>PLACE — BEST<br>PRESENTATION</span></div>
-        <div class="metric reveal"><strong>2028</strong><span>EXPECTED B.S.<br>COMPLETION</span></div>
-      </div>
-    </section>
-
-    <section class="projects panel" id="projects">
-      <div class="section-heading reveal">
-        <div>
-          <span class="section-number">02 / BUILT SYSTEMS</span>
-          <h2>Projects with<br><em>real feedback.</em></h2>
-        </div>
-        <p>Three systems spanning closed-loop electromechanics, programmable logic, and register-level firmware.</p>
-      </div>
-
-      <article class="project project-primary reveal">
-        <div class="project-art hand-art">
-          <div class="hand-grid"></div>
-          <div class="hand-palm">
-            <i></i><i></i><i></i><i></i><i></i>
-          </div>
-          <div class="control-loop loop-a"><span>PID</span></div>
-          <div class="control-loop loop-b"><span>I²C</span></div>
-          <div class="signal-line"></div>
-          <div class="art-label"><span>SYSTEM / 01</span><span>10 SERVO CHANNELS</span></div>
-        </div>
-        <div class="project-info">
-          <div class="project-meta">
-            <span>ROBOTICS / CONTROL</span>
-            <span>RP2040 / ESP32</span>
-          </div>
-          <h3>Robotic Hand<br><em>Closed-Loop PID Control</em></h3>
-          <p>Co-designed and built a ten-servo, DC motor-driven robotic hand for the Texas A&amp;M Robotic Hand Challenge. AS5600 magnetic encoders feed per-finger position data through a PCA9548A I²C multiplexer into a closed-loop PID architecture.</p>
-          <ul>
-            <li>Two continuous-rotation servos per finger</li>
-            <li>Live pose calibration and storage in MicroPython</li>
-            <li>1st Place — Best Presentation; overall finalist</li>
-          </ul>
-          <div class="tech-row"><span>MicroPython</span><span>AS5600</span><span>PCA9548A</span><span>PID</span></div>
-        </div>
-      </article>
-
-      <div class="project-pair">
-        <article class="project project-compact reveal">
-          <div class="project-art fpga-art">
-            <div class="chip">
-              <span>DE10</span>
-              <i></i><i></i><i></i><i></i>
-            </div>
-            <div class="state-ring">
-              <i>S0</i><i>S1</i><i>S2</i><i>S3</i><i>S4</i><i>S5</i><i>S6</i>
-            </div>
-            <div class="pwm-bars"><i></i><i></i><i></i><i></i><i></i></div>
-            <div class="art-label"><span>SYSTEM / 02</span><span>7-STATE FSM</span></div>
-          </div>
-          <div class="project-info">
-            <div class="project-meta"><span>FPGA / DIGITAL LOGIC</span><span>QUARTUS PRIME</span></div>
-            <h3>FPGA Motor<br><em>Speed Controller</em></h3>
-            <p>A seven-state, one-hot Moore state machine driving PWM motor speed control and a BCD seven-segment display directly from state logic.</p>
-            <div class="tech-row"><span>DE10 FPGA</span><span>Verilog / VHDL</span><span>PWM</span></div>
-          </div>
-        </article>
-
-        <article class="project project-compact reveal">
-          <div class="project-art stm-art">
-            <div class="code-field" aria-hidden="true">
-              <span>RCC_AHB1ENR</span><span>GPIO_MODER</span><span>SYST_CSR</span><span>0x40023830</span>
-            </div>
-            <div class="board">
-              <span>STM32<br>F4XX</span>
-              <i></i><i></i><i></i><i></i><i></i><i></i>
-            </div>
-            <div class="trace t1"></div><div class="trace t2"></div><div class="trace t3"></div>
-            <div class="art-label"><span>SYSTEM / 03</span><span>NO HAL</span></div>
-          </div>
-          <div class="project-info">
-            <div class="project-meta"><span>FIRMWARE / BARE METAL</span><span>KEIL UVISION</span></div>
-            <h3>STM32F4xx<br><em>Embedded Systems Lab</em></h3>
-            <p>Register-level C programming for GPIO peripherals and SysTick timers, built without a hardware abstraction layer.</p>
-            <div class="tech-row"><span>C</span><span>STM32F4xx</span><span>GPIO</span><span>SysTick</span></div>
-          </div>
-        </article>
-      </div>
-    </section>
-
-    <section class="experience panel" id="experience">
-      <div class="section-heading reveal">
-        <div>
-          <span class="section-number">03 / EXPERIENCE</span>
-          <h2>Thinking in<br><em>systems.</em></h2>
-        </div>
-      </div>
-
-      <article class="experience-row reveal">
-        <div class="experience-date">05 / 2025</div>
-        <div>
-          <span>GE AEROSPACE / FORAGE</span>
-          <h3>Electrical Engineering Simulation</h3>
-          <p>Engineering Participant</p>
-        </div>
-        <ul>
-          <li>Analyzed avionics electrical systems using structured problem-solving frameworks.</li>
-          <li>Developed electrical system design plans and supporting technical documentation.</li>
-          <li>Contributed to verification and validation planning for design reliability.</li>
-        </ul>
-      </article>
-    </section>
-
-    <section class="skills panel" id="skills">
-      <div class="section-heading reveal">
-        <div>
-          <span class="section-number">04 / SYSTEM MAP</span>
-          <h2>Hardware mind.<br><em>Software hands.</em></h2>
-        </div>
-      </div>
-
-      <div class="skill-map">
-        <article class="skill-card glass reveal">
-          <span>01</span>
-          <h3>Programming</h3>
-          <p>Python, C/C++, MicroPython, JavaScript, HTML/CSS</p>
-        </article>
-        <article class="skill-card glass reveal">
-          <span>02</span>
-          <h3>Embedded Hardware</h3>
-          <p>STM32F4xx, RP2040, ESP32, I²C sensors, DC motor drivers</p>
-        </article>
-        <article class="skill-card glass reveal">
-          <span>03</span>
-          <h3>Digital Logic</h3>
-          <p>Quartus Prime, DE10 FPGA, finite state machines, PWM</p>
-        </article>
-        <article class="skill-card glass reveal">
-          <span>04</span>
-          <h3>Control Systems</h3>
-          <p>Closed-loop PID, encoder feedback, calibration workflows</p>
-        </article>
-        <article class="skill-card glass reveal">
-          <span>05</span>
-          <h3>Engineering Tools</h3>
-          <p>Keil uVision, KiCad, oscilloscopes, multimeters</p>
-        </article>
-        <article class="skill-card glass reveal">
-          <span>06</span>
-          <h3>Generative AI</h3>
-          <p>Claude API integration, prompt engineering, workflow automation</p>
-        </article>
-      </div>
-    </section>
-
-    <section class="education panel">
-      <div class="education-grid">
-        <div class="reveal">
-          <span class="section-number">05 / EDUCATION</span>
-          <h2>Texas A&amp;M<br><em>University.</em></h2>
-        </div>
-        <div class="education-card glass reveal">
-          <span>COLLEGE STATION, TEXAS</span>
-          <h3>B.S. Electrical Systems<br>Engineering Technology</h3>
-          <p>In progress · Expected December 2028</p>
-          <div><strong>REGENTS SCHOLAR</strong><i>2028</i></div>
-        </div>
-        <div class="leadership-card reveal">
-          <span>LEADERSHIP / INVOLVEMENT</span>
-          <h3>KCLI Brotherhood</h3>
-          <p>Cohort 2 Member · September 2024 — Present</p>
-          <p>Oversee compliance with organization and chapter safety rules for more than 20 members.</p>
-        </div>
-      </div>
-    </section>
-
-    <section class="contact" id="contact">
-      <span class="section-number reveal">06 / OPEN CIRCUIT</span>
-      <h2 class="reveal">LET'S BUILD SOMETHING<br><em>THAT RESPONDS.</em></h2>
-      <div class="contact-actions reveal">
-        <a class="contact-primary glass" href="mailto:coculbert@icloud.com">
-          <span>coculbert@icloud.com</span><i>↗</i>
-        </a>
-        <a class="contact-secondary" href="tel:+12143546078">214.354.6078</a>
-      </div>
-
-      <footer>
-        <span>COLLINS CULBERT © 2026</span>
-        <div>
-          <a href="https://linkedin.com/in/collinsculbert" target="_blank" rel="noreferrer">LinkedIn ↗</a>
-          <a href="assets/Collins_Culbert_Resume.docx" download>Resume ↓</a>
-        </div>
-        <span>DALLAS / COLLEGE STATION</span>
-      </footer>
     </section>
   </main>
+
+  <footer class="footer">
+    <span>© 2026 Collins Culbert</span>
+    <span>Dallas / College Station</span>
+    <a href="#top">Back to top ↑</a>
+  </footer>
 
   <script src="script.js"></script>
 </body>

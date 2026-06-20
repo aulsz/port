@@ -1,63 +1,60 @@
-# Collins Culbert - Engineering Portfolio
+# Collins Culbert — Engineering Portfolio
 
-Personal portfolio for Collins Culbert, an Electrical Systems Engineering Technology student at Texas A&M University. The site highlights my work in embedded systems, robotics control, FPGA design, and bare-metal programming.
+Personal portfolio for Collins Culbert, an Electrical Systems Engineering Technology student at Texas A&M University. The site presents work in robotics control, embedded firmware, FPGA design, and hardware-software integration.
 
-## Featured work
+## Featured engineering
 
-- **Robotic Hand:** A ten-servo robotic hand using magnetic encoder feedback, I2C multiplexing, and closed-loop PID control.
-- **FPGA Motor Controller:** A seven-state Moore state machine for PWM motor-speed control on a DE10 FPGA.
-- **STM32F4xx Lab:** Register-level GPIO and SysTick programming in C without a hardware abstraction layer.
+- **Closed-loop robotic hand:** Ten-servo system using AS5600 magnetic encoders, I²C multiplexing, and per-finger PID control.
+- **FPGA motor controller:** Seven-state Moore state machine for PWM motor-speed control on a DE10 FPGA.
+- **STM32F4xx lab:** Register-level GPIO and SysTick programming in C without HAL abstraction.
 
-The portfolio also includes my GE Aerospace engineering simulation experience, technical skills, education, and leadership involvement.
+## Interface
 
-## Design and interaction
+The portfolio uses a minimal glass interface inspired by high-end product design:
 
-The interface combines a procedural black fluid-node field with restrained engineering telemetry and IBM Plex Mono typography.
-
-Other details include:
-
-- Typewriter-style introduction sequence
-- Character-by-character animation the first time each text fragment enters the viewport
-- Connected canvas nodes moving in diagonal wave formations
-- Subtle cursor light and local fluid-field distortion
-- Live Dallas time
-- Responsive navigation and layouts
+- Inter variable typography
+- Persistent procedural fluid-node background
+- Responsive glass navigation and card system
+- Character-by-character text entrances on first view
+- Scroll progress and active section navigation
+- Subtle pointer light and card depth
 - Reduced-motion support
 
 ## Built with
 
 - Semantic HTML
-- CSS animations, responsive layouts, and glass effects
+- Modern CSS and responsive grid layouts
 - Vanilla JavaScript
-- Canvas rendering for the animated fluid-node field
+- Canvas rendering for the animated fluid field
 
-No frameworks or build tools are required.
+No framework or build process is required.
 
-IBM Plex Mono is distributed under the SIL Open Font License included in `assets/fonts/OFL.txt`.
+## Run locally
 
-## Running locally
-
-Open `index.html` directly in a browser, or start a local server:
+Open `index.html` directly, or serve the folder:
 
 ```powershell
 python -m http.server 4173
 ```
 
-Then open [http://127.0.0.1:4173](http://127.0.0.1:4173).
+Then visit [http://127.0.0.1:4173](http://127.0.0.1:4173).
 
-## Project structure
+## Structure
 
 ```text
 .
 |-- assets/
 |   |-- fonts/
-|   |   |-- IBM Plex Mono webfonts
-|   |   `-- OFL.txt
+|   |   |-- InterVariable.woff2
+|   |   |-- InterVariable-Italic.woff2
+|   |   `-- Inter-OFL.txt
 |   `-- Collins_Culbert_Resume.docx
 |-- index.html
 |-- script.js
 `-- styles.css
 ```
+
+Inter is distributed under the SIL Open Font License included in `assets/fonts/Inter-OFL.txt`.
 
 ## Contact
 
