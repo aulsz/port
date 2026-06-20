@@ -1,0 +1,7 @@
+# Superseded visual explorations kept locally
+assets/midnight-landscape.png
+assets/orbital-glass.png
+
+# Local development files
+.DS_Store
+Thumbs.db
