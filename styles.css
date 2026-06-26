@@ -316,11 +316,11 @@ main,
   -webkit-background-clip: text;
 }
 
-.hero-title .tw-char {
+.hero-title .tw-output {
   color: var(--white);
 }
 
-.hero-title > span .tw-char {
+.hero-title > span .tw-output {
   color: transparent;
   background: linear-gradient(100deg, #fff 5%, #aeb7b8 50%, var(--accent) 100%);
   background-clip: text;
@@ -1433,27 +1433,11 @@ main,
   position: relative;
 }
 
-.tw-word {
-  display: inline-block;
-  white-space: nowrap;
+.tw-output {
+  white-space: inherit;
 }
 
-.tw-char {
-  display: inline;
-  opacity: 0;
-}
-
-.tw-text.tw-active .tw-char {
-  animation: type-char .035s steps(1, end) forwards;
-  animation-delay: calc(var(--fragment-delay, 0ms) + var(--char-delay, 0ms));
-}
-
-.tw-text.tw-complete .tw-char {
-  opacity: 1;
-  animation: none;
-}
-
-.tw-text.tw-active::after {
+.tw-text.tw-active.tw-caret::after {
   content: "";
   display: inline-block;
   width: .08em;
@@ -1464,12 +1448,8 @@ main,
   animation: caret .65s steps(1) infinite;
 }
 
-.tw-text.tw-complete::after {
+.tw-text.tw-complete.tw-caret::after {
   display: none;
-}
-
-@keyframes type-char {
-  to { opacity: 1; }
 }
 
 @keyframes caret {
@@ -1805,7 +1785,7 @@ main,
   }
 
   .reveal,
-  .tw-char {
+  .tw-text {
     opacity: 1 !important;
     transform: none !important;
     filter: none !important;

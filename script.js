@@ -1,6 +1,7 @@
 const body = document.body;
 const root = document.documentElement;
 const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+const typeSpeed = 8;
 
 function updateDallasTime() {
   const time = new Intl.DateTimeFormat("en-US", {
@@ -20,44 +21,32 @@ window.setInterval(updateDallasTime, 60000);
 function wrapTextNode(textNode) {
   const text = textNode.nodeValue;
   if (!text || !text.trim()) return null;
+  const parentElement = textNode.parentElement;
+  const displayText = text.replace(/\s+/g, " ").trim();
+  if (!displayText) return null;
 
   const wrapper = document.createElement("span");
   wrapper.className = "tw-text";
-  wrapper.setAttribute("aria-label", text.trim());
+  wrapper.setAttribute("aria-label", displayText);
+  wrapper.dataset.fullText = displayText;
+  if (parentElement?.closest(".hero-title, .hero-lower p, .section-heading")) {
+    wrapper.classList.add("tw-caret");
+  }
 
-  let characterIndex = 0;
-  text.split(/(\s+)/).forEach((token) => {
-    if (!token) return;
+  const output = document.createElement("span");
+  output.className = "tw-output";
+  output.setAttribute("aria-hidden", "true");
+  wrapper.append(output);
 
-    if (/^\s+$/.test(token)) {
-      wrapper.append(document.createTextNode(token));
-      return;
-    }
-
-    const word = document.createElement("span");
-    word.className = "tw-word";
-
-    [...token].forEach((character) => {
-      const characterSpan = document.createElement("span");
-      characterSpan.className = "tw-char";
-      characterSpan.setAttribute("aria-hidden", "true");
-      characterSpan.style.setProperty("--char-delay", `${characterIndex * 13}ms`);
-      characterSpan.textContent = character;
-      word.append(characterSpan);
-      characterIndex += 1;
-    });
-
-    wrapper.append(word);
-  });
-
-  wrapper.dataset.characters = characterIndex;
+  wrapper.dataset.characters = [...displayText].length;
   textNode.replaceWith(wrapper);
   return wrapper;
 }
 
 function prepareTypewriterText() {
   const fragments = [];
-  const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, {
+  const textRoot = document.querySelector("main") || document.body;
+  const walker = document.createTreeWalker(textRoot, NodeFilter.SHOW_TEXT, {
     acceptNode(node) {
       if (!node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
       const parent = node.parentElement;
@@ -80,29 +69,67 @@ function prepareTypewriterText() {
 
 const typewriterFragments = prepareTypewriterText();
 
+function isVisibleFragment(fragment) {
+  const rect = fragment.getBoundingClientRect();
+  const style = window.getComputedStyle(fragment);
+  return rect.width > 0 && rect.height > 0 && style.display !== "none" && style.visibility !== "hidden";
+}
+
+function typeOrder(fragment, fallbackTop = 0) {
+  if (fragment.closest(".hero-title")) return -5000 + fallbackTop;
+  if (fragment.closest(".status-pill")) return -4000 + fallbackTop;
+  if (fragment.closest(".hero-lower")) return -3000 + fallbackTop;
+  if (fragment.closest(".hero-proof")) return -2000 + fallbackTop;
+  return fallbackTop;
+}
+
 function activateText(fragment, delay = 0) {
   if (fragment.dataset.typed === "true") return;
   fragment.dataset.typed = "true";
-  fragment.style.setProperty("--fragment-delay", `${delay}ms`);
-  fragment.classList.add("tw-active");
 
-  const length = Number(fragment.dataset.characters || 0);
+  const output = fragment.querySelector(".tw-output");
+  const characters = [...(fragment.dataset.fullText || "")];
+  const startDelay = Math.max(0, delay);
+
   window.setTimeout(() => {
-    fragment.classList.add("tw-complete");
-  }, delay + length * 13 + 120);
+    fragment.classList.add("tw-active");
+    if (!output || !characters.length) {
+      fragment.classList.add("tw-complete");
+      return;
+    }
+
+    let index = 0;
+    const typeNextCharacter = () => {
+      index += 1;
+      output.textContent = characters.slice(0, index).join("");
+
+      if (index >= characters.length) {
+        fragment.classList.add("tw-complete");
+        return;
+      }
+
+      window.setTimeout(typeNextCharacter, typeSpeed);
+    };
+
+    typeNextCharacter();
+  }, startDelay);
 }
 
 if (reducedMotion) {
-  typewriterFragments.forEach((fragment) => fragment.classList.add("tw-active", "tw-complete"));
+  typewriterFragments.forEach((fragment) => {
+    const output = fragment.querySelector(".tw-output");
+    if (output) output.textContent = fragment.dataset.fullText || "";
+    fragment.classList.add("tw-active", "tw-complete");
+  });
 } else {
   const textObserver = new IntersectionObserver(
     (entries) => {
       const visibleEntries = entries
         .filter((entry) => entry.isIntersecting)
-        .sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top);
+        .sort((a, b) => typeOrder(a.target, a.boundingClientRect.top) - typeOrder(b.target, b.boundingClientRect.top));
 
       visibleEntries.forEach((entry, index) => {
-        activateText(entry.target, Math.min(index * 38, 220));
+        activateText(entry.target, index * 24);
         textObserver.unobserve(entry.target);
       });
     },
@@ -115,8 +142,8 @@ if (reducedMotion) {
     typewriterFragments.forEach((fragment, index) => {
       if (fragment.dataset.typed === "true") return;
       const rect = fragment.getBoundingClientRect();
-      if (rect.bottom >= 0 && rect.top <= window.innerHeight) {
-        activateText(fragment, Math.min(index * 18, 260));
+      if (isVisibleFragment(fragment) && rect.bottom >= 0 && rect.top <= window.innerHeight) {
+        activateText(fragment, index * 18);
       }
     });
   }, 80);
