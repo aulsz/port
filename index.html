@@ -189,6 +189,16 @@
             <li>RMS, kurtosis, crest factor, and Goertzel frequency features</li>
             <li>Python-trained decision tree exported directly to embedded C</li>
           </ul>
+          <dl class="project-details">
+            <div>
+              <dt>Problem</dt>
+              <dd>Detect motor health changes from noisy vibration signals before they become visible failures.</dd>
+            </div>
+            <div>
+              <dt>Build</dt>
+              <dd>Generated synthetic regimes, trained an interpretable model, then verified the same logic in C.</dd>
+            </div>
+          </dl>
           <div class="verification-strip">
             <div>
               <strong>320/320</strong>
@@ -247,6 +257,16 @@
             <li>PCA9548A I²C sensor multiplexing</li>
             <li>Live pose calibration in MicroPython</li>
           </ul>
+          <dl class="project-details">
+            <div>
+              <dt>Control loop</dt>
+              <dd>Mapped each finger to encoder feedback, servo command limits, and repeatable target positions.</dd>
+            </div>
+            <div>
+              <dt>Integration</dt>
+              <dd>Coordinated multiplexed I2C sensing, servo timing, and demo calibration under competition constraints.</dd>
+            </div>
+          </dl>
           <div class="tag-row">
             <span>RP2040</span><span>ESP32</span><span>MicroPython</span><span>PID</span>
           </div>
@@ -271,6 +291,10 @@
             <span>Digital logic</span>
             <h3>FPGA motor speed controller</h3>
             <p>Seven-state Moore machine controlling PWM motor speed and a BCD display.</p>
+            <ul class="mini-details">
+              <li>Debounced push-button speed states</li>
+              <li>PWM duty-cycle output and display feedback</li>
+            </ul>
             <div class="tag-row"><span>Quartus</span><span>DE10</span><span>Verilog/VHDL</span></div>
           </div>
         </article>
@@ -291,6 +315,10 @@
             <span>Embedded firmware</span>
             <h3>STM32F4xx bare-metal lab</h3>
             <p>Register-level GPIO and SysTick programming in C, without HAL abstraction.</p>
+            <ul class="mini-details">
+              <li>Direct RCC, GPIO, and SysTick configuration</li>
+              <li>Timing-focused firmware without HAL dependency</li>
+            </ul>
             <div class="tag-row"><span>C</span><span>Keil</span><span>GPIO</span><span>SysTick</span></div>
           </div>
         </article>

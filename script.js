@@ -2,6 +2,19 @@ const body = document.body;
 const root = document.documentElement;
 const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 const typeSpeed = 8;
+const finePointer = window.matchMedia("(pointer: fine)");
+const typewriterScopeSelector = [
+  ".status-pill",
+  ".hero-title",
+  ".hero-lower p",
+  ".section-heading h2",
+  ".section-heading > p",
+  ".case-copy h3",
+  ".small-copy h3",
+  ".bento-card h3",
+  ".timeline-row h3",
+  ".contact-card h2"
+].join(", ");
 
 function updateDallasTime() {
   const time = new Intl.DateTimeFormat("en-US", {
@@ -53,6 +66,7 @@ function prepareTypewriterText() {
       if (!parent || parent.closest("script, style, canvas, .tw-text, [aria-hidden='true']")) {
         return NodeFilter.FILTER_REJECT;
       }
+      if (!parent.closest(typewriterScopeSelector)) return NodeFilter.FILTER_REJECT;
       return NodeFilter.FILTER_ACCEPT;
     }
   });
@@ -216,8 +230,18 @@ function updateScrollProgress() {
   root.style.setProperty("--scroll-progress", `${progress}%`);
 }
 
+let scrollFrame = 0;
+
+function requestScrollProgress() {
+  if (scrollFrame) return;
+  scrollFrame = window.requestAnimationFrame(() => {
+    scrollFrame = 0;
+    updateScrollProgress();
+  });
+}
+
 updateScrollProgress();
-window.addEventListener("scroll", updateScrollProgress, { passive: true });
+window.addEventListener("scroll", requestScrollProgress, { passive: true });
 
 const fluidCanvas = document.querySelector("#fluid-canvas");
 const fluidContext = fluidCanvas.getContext("2d");
@@ -229,17 +253,34 @@ const pointer = {
 
 let canvasWidth = window.innerWidth;
 let canvasHeight = window.innerHeight;
-let nodeSpacing = window.innerWidth < 700 ? 30 : 37;
+let nodeSpacing = window.innerWidth < 700 ? 42 : 52;
+let fieldGlow = null;
+let fluidFrame = 0;
+let lastFluidDraw = 0;
+let resizeFrame = 0;
+const fluidFrameInterval = 1000 / 30;
 
 function resizeFluidCanvas() {
-  const density = Math.min(window.devicePixelRatio || 1, 2);
+  const density = Math.min(window.devicePixelRatio || 1, 1.35);
   const rect = fluidCanvas.getBoundingClientRect();
   canvasWidth = rect.width;
   canvasHeight = rect.height;
-  nodeSpacing = window.innerWidth < 700 ? 30 : 37;
+  nodeSpacing = window.innerWidth < 700 ? 42 : 52;
   fluidCanvas.width = Math.floor(canvasWidth * density);
   fluidCanvas.height = Math.floor(canvasHeight * density);
   fluidContext.setTransform(density, 0, 0, density, 0, 0);
+
+  fieldGlow = fluidContext.createRadialGradient(
+    canvasWidth * .7,
+    canvasHeight * .38,
+    0,
+    canvasWidth * .7,
+    canvasHeight * .38,
+    canvasWidth * .7
+  );
+  fieldGlow.addColorStop(0, "rgba(58, 97, 103, .17)");
+  fieldGlow.addColorStop(.5, "rgba(13, 28, 31, .055)");
+  fieldGlow.addColorStop(1, "rgba(0, 0, 0, 0)");
 }
 
 function calculateNode(column, row, time) {
@@ -276,6 +317,12 @@ function calculateNode(column, row, time) {
 }
 
 function drawFluidField(time = 0) {
+  if (!reducedMotion && time - lastFluidDraw < fluidFrameInterval) {
+    fluidFrame = requestAnimationFrame(drawFluidField);
+    return;
+  }
+
+  lastFluidDraw = time;
   fluidContext.clearRect(0, 0, canvasWidth, canvasHeight);
 
   const overscan = nodeSpacing * 4;
@@ -285,17 +332,6 @@ function drawFluidField(time = 0) {
     Array.from({ length: columns }, (_, column) => calculateNode(column, row, time))
   );
 
-  const fieldGlow = fluidContext.createRadialGradient(
-    canvasWidth * .7,
-    canvasHeight * .38,
-    0,
-    canvasWidth * .7,
-    canvasHeight * .38,
-    canvasWidth * .7
-  );
-  fieldGlow.addColorStop(0, "rgba(58, 97, 103, .17)");
-  fieldGlow.addColorStop(.5, "rgba(13, 28, 31, .055)");
-  fieldGlow.addColorStop(1, "rgba(0, 0, 0, 0)");
   fluidContext.fillStyle = fieldGlow;
   fluidContext.fillRect(0, 0, canvasWidth, canvasHeight);
 
@@ -323,47 +359,86 @@ function drawFluidField(time = 0) {
     fluidContext.stroke();
   }
 
-  nodes.flat().forEach((node) => {
-    fluidContext.beginPath();
-    fluidContext.fillStyle = `rgba(183, 233, 234, ${node.intensity})`;
-    fluidContext.arc(node.x, node.y, .55 + node.crest * 1.35, 0, Math.PI * 2);
-    fluidContext.fill();
+  nodes.forEach((row) => {
+    row.forEach((node) => {
+      fluidContext.beginPath();
+      fluidContext.fillStyle = `rgba(183, 233, 234, ${node.intensity})`;
+      fluidContext.arc(node.x, node.y, .55 + node.crest * 1.35, 0, Math.PI * 2);
+      fluidContext.fill();
+    });
   });
 
-  if (!reducedMotion) requestAnimationFrame(drawFluidField);
+  if (!reducedMotion) fluidFrame = requestAnimationFrame(drawFluidField);
 }
 
 resizeFluidCanvas();
 drawFluidField(reducedMotion ? 1200 : 0);
 
-window.addEventListener("resize", resizeFluidCanvas);
+window.addEventListener("resize", () => {
+  if (resizeFrame) return;
+  resizeFrame = requestAnimationFrame(() => {
+    resizeFrame = 0;
+    resizeFluidCanvas();
+    updateScrollProgress();
+  });
+});
+
+document.addEventListener("visibilitychange", () => {
+  if (reducedMotion) return;
+  if (document.hidden) {
+    cancelAnimationFrame(fluidFrame);
+    fluidFrame = 0;
+  } else if (!fluidFrame) {
+    lastFluidDraw = 0;
+    fluidFrame = requestAnimationFrame(drawFluidField);
+  }
+});
 
 if (!reducedMotion) {
+  let pointerFrame = 0;
+  let pointerEvent = null;
   window.addEventListener("pointermove", (event) => {
-    pointer.x = event.clientX;
-    pointer.y = event.clientY;
-    pointer.active = true;
-    root.style.setProperty("--mouse-x", `${event.clientX}px`);
-    root.style.setProperty("--mouse-y", `${event.clientY}px`);
+    pointerEvent = event;
+    if (pointerFrame) return;
+    pointerFrame = requestAnimationFrame(() => {
+      pointerFrame = 0;
+      if (!pointerEvent) return;
+      pointer.x = pointerEvent.clientX;
+      pointer.y = pointerEvent.clientY;
+      pointer.active = true;
+      root.style.setProperty("--mouse-x", `${pointerEvent.clientX}px`);
+      root.style.setProperty("--mouse-y", `${pointerEvent.clientY}px`);
+    });
   }, { passive: true });
 }
 
 document.querySelectorAll(".case-study, .bento-card").forEach((card) => {
+  let cardFrame = 0;
+  let cardPointer = null;
+
   card.addEventListener("pointermove", (event) => {
-    if (!window.matchMedia("(pointer: fine)").matches || reducedMotion) return;
-    const rect = card.getBoundingClientRect();
-    const localX = (event.clientX - rect.left) / rect.width;
-    const localY = (event.clientY - rect.top) / rect.height;
-    const rotateX = (localY - .5) * -2.1;
-    const rotateY = (localX - .5) * 2.1;
-    card.style.setProperty("--glass-x", `${localX * 100}%`);
-    card.style.setProperty("--glass-y", `${localY * 100}%`);
-    card.style.setProperty("--glass-shift-x", `${(localX - .5) * 5}px`);
-    card.style.setProperty("--glass-shift-y", `${(localY - .5) * 5}px`);
-    card.style.transform = `perspective(1200px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+    if (!finePointer.matches || reducedMotion) return;
+    cardPointer = event;
+    if (cardFrame) return;
+
+    cardFrame = requestAnimationFrame(() => {
+      cardFrame = 0;
+      if (!cardPointer) return;
+      const rect = card.getBoundingClientRect();
+      const localX = (cardPointer.clientX - rect.left) / rect.width;
+      const localY = (cardPointer.clientY - rect.top) / rect.height;
+      const rotateX = (localY - .5) * -1.35;
+      const rotateY = (localX - .5) * 1.35;
+      card.style.setProperty("--glass-x", `${localX * 100}%`);
+      card.style.setProperty("--glass-y", `${localY * 100}%`);
+      card.style.setProperty("--glass-shift-x", `${(localX - .5) * 3}px`);
+      card.style.setProperty("--glass-shift-y", `${(localY - .5) * 3}px`);
+      card.style.transform = `perspective(1200px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+    });
   });
 
   card.addEventListener("pointerleave", () => {
+    cardPointer = null;
     card.style.transform = "";
     card.style.setProperty("--glass-x", "50%");
     card.style.setProperty("--glass-y", "35%");
