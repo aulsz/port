@@ -322,6 +322,42 @@
             <div class="tag-row"><span>C</span><span>Keil</span><span>GPIO</span><span>SysTick</span></div>
           </div>
         </article>
+
+        <article class="case-study case-small glass reveal">
+          <div class="small-visual cli-explainer" aria-hidden="true">
+            <div class="cli-bar"><i></i><i></i><i></i></div>
+            <div class="cli-cmd-line">
+              <span class="cli-dollar">$</span>
+              <span> embedded-explainer timer_config.c</span>
+            </div>
+            <div class="cli-detect-row">
+              <span>STM32 HAL</span>
+              <span>ISR ×1</span>
+              <span>Timer</span>
+              <span>volatile ×1</span>
+            </div>
+            <div class="cli-output-lines">
+              <span>84 MHz ÷ (83+1) = 1 MHz tick</span>
+              <span>UIF clears before callback</span>
+              <span>tick_count++ not atomic — read into local</span>
+            </div>
+          </div>
+          <div class="small-copy">
+            <span>AI tooling</span>
+            <h3>embedded-explainer</h3>
+            <p>CLI tool that explains embedded C at the hardware level — what the silicon does, not just what the code says.</p>
+            <ul class="mini-details">
+              <li>Detects STM32 HAL, ISRs, DMA, volatile vars, and RTOS patterns before prompting</li>
+              <li>Three depths: quick summary, section-by-section analysis, junior dev walkthrough</li>
+            </ul>
+            <div class="tag-row"><span>Python</span><span>Claude API</span><span>STM32</span><span>CLI</span></div>
+            <div class="case-actions" style="margin-top:1.4rem">
+              <a class="case-link" href="https://github.com/aulsz/embedded-explainer" target="_blank" rel="noreferrer">
+                View on GitHub ↗
+              </a>
+            </div>
+          </div>
+        </article>
       </div>
     </section>
 
