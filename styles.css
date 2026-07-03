@@ -1443,6 +1443,163 @@ main,
   box-shadow: 0 0 50px rgba(99, 93, 255, .3);
 }
 
+/* ── bento 02: orbiting hardware rings ───────────────────────────────────── */
+.bento-hw-art {
+  position: absolute;
+  right: -2rem;
+  bottom: -2.5rem;
+  width: 12rem;
+  aspect-ratio: 1;
+  pointer-events: none;
+}
+
+.hw-ring {
+  position: absolute;
+  border-radius: 50%;
+}
+
+.hw-ring.r1 {
+  inset: 0;
+  border: 1px solid rgba(var(--accent-rgb), .18);
+  animation: orbit 30s linear infinite;
+}
+
+.hw-ring.r1::after {
+  content: "";
+  position: absolute;
+  width: .42rem;
+  aspect-ratio: 1;
+  top: 8%;
+  left: 22%;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 16px rgba(var(--accent-rgb), .85);
+}
+
+.hw-ring.r2 {
+  inset: 22%;
+  border: 1px dashed rgba(var(--accent-rgb), .24);
+  animation: orbit 20s linear infinite reverse;
+}
+
+.hw-ring.r2::after {
+  content: "";
+  position: absolute;
+  width: .28rem;
+  aspect-ratio: 1;
+  bottom: 8%;
+  right: 12%;
+  border-radius: 50%;
+  background: rgba(166, 160, 255, .85);
+  box-shadow: 0 0 10px rgba(166, 160, 255, .6);
+}
+
+/* ── bento 03: ghosted code keyword cloud ────────────────────────────────── */
+.bento-code-art {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.bento-code-art span {
+  position: absolute;
+  font-family: 'Courier New', monospace;
+  font-weight: 700;
+  user-select: none;
+  line-height: 1;
+}
+
+.bento-code-art span:nth-child(1) {
+  font-size: 4.8rem;
+  color: rgba(var(--accent-rgb), .09);
+  right: -.5rem;
+  top: .8rem;
+  transform: rotate(-10deg);
+}
+
+.bento-code-art span:nth-child(2) {
+  font-size: 1.9rem;
+  color: rgba(166, 160, 255, .1);
+  right: 1.8rem;
+  top: 52%;
+  transform: rotate(5deg);
+}
+
+.bento-code-art span:nth-child(3) {
+  font-size: 2.8rem;
+  color: rgba(var(--accent-rgb), .08);
+  right: -.2rem;
+  bottom: 1.2rem;
+  transform: rotate(-5deg);
+}
+
+.bento-code-art span:nth-child(4) {
+  font-size: 2.2rem;
+  color: rgba(var(--accent-rgb), .055);
+  right: 3.8rem;
+  top: 2rem;
+  transform: rotate(4deg);
+}
+
+/* ── bento 04: FSM state nodes ───────────────────────────────────────────── */
+.bento-fsm-art {
+  position: absolute;
+  right: 1.2rem;
+  top: 50%;
+  width: 7.5rem;
+  height: 7rem;
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
+.bento-fsm-art i {
+  position: absolute;
+  width: 2.5rem;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  border: 1px solid rgba(var(--accent-rgb), .26);
+  background: rgba(var(--accent-rgb), .04);
+}
+
+.bento-fsm-art i::after {
+  content: "";
+  position: absolute;
+  inset: 22%;
+  border-radius: 50%;
+  background: rgba(var(--accent-rgb), .1);
+}
+
+.bento-fsm-art .sn1 {
+  left: 0;
+  top: 0;
+  animation: fsm-pulse 3.4s ease-in-out infinite;
+}
+
+.bento-fsm-art .sn2 {
+  right: 0;
+  top: 0;
+  animation: fsm-pulse 3.4s ease-in-out .9s infinite;
+}
+
+.bento-fsm-art .sn3 {
+  left: 50%;
+  bottom: 0;
+  transform: translateX(-50%);
+  animation: fsm-pulse 3.4s ease-in-out 1.8s infinite;
+}
+
+@keyframes fsm-pulse {
+  0%, 100% {
+    border-color: rgba(var(--accent-rgb), .26);
+    box-shadow: none;
+  }
+  50% {
+    border-color: rgba(var(--accent-rgb), .6);
+    box-shadow: 0 0 18px rgba(var(--accent-rgb), .2);
+  }
+}
+
 .timeline .section-label {
   margin-bottom: 4rem;
 }

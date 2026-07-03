@@ -351,10 +351,10 @@
           <div class="small-copy">
             <span>AI tooling</span>
             <h3>embedded-explainer</h3>
-            <p>CLI tool that explains embedded C at the hardware level — what the silicon does, not just what the code says.</p>
+            <p>Feed it an embedded C file. It reads the clock math, figures out the register context, and explains what the hardware is actually doing rather than what the function names suggest.</p>
             <ul class="mini-details">
-              <li>Detects STM32 HAL, ISRs, DMA, volatile vars, and RTOS patterns before prompting</li>
-              <li>Three depths: quick summary, section-by-section analysis, junior dev walkthrough</li>
+              <li>Scans for STM32 HAL, ISRs, DMA, volatile vars, and RTOS patterns before generating the explanation</li>
+              <li>Depth modes: quick one-liner, line-by-line section walkthrough, or junior-friendly register explanations</li>
             </ul>
             <div class="tag-row"><span>Python</span><span>Claude API</span><span>STM32</span><span>CLI</span></div>
             <div class="case-actions" style="margin-top:1.4rem">
@@ -396,6 +396,10 @@
             <h3>Embedded hardware</h3>
             <p>STM32F4xx, RP2040, ESP32, sensors, motor drivers, and test equipment.</p>
           </div>
+          <div class="bento-hw-art" aria-hidden="true">
+            <i class="hw-ring r1"></i>
+            <i class="hw-ring r2"></i>
+          </div>
         </article>
 
         <article class="bento-card glass reveal">
@@ -404,6 +408,9 @@
             <h3>Programming</h3>
             <p>Python, C/C++, MicroPython, JavaScript, and register-level firmware.</p>
           </div>
+          <div class="bento-code-art" aria-hidden="true">
+            <span>def</span><span>int</span><span>fn()</span><span>0x</span>
+          </div>
         </article>
 
         <article class="bento-card glass reveal">
@@ -411,6 +418,9 @@
           <div>
             <h3>Digital logic</h3>
             <p>Finite-state machines, PWM, Quartus Prime, and DE10 FPGA development.</p>
+          </div>
+          <div class="bento-fsm-art" aria-hidden="true">
+            <i class="sn1"></i><i class="sn2"></i><i class="sn3"></i>
           </div>
         </article>
 
