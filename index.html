@@ -1,4 +1,4 @@
-<!doctype html>
+﻿<!doctype html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -38,7 +38,7 @@
       </nav>
 
       <a class="nav-cta" href="#contact">
-        Let's talk <span aria-hidden="true">↗</span>
+        Let's talk <span aria-hidden="true">â†—</span>
       </a>
 
       <button class="menu-toggle" type="button" aria-label="Open menu" aria-expanded="false">
@@ -71,7 +71,6 @@
         </h1>
 
         <div class="hero-lower reveal">
-          <p>
             I build embedded systems that sense, decide, and move, combining
             closed-loop control, firmware, and developing edge AI workflows.
           </p>
@@ -79,7 +78,7 @@
           <div class="hero-actions">
             <a class="button button-primary" href="#work">
               Explore selected work
-              <span aria-hidden="true">↓</span>
+              <span aria-hidden="true">â†“</span>
             </a>
             <a class="button button-secondary glass" href="assets/Collins_Culbert_Resume.pdf" download>
               Download resume
@@ -222,7 +221,7 @@
             <a class="case-link" href="assets/stm32-vibration-ml.zip" download>
               Download source package
             </a>
-            <span class="validation-note">Synthetic data prototype · hardware validation next</span>
+            <span class="validation-note">Synthetic data prototype Â· hardware validation next</span>
           </div>
         </div>
       </article>
@@ -260,7 +259,7 @@
           </p>
           <ul class="case-points">
             <li>AS5600 magnetic position sensing</li>
-            <li>PCA9548A I²C sensor multiplexing</li>
+            <li>PCA9548A IÂ²C sensor multiplexing</li>
             <li>Live pose calibration in MicroPython</li>
           </ul>
           <dl class="project-details">
@@ -277,7 +276,7 @@
             <span>RP2040</span><span>ESP32</span><span>MicroPython</span><span>PID</span>
           </div>
           <div class="award-note">
-            <i>✦</i>
+            <i>âœ¦</i>
             <span>1st Place, Best Presentation<br>Overall finalist</span>
           </div>
         </div>
@@ -338,14 +337,14 @@
             </div>
             <div class="cli-detect-row">
               <span>STM32 HAL</span>
-              <span>ISR ×1</span>
+              <span>ISR Ã—1</span>
               <span>Timer</span>
-              <span>volatile ×1</span>
+              <span>volatile Ã—1</span>
             </div>
             <div class="cli-output-lines">
-              <span>84 MHz ÷ (83+1) = 1 MHz tick</span>
+              <span>84 MHz Ã· (83+1) = 1 MHz tick</span>
               <span>UIF clears before callback</span>
-              <span>tick_count++ not atomic — read into local</span>
+              <span>tick_count++ not atomic â€” read into local</span>
             </div>
           </div>
           <div class="small-copy">
@@ -359,7 +358,7 @@
             <div class="tag-row"><span>Python</span><span>Claude API</span><span>STM32</span><span>CLI</span></div>
             <div class="case-actions" style="margin-top:1.4rem">
               <a class="case-link" href="https://github.com/aulsz/embedded-explainer" target="_blank" rel="noreferrer">
-                View on GitHub ↗
+                View on GitHub â†—
               </a>
             </div>
           </div>
@@ -379,7 +378,6 @@
       <div class="bento">
         <article class="bento-card bento-wide glass reveal">
           <span class="bento-index">01</span>
-          <div>
             <h3>Control systems</h3>
             <p>Feedback architecture, PID tuning, encoder integration, and calibration workflows.</p>
           </div>
@@ -406,7 +404,7 @@
           <span class="bento-index">03</span>
           <div>
             <h3>Programming</h3>
-            <p>Python, C/C++, MicroPython, JavaScript, and register-level firmware.</p>
+            <p>Python, SQL, Pandas, C/C++, MicroPython, JavaScript, and register-level firmware.</p>
           </div>
           <div class="bento-code-art" aria-hidden="true">
             <span>def</span><span>int</span><span>fn()</span><span>0x</span>
@@ -428,7 +426,7 @@
           <span class="bento-index">05</span>
           <div>
             <h3>Embedded AI foundations</h3>
-            <p>Sensor-data pipelines, interpretable feature extraction, generated C inference, cross-language verification, and model deployment planning.</p>
+            <p>Pandas-backed sensor analysis, interpretable feature extraction, generated C inference, cross-language verification, and model deployment planning.</p>
           </div>
           <div class="orb" aria-hidden="true"></div>
         </article>
@@ -438,21 +436,33 @@
     <section class="timeline section">
       <div class="section-label reveal">
         <span>04</span>
-        <p>Experience + education</p>
+        <p>Resume highlights</p>
       </div>
 
       <div class="timeline-list">
         <article class="timeline-row reveal">
-          <time>2025 – 2026</time>
+          <time>2026</time>
           <div>
-            <small>Open Source</small>
-            <h3>Contributor — Zephyr RTOS &amp; TFLite Micro</h3>
+            <small>TF Lite Micro</small>
+            <h3>Open-source contributor</h3>
           </div>
           <p>
-            Merged PRs into tensorflow/tflite-micro (typo and variable-naming
-            fixes in core inference headers) and submitted a driver improvement
-            to the Zephyr RTOS kernel. Changes reviewed and accepted by project
-            maintainers.
+            Submitted a focused documentation cleanup for embedded ML headers,
+            improving readability around micro interpreter and mutable op resolver APIs.
+            <a href="https://github.com/tensorflow/tflite-micro/pull/3621" target="_blank" rel="noreferrer">View PR</a>
+          </p>
+        </article>
+
+        <article class="timeline-row reveal">
+          <time>2026</time>
+          <div>
+            <small>ZephyRTOS</small>
+            <h3>Open-source contributor</h3>
+          </div>
+          <p>
+            Added Kconfig help text for the STM32 SPI busy-flag timeout setting,
+            documenting driver behavior for real-time embedded systems work.
+            <a href="https://github.com/zephyrproject-rtos/zephyr/pull/112671" target="_blank" rel="noreferrer">View PR</a>
           </p>
         </article>
 
@@ -494,14 +504,14 @@
     <section class="contact section" id="contact">
       <div class="contact-card glass reveal">
         <span class="contact-label">Open to engineering opportunities</span>
-        <h2>Let’s build something<br>that responds.</h2>
+        <h2>Letâ€™s build something<br>that responds.</h2>
         <p>
           Interested in embedded systems, intelligent devices, robotics, or hardware-software integration?
-          I’d like to hear about it.
+          Iâ€™d like to hear about it.
         </p>
         <div class="contact-actions">
           <a class="button button-primary" href="mailto:coculbert@icloud.com">
-            Start a conversation <span>↗</span>
+            Start a conversation <span>â†—</span>
           </a>
           <a class="button button-secondary glass" href="https://linkedin.com/in/collinsculbert" target="_blank" rel="noreferrer">
             LinkedIn
@@ -512,9 +522,9 @@
   </main>
 
   <footer class="footer">
-    <span>© 2026 Collins Culbert</span>
+    <span>Â© 2026 Collins Culbert</span>
     <span>Dallas / College Station</span>
-    <a href="#top">Back to top ↑</a>
+    <a href="#top">Back to top â†‘</a>
   </footer>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>

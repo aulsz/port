@@ -1646,6 +1646,18 @@ main,
   line-height: 1.7;
 }
 
+.timeline-row > p a {
+  color: var(--text);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(177, 255, 243, .42);
+  transition: color .2s ease, border-color .2s ease;
+}
+
+.timeline-row > p a:hover {
+  color: var(--accent);
+  border-color: rgba(177, 255, 243, .8);
+}
+
 .contact {
   min-height: 92vh;
   padding: 8rem 0 2rem;
