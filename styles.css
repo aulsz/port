@@ -91,6 +91,18 @@ button {
   transform: translateZ(0);
 }
 
+#heart-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  opacity: .72;
+  mix-blend-mode: screen;
+  z-index: 1;
+  transform: translateZ(0);
+}
+
 .ambient-wash {
   position: absolute;
   inset: 0;

@@ -301,3 +301,145 @@ document.querySelectorAll(".case-study, .bento-card").forEach((card) => {
     card.style.setProperty("--glass-shift-y", "0px");
   });
 });
+
+// ── particle heart ───────────────────────────────────────────────────────────
+(function initHeartParticles() {
+  if (reducedMotion) return;
+  if (typeof THREE === "undefined" || typeof gsap === "undefined") return;
+
+  const heartCanvas = document.getElementById("heart-canvas");
+  const svgPath = document.getElementById("heart-svg-path");
+  if (!heartCanvas || !svgPath) return;
+
+  // ── renderer ───────────────────────────────────────────────────────────────
+  const renderer = new THREE.WebGLRenderer({
+    canvas: heartCanvas,
+    alpha: true,
+    antialias: false,
+    premultipliedAlpha: false
+  });
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+  renderer.setClearColor(0x000000, 0);
+
+  const scene  = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 0.1, 2000);
+  camera.position.z = 380;
+
+  // ── sample heart SVG path ──────────────────────────────────────────────────
+  // Heart path: x 45→555 (cx ≈ 300), y 72→470 (cy ≈ 271)
+  const HEART_CX = 300;
+  const HEART_CY = 271;
+  const HEART_SCALE = 0.30;   // maps SVG units → Three.js world units
+  const PARTICLE_COUNT = 620;
+
+  const totalLen = svgPath.getTotalLength();
+  const step = totalLen / PARTICLE_COUNT;
+
+  const targets = [];
+  for (let k = 0; k < PARTICLE_COUNT; k++) {
+    const pt = svgPath.getPointAtLength(k * step);
+    targets.push({
+      x: (pt.x - HEART_CX) * HEART_SCALE,
+      y: -(pt.y - HEART_CY) * HEART_SCALE,  // flip Y: SVG ↓ → Three.js ↑
+      z: (Math.random() - 0.5) * 8
+    });
+  }
+
+  // ── geometry ───────────────────────────────────────────────────────────────
+  const posArray = new Float32Array(PARTICLE_COUNT * 3);
+  for (let k = 0; k < PARTICLE_COUNT; k++) {
+    posArray[k * 3]     = (Math.random() - 0.5) * 280;
+    posArray[k * 3 + 1] = (Math.random() - 0.5) * 180;
+    posArray[k * 3 + 2] = (Math.random() - 0.5) * 140;
+  }
+
+  const geometry = new THREE.BufferGeometry();
+  const posAttr  = new THREE.BufferAttribute(posArray, 3);
+  geometry.setAttribute("position", posAttr);
+
+  // Proxy objects: GSAP tweens these plain objects; the render loop writes
+  // their values back to the typed array each frame.
+  const proxies = Array.from({ length: PARTICLE_COUNT }, (_, k) => ({
+    x: posArray[k * 3],
+    y: posArray[k * 3 + 1],
+    z: posArray[k * 3 + 2]
+  }));
+
+  // ── material ───────────────────────────────────────────────────────────────
+  const material = new THREE.PointsMaterial({
+    color: 0xff5fa0,
+    size: 2.0,
+    transparent: true,
+    opacity: 0.90,
+    sizeAttenuation: true,
+    depthWrite: false
+  });
+
+  scene.add(new THREE.Points(geometry, material));
+
+  // ── render loop ────────────────────────────────────────────────────────────
+  let heartFrame = 0;
+
+  function renderHeart() {
+    heartFrame = requestAnimationFrame(renderHeart);
+    for (let k = 0; k < PARTICLE_COUNT; k++) {
+      posArray[k * 3]     = proxies[k].x;
+      posArray[k * 3 + 1] = proxies[k].y;
+      posArray[k * 3 + 2] = proxies[k].z;
+    }
+    posAttr.needsUpdate = true;
+    renderer.render(scene, camera);
+  }
+
+  // ── resize ─────────────────────────────────────────────────────────────────
+  function resizeHeart() {
+    const w = window.innerWidth;
+    const h = window.innerHeight;
+    renderer.setSize(w, h);
+    camera.aspect = w / h;
+    camera.updateProjectionMatrix();
+  }
+  resizeHeart();
+  renderHeart();
+
+  // ── GSAP: scatter ↔ converge loop ─────────────────────────────────────────
+  function converge() {
+    const tl = gsap.timeline({ onComplete: () => gsap.delayedCall(3.2, scatter) });
+    proxies.forEach(function(proxy, i) {
+      tl.to(proxy, {
+        x:        targets[i].x,
+        y:        targets[i].y,
+        z:        targets[i].z,
+        duration: gsap.utils.random(1.6, 3.8),
+        ease:     "power2.inOut"
+      }, gsap.utils.random(0, 1.4));
+    });
+  }
+
+  function scatter() {
+    const tl = gsap.timeline({ onComplete: converge });
+    proxies.forEach(function(proxy) {
+      tl.to(proxy, {
+        x:        (Math.random() - 0.5) * 320,
+        y:        (Math.random() - 0.5) * 220,
+        z:        (Math.random() - 0.5) * 160,
+        duration: gsap.utils.random(0.9, 2.2),
+        ease:     "power2.in"
+      }, gsap.utils.random(0, 0.8));
+    });
+  }
+
+  gsap.delayedCall(0.8, converge);
+
+  // ── visibility + resize ────────────────────────────────────────────────────
+  document.addEventListener("visibilitychange", function() {
+    if (document.hidden) {
+      cancelAnimationFrame(heartFrame);
+      heartFrame = 0;
+    } else if (!heartFrame) {
+      renderHeart();
+    }
+  });
+
+  window.addEventListener("resize", resizeHeart, { passive: true });
+}());

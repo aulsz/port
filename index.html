@@ -11,10 +11,16 @@
 <body>
   <div class="ambient" aria-hidden="true">
     <canvas id="fluid-canvas"></canvas>
+    <canvas id="heart-canvas" aria-hidden="true"></canvas>
     <div class="ambient-wash"></div>
     <div class="cursor-glow"></div>
     <div class="noise"></div>
   </div>
+
+  <!-- Hidden SVG used to sample heart outline points for particle animation -->
+  <svg id="heart-svg" style="position:absolute;width:0;height:0;overflow:hidden;pointer-events:none" aria-hidden="true" focusable="false">
+    <path id="heart-svg-path" d="M300,470 C270,450 45,335 45,188 C45,95 128,45 200,72 C242,88 272,118 300,158 C328,118 358,88 400,72 C472,45 555,95 555,188 C555,335 330,450 300,470Z"/>
+  </svg>
 
   <div class="page-progress" aria-hidden="true"><i></i></div>
 
@@ -487,6 +493,8 @@
     <a href="#top">Back to top ↑</a>
   </footer>
 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
   <script src="script.js"></script>
 </body>
 </html>
