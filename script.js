@@ -62,6 +62,44 @@ mobileNav.querySelectorAll("a").forEach((link) => {
   });
 });
 
+const contactModal = document.querySelector("#contact-modal");
+const contactOpen = document.querySelector(".contact-open");
+const contactCloseControls = document.querySelectorAll("[data-contact-close]");
+let contactReturnFocus = null;
+
+function openContactModal() {
+  if (!contactModal) return;
+  contactReturnFocus = document.activeElement;
+  contactModal.removeAttribute("inert");
+  contactModal.setAttribute("aria-hidden", "false");
+  body.classList.add("modal-open");
+
+  const firstField = contactModal.querySelector("input[name='name']");
+  window.setTimeout(() => firstField?.focus(), 60);
+}
+
+function closeContactModal() {
+  if (!contactModal) return;
+  contactModal.setAttribute("aria-hidden", "true");
+  contactModal.setAttribute("inert", "");
+  body.classList.remove("modal-open");
+
+  if (contactReturnFocus && typeof contactReturnFocus.focus === "function") {
+    contactReturnFocus.focus();
+  }
+}
+
+contactOpen?.addEventListener("click", openContactModal);
+contactCloseControls.forEach((control) => {
+  control.addEventListener("click", closeContactModal);
+});
+
+document.addEventListener("keydown", (event) => {
+  if (event.key === "Escape" && contactModal?.getAttribute("aria-hidden") === "false") {
+    closeContactModal();
+  }
+});
+
 const sections = [...document.querySelectorAll("main section[id]")];
 const navLinks = [...document.querySelectorAll(".desktop-nav a")];
 

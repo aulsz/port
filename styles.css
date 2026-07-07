@@ -360,13 +360,17 @@ main,
 .button {
   min-height: 3.15rem;
   padding: 0 1.15rem;
+  border: 0;
   border-radius: 2rem;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: .8rem;
+  font-family: inherit;
   font-size: .72rem;
   font-weight: 650;
+  text-decoration: none;
+  cursor: pointer;
   transition: transform .25s ease, background .25s ease, border-color .25s ease;
 }
 
@@ -1708,6 +1712,141 @@ main,
 .contact-actions {
   position: relative;
   margin-top: 2.5rem;
+}
+
+.contact-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 80;
+  display: grid;
+  place-items: center;
+  padding: 1.25rem;
+  opacity: 1;
+  pointer-events: auto;
+  transition: opacity .22s ease;
+}
+
+.contact-modal[aria-hidden="true"] {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.contact-modal__backdrop {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(var(--accent-rgb), .12), transparent 22rem),
+    rgba(2, 5, 6, .76);
+  backdrop-filter: blur(18px);
+}
+
+.contact-modal__panel {
+  position: relative;
+  width: min(100%, 36rem);
+  max-height: min(44rem, calc(100vh - 2.5rem));
+  overflow: auto;
+  padding: clamp(1.35rem, 4vw, 2rem);
+  border-radius: var(--radius-md);
+  transform: translateY(0) scale(1);
+  transition: transform .22s ease;
+}
+
+.contact-modal[aria-hidden="true"] .contact-modal__panel {
+  transform: translateY(14px) scale(.98);
+}
+
+.contact-modal__close {
+  position: absolute;
+  top: .9rem;
+  right: .9rem;
+  width: 2.25rem;
+  aspect-ratio: 1;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  color: var(--soft-white);
+  background: rgba(255, 255, 255, .045);
+  font: inherit;
+  cursor: pointer;
+}
+
+.contact-modal__label {
+  color: var(--accent);
+  font-size: .62rem;
+  font-weight: 550;
+}
+
+.contact-modal h2 {
+  margin: 1.2rem 2.5rem .8rem 0;
+  font-size: clamp(2.4rem, 7vw, 4.6rem);
+  line-height: .9;
+  letter-spacing: -.07em;
+  font-weight: 520;
+}
+
+.contact-modal p {
+  max-width: 28rem;
+  margin: 0 0 1.5rem;
+  color: #aab3b3;
+  font-size: .78rem;
+  line-height: 1.7;
+}
+
+.contact-form {
+  display: grid;
+  gap: .85rem;
+}
+
+.contact-form label {
+  display: grid;
+  gap: .38rem;
+}
+
+.contact-form label span {
+  color: #c4cccc;
+  font-size: .62rem;
+  font-weight: 560;
+}
+
+.contact-form input,
+.contact-form textarea {
+  width: 100%;
+  border: 1px solid rgba(255, 255, 255, .13);
+  border-radius: .85rem;
+  padding: .9rem .95rem;
+  color: var(--soft-white);
+  background: rgba(0, 0, 0, .24);
+  font: inherit;
+  font-size: .8rem;
+  outline: none;
+  transition: border-color .2s ease, background .2s ease;
+}
+
+.contact-form textarea {
+  resize: vertical;
+  min-height: 8rem;
+}
+
+.contact-form input:focus,
+.contact-form textarea:focus {
+  border-color: rgba(var(--accent-rgb), .72);
+  background: rgba(0, 0, 0, .34);
+}
+
+.contact-form input[name="_honey"] {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.contact-form .button {
+  margin-top: .35rem;
+  justify-self: start;
+}
+
+body.modal-open {
+  overflow: hidden;
 }
 
 .footer {

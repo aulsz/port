@@ -500,9 +500,9 @@
           I’d like to hear about it.
         </p>
         <div class="contact-actions">
-          <a class="button button-primary" href="mailto:coculbert@icloud.com">
+          <button class="button button-primary contact-open" type="button" aria-haspopup="dialog" aria-controls="contact-modal">
             Start a conversation <span>↗</span>
-          </a>
+          </button>
           <a class="button button-secondary glass" href="https://linkedin.com/in/collinsculbert" target="_blank" rel="noreferrer">
             LinkedIn
           </a>
@@ -510,6 +510,43 @@
       </div>
     </section>
   </main>
+
+  <div class="contact-modal" id="contact-modal" aria-hidden="true" inert>
+    <div class="contact-modal__backdrop" data-contact-close></div>
+    <section class="contact-modal__panel glass" role="dialog" aria-modal="true" aria-labelledby="contact-modal-title">
+      <button class="contact-modal__close" type="button" aria-label="Close contact form" data-contact-close>×</button>
+      <span class="contact-modal__label">Direct message</span>
+      <h2 id="contact-modal-title">Send a note.</h2>
+      <p>
+        This goes straight to my inbox through a free static-form backend. The first live submission may ask me to confirm the email route.
+      </p>
+      <form class="contact-form" action="https://formsubmit.co/coculbert@icloud.com" method="POST">
+        <input type="hidden" name="_subject" value="New portfolio conversation">
+        <input type="hidden" name="_template" value="table">
+        <input type="hidden" name="_next" value="https://aulsz-port.vercel.app/#contact">
+        <input type="text" name="_honey" tabindex="-1" autocomplete="off" aria-hidden="true">
+
+        <label>
+          <span>Name</span>
+          <input type="text" name="name" autocomplete="name" required>
+        </label>
+
+        <label>
+          <span>Email</span>
+          <input type="email" name="email" autocomplete="email" required>
+        </label>
+
+        <label>
+          <span>Message</span>
+          <textarea name="message" rows="5" required></textarea>
+        </label>
+
+        <button class="button button-primary" type="submit">
+          Send message <span>↗</span>
+        </button>
+      </form>
+    </section>
+  </div>
 
   <footer class="footer">
     <span>© 2026 Collins Culbert</span>
