@@ -1,66 +1,35 @@
-# Collins Culbert | Engineering Portfolio
+# Collins Culbert — Portfolio
 
-Personal portfolio for Collins Culbert, an Electrical Systems Engineering Technology student at Texas A&M University. The site presents work in robotics control, embedded firmware, FPGA design, hardware-software integration, and developing embedded AI skills.
+A single-page portfolio for Collins Culbert (Electrical Systems Engineering Technology, Texas A&M), built as a full-page "curtain" scroll-jack experience: a fixed hero slides away to reveal five snapped sections (Hero, Profile, Selected Work, Capabilities, Contact).
 
-## Featured engineering
+## Stack
 
-- **Closed-loop robotic hand:** Ten-servo system using AS5600 magnetic encoders, I²C multiplexing, and per-finger PID control.
-- **FPGA motor controller:** Seven-state Moore state machine for PWM motor-speed control on a DE10 FPGA.
-- **STM32F4xx lab:** Register-level GPIO and SysTick programming in C without HAL abstraction.
-- **STM32 vibration fault classifier:** Streaming vibration features and a
-  readable C decision-tree model, with Python/C parity verification.
-- **Embedded AI foundations:** Sensor-data workflows, lightweight inference,
-  cross-language verification, and deployment planning.
+Plain HTML, CSS, and vanilla JS — no build step, no framework, no dependencies to install.
 
-## Interface
+- `index.html` — markup for all five sections
+- `styles.css` — design tokens, layout, and animation styles
+- `script.js` — scroll-jack engine, letter-reveal animations, orbit/tile animation, nav wiring
 
-The portfolio uses a minimal glass interface inspired by high-end product design:
+Fonts (Geist, Geist Mono, Instrument Serif) load from Google Fonts via CDN `<link>` tags — no local font files.
 
-- Inter variable typography
-- Persistent procedural fluid-node background
-- Responsive glass navigation and card system
-- Character-by-character text entrances on first view
-- Scroll progress and active section navigation
-- Subtle pointer light and card depth
-- Reduced-motion support
+## How the scroll works
 
-## Built with
+- **Desktop (> 900px):** `#fullpage` is pinned with `position: fixed` and translated by `-N * 100vh` per section. Wheel, keyboard (arrows/space/Home/End), and touch-swipe events drive `goTo(idx)`, which snaps to the next/previous section and fires that section's reveal animation the first time it's shown.
+- **Mobile (≤ 900px):** the scroll-jack is disabled entirely (`matchMedia('(max-width: 900px)')`) and the page falls back to natural scrolling, with an `IntersectionObserver`-style scroll check triggering each section's reveal animation as it enters the viewport.
+- Resizing across the 900px breakpoint reloads the page so the correct mode initializes cleanly.
 
-- Semantic HTML
-- Modern CSS and responsive grid layouts
-- Vanilla JavaScript
-- Canvas rendering for the animated fluid field
+## Navigation
 
-No framework or build process is required.
+Nav links, the drawer, the "Let's Talk" button, and the hero CTAs all route through a shared `bindScrollLinks()` helper in `script.js`. On desktop this calls `goTo()`; on mobile it calls `scrollIntoView()`. Buttons without a real `href` carry a `data-scroll-target="#id"` attribute instead.
 
-## Run locally
+## Content
 
-Open `index.html` directly, or serve the folder:
+All copy is pulled from the live portfolio at aulsz-port.vercel.app: profile statement, the STM32 vibration-classifier / robotic-hand / Python-to-C-parity case studies, the capabilities toolkit, and contact details. The résumé links point at the hosted PDF on that same site.
 
-```powershell
-python -m http.server 4173
+## Local preview
+
+No build step — just open `index.html` in a browser, or serve the folder locally:
+
 ```
-
-Then visit [http://127.0.0.1:4173](http://127.0.0.1:4173).
-
-## Structure
-
-```text
-.
-|-- assets/
-|   |-- fonts/
-|   |   |-- InterVariable.woff2
-|   |   |-- InterVariable-Italic.woff2
-|   |   `-- Inter-OFL.txt
-|   `-- Collins_Culbert_Resume.pdf
-|-- index.html
-|-- script.js
-`-- styles.css
+npx serve .
 ```
-
-Inter is distributed under the SIL Open Font License included in `assets/fonts/Inter-OFL.txt`.
-
-## Contact
-
-- [LinkedIn](https://linkedin.com/in/collinsculbert)
-- [coculbert@icloud.com](mailto:coculbert@icloud.com)

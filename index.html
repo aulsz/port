@@ -1,561 +1,654 @@
 <!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#050607">
-  <meta name="description" content="Collins Culbert builds embedded systems, intelligent controls, robotics, and edge AI foundations.">
-  <title>Collins Culbert | Embedded Systems and AI Engineer</title>
-  <link rel="stylesheet" href="styles.css">
-</head>
-<body>
-  <div class="ambient" aria-hidden="true">
-    <canvas id="fluid-canvas"></canvas>
-    <canvas id="heart-canvas" aria-hidden="true"></canvas>
-    <div class="ambient-wash"></div>
-    <div class="cursor-glow"></div>
-    <div class="noise"></div>
-  </div>
-
-  <!-- Hidden SVG used to sample heart outline points for particle animation -->
-  <svg id="heart-svg" style="position:absolute;width:0;height:0;overflow:hidden;pointer-events:none" aria-hidden="true" focusable="false">
-    <path id="heart-svg-path" d="M300,470 C270,450 45,335 45,188 C45,95 128,45 200,72 C242,88 272,118 300,158 C328,118 358,88 400,72 C472,45 555,95 555,188 C555,335 330,450 300,470Z"/>
-  </svg>
-
-  <div class="page-progress" aria-hidden="true"><i></i></div>
-
-  <header class="site-header">
-    <div class="nav-shell glass">
-      <a class="brand" href="#top" aria-label="Collins Culbert, home">
-        <span class="brand-mark">CC</span>
-        <span class="brand-name">Collins Culbert</span>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Collins Culbert — Electrical Systems &amp; Edge AI Engineer</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <nav class="nav glass" id="nav">
+      <div class="bb-wrap" aria-hidden="true">
+        <div class="bb-beam bb-beam-1"></div>
+        <div class="bb-beam bb-beam-2"></div>
+      </div>
+      <a class="brand" href="#">
+        <span style="font-weight:700;letter-spacing:-0.02em">Collins Culbert</span>
       </a>
-
-      <nav class="desktop-nav" aria-label="Primary navigation">
-        <a href="#work">Work</a>
-        <a href="#profile">Profile</a>
-        <a href="#capabilities">Capabilities</a>
-      </nav>
-
-      <a class="nav-cta" href="#contact">
-        Let's talk <span aria-hidden="true">↗</span>
-      </a>
-
-      <button class="menu-toggle" type="button" aria-label="Open menu" aria-expanded="false">
-        <i></i><i></i>
-      </button>
-    </div>
-
-    <nav class="mobile-nav glass" aria-label="Mobile navigation">
+      <div class="links">
+        <a href="#work">Work</a><a href="#profile">Profile</a><a href="#capabilities">Capabilities</a
+        ><a href="#contact">Contact</a>
+      </div>
+      <div class="right">
+        <a class="signin" href="https://aulsz-port.vercel.app/assets/Collins_Culbert_Resume.pdf" download>Resume</a>
+        <button class="cta" data-scroll-target="#contact">
+          <div class="bb-wrap" aria-hidden="true">
+            <div class="bb-beam bb-beam-1"></div>
+            <div class="bb-beam bb-beam-2"></div>
+          </div>
+          Let's Talk
+        </button>
+        <button class="nav__burger" id="navBurger" aria-label="Menu"><span></span><span></span><span></span></button>
+      </div>
+    </nav>
+    <div class="nav__drawer" id="navDrawer">
+      <button class="drawer-close" id="drawerClose">✕</button>
       <a href="#work">Work</a>
       <a href="#profile">Profile</a>
       <a href="#capabilities">Capabilities</a>
       <a href="#contact">Contact</a>
-    </nav>
-  </header>
-
-  <main id="top">
-    <section class="hero section">
-      <div class="hero-orbit orbit-one" aria-hidden="true"></div>
-      <div class="hero-orbit orbit-two" aria-hidden="true"></div>
-
-      <div class="hero-content">
-        <div class="status-pill glass reveal">
-          <i></i>
-          <span>Electrical Systems Engineering Student | Edge AI Focus</span>
+      <a href="https://aulsz-port.vercel.app/assets/Collins_Culbert_Resume.pdf" download style="opacity:.7;font-size:20px">Resume</a>
+    </div>
+    <div class="curtain-spacer" aria-hidden="true"></div>
+    <div class="curtain" id="curtain" data-screen-label="01 Hero">
+      <div class="curtain__bg" aria-hidden="true"></div>
+      <div class="curtain__hero-logo" id="introCenterLogo" aria-hidden="true">
+        <span style="font-family:var(--font-serif);font-style:italic;font-size:40px">CC</span>
+      </div>
+      <video class="curtain__video" autoplay muted loop playsinline preload="auto">
+        <source src="https://qclay.design/lovable/lumio/screen1-glass.mp4" type="video/mp4" />
+      </video>
+      <div class="curtain__overlay"></div>
+      <div class="curtain__tint" aria-hidden="true"></div>
+      <section class="hero">
+        <div class="pill">
+          <div class="bb-wrap" aria-hidden="true">
+            <div class="bb-beam bb-beam-1"></div>
+            <div class="bb-beam bb-beam-2"></div>
+          </div>
+          <span class="label">Edge AI focus</span>
         </div>
-
-        <h1 class="hero-title reveal">
-          Engineering systems<br>
-          <span>with intention.</span>
+        <h1 style="line-height: 1.06; padding: 0px; font-size: 48px; text-align: center">
+          <span class="line line1" style="margin: 0px">Electrical</span
+          ><span
+            class="line line2"
+            style="font-weight: 400; line-height: 1; letter-spacing: -1.2px; margin: 0px; width: 700px"
+            ><span class="it">Engineer.</span></span
+          >
         </h1>
-
-        <div class="hero-lower reveal">
-          <p>
-            I build embedded systems that sense, decide, and move, combining
-            closed-loop control, firmware, and developing edge AI workflows.
-          </p>
-
-          <div class="hero-actions">
-            <a class="button button-primary" href="#work">
-              Explore selected work
-              <span aria-hidden="true">↓</span>
-            </a>
-            <a class="button button-secondary glass" href="assets/Collins_Culbert_Resume.pdf" download>
-              Download resume
-            </a>
-          </div>
-        </div>
-      </div>
-
-      <div class="hero-proof glass reveal">
-        <div>
-          <strong>10</strong>
-          <span>servo robotic<br>hand system</span>
-        </div>
-        <div>
-          <strong>1st</strong>
-          <span>best presentation<br>award</span>
-        </div>
-        <div>
-          <strong>2028</strong>
-          <span>expected B.S.<br>completion</span>
-        </div>
-        <div class="live-readout">
-          <small>Dallas, Texas</small>
-          <b id="local-time">--:-- CT</b>
-          <i><em></em><em></em><em></em><em></em></i>
-        </div>
-      </div>
-    </section>
-
-    <section class="statement section" id="profile">
-      <div class="section-label reveal">
-        <span>01</span>
-        <p>Profile</p>
-      </div>
-
-      <div class="statement-copy reveal">
-        <p>
-          From sensor data to control logic to live demo, I build systems
-          that can perceive, decide, and act.
+        <p class="sub">
+          <span class="sub-line">I build embedded systems that sense, decide, and move,</span
+          ><span class="sub-line">combining closed-loop control, firmware, sensor data,</span
+          ><span class="sub-line">and practical edge AI workflows.</span>
         </p>
-      </div>
-
-      <div class="statement-aside reveal">
-        <p>
-          Junior Electrical Systems Engineering Technology student at Texas A&M,
-          building toward embedded AI through controls, sensor integration,
-          firmware, and practical generative AI workflows.
-        </p>
-        <div class="focus-list">
-          <span>Closed-loop control</span>
-          <span>Embedded firmware</span>
-          <span>Edge AI foundations</span>
-        </div>
-      </div>
-    </section>
-
-    <section class="work section" id="work">
-      <div class="section-heading reveal">
-        <div class="section-label">
-          <span>02</span>
-          <p>Selected work</p>
-        </div>
-        <h2>Physical systems.<br><span>Measured results.</span></h2>
-        <p>Projects that connect software decisions to real hardware behavior.</p>
-      </div>
-
-      <article class="case-study case-feature ml-feature glass reveal">
-        <div class="case-visual vibration-system" aria-hidden="true">
-          <div class="visual-grid"></div>
-          <div class="signal-axis"></div>
-          <div class="vibration-wave wave-raw"></div>
-          <div class="vibration-wave wave-filtered"></div>
-          <div class="frequency-marker frequency-50">
-            <i></i><span>50 Hz</span>
-          </div>
-          <div class="frequency-marker frequency-100">
-            <i></i><span>100 Hz</span>
-          </div>
-          <div class="frequency-marker frequency-200">
-            <i></i><span>200 Hz</span>
-          </div>
-          <div class="model-path">
-            <span>256 samples</span>
-            <i></i>
-            <span>10 features</span>
-            <i></i>
-            <span>C inference</span>
-          </div>
-          <div class="classification-readout">
-            <small>Latest classification</small>
-            <strong>Bearing fault</strong>
-            <span>crest factor &gt; 2.53</span>
-          </div>
-          <div class="visual-meta">
-            <span>EDGE AI / 01</span>
-            <span>1 kHz SENSOR PIPELINE</span>
-          </div>
-        </div>
-
-        <div class="case-copy">
-          <div class="case-kicker">
-            <span>Embedded machine learning</span>
-            <span>2026</span>
-          </div>
-          <h3>STM32 vibration<br>fault classifier</h3>
-          <p>
-            A reproducible motor-condition prototype that turns streaming
-            vibration samples into DSP features and readable C inference for
-            resource-constrained microcontrollers.
-          </p>
-          <ul class="case-points">
-            <li>1 kHz sampling with deterministic 256-sample windows</li>
-            <li>RMS, kurtosis, crest factor, and Goertzel frequency features</li>
-            <li>Python-trained decision tree exported directly to embedded C</li>
-          </ul>
-          <dl class="project-details">
-            <div>
-              <dt>Problem</dt>
-              <dd>Detect motor health changes from noisy vibration signals before they become visible failures.</dd>
+        <div class="ctas">
+          <button class="btn primary" style="padding: 0px 16px; letter-spacing: -0.9px" data-scroll-target="#work">
+            <div class="bb-wrap" aria-hidden="true">
+              <div class="bb-beam bb-beam-1"></div>
+              <div class="bb-beam bb-beam-2"></div>
             </div>
-            <div>
-              <dt>Build</dt>
-              <dd>Generated synthetic regimes, trained an interpretable model, then verified the same logic in C.</dd>
-            </div>
-          </dl>
-          <div class="verification-strip">
-            <div>
-              <strong>320/320</strong>
-              <span>synthetic holdout predictions</span>
-            </div>
-            <div>
-              <strong>80/80</strong>
-              <span>Python-to-C parity vectors</span>
-            </div>
-          </div>
-          <div class="tag-row">
-            <span>STM32</span><span>C</span><span>Python</span><span>DSP</span><span>Edge ML</span>
-          </div>
-          <div class="case-actions">
-            <a class="case-link" href="assets/stm32-vibration-ml.zip" download>
-              Download source package
-            </a>
-            <span class="validation-note">Synthetic data prototype · hardware validation next</span>
-          </div>
-        </div>
-      </article>
-
-      <article class="case-study case-feature glass reveal">
-        <div class="case-visual hand-system" aria-hidden="true">
-          <div class="visual-grid"></div>
-          <div class="system-ring ring-a"></div>
-          <div class="system-ring ring-b"></div>
-          <div class="system-hand">
-            <div class="finger f1"></div>
-            <div class="finger f2"></div>
-            <div class="finger f3"></div>
-            <div class="finger f4"></div>
-            <div class="finger f5"></div>
-            <div class="palm"></div>
-          </div>
-          <div class="sensor-path path-one"><i></i></div>
-          <div class="sensor-path path-two"><i></i></div>
-          <div class="visual-meta">
-            <span>CONTROL SYSTEM / 01</span>
-            <span>PID LOOP ACTIVE</span>
-          </div>
-        </div>
-
-        <div class="case-copy">
-          <div class="case-kicker">
-            <span>Robotics</span>
-            <span>2025</span>
-          </div>
-          <h3>Closed-loop<br>robotic hand</h3>
-          <p>
-            A ten-servo hand with magnetic encoder feedback and per-finger PID
-            control, built for the Texas A&M Robotic Hand Challenge.
-          </p>
-          <ul class="case-points">
-            <li>AS5600 magnetic position sensing</li>
-            <li>PCA9548A I²C sensor multiplexing</li>
-            <li>Live pose calibration in MicroPython</li>
-          </ul>
-          <dl class="project-details">
-            <div>
-              <dt>Control loop</dt>
-              <dd>Mapped each finger to encoder feedback, servo command limits, and repeatable target positions.</dd>
-            </div>
-            <div>
-              <dt>Integration</dt>
-              <dd>Coordinated multiplexed I2C sensing, servo timing, and demo calibration under competition constraints.</dd>
-            </div>
-          </dl>
-          <div class="tag-row">
-            <span>RP2040</span><span>ESP32</span><span>MicroPython</span><span>PID</span>
-          </div>
-          <div class="award-note">
-            <i>✦</i>
-            <span>1st Place, Best Presentation<br>Overall finalist</span>
-          </div>
-        </div>
-      </article>
-
-      <div class="case-grid">
-        <article class="case-study case-small glass reveal">
-          <div class="small-visual fpga-system" aria-hidden="true">
-            <div class="fpga-chip">DE10</div>
-            <div class="fpga-state s0">S0</div>
-            <div class="fpga-state s1">S1</div>
-            <div class="fpga-state s2">S2</div>
-            <div class="fpga-state s3">S3</div>
-            <div class="pwm-wave"><i></i><i></i><i></i><i></i><i></i></div>
-          </div>
-          <div class="small-copy">
-            <span>Digital logic</span>
-            <h3>FPGA motor speed controller</h3>
-            <p>Seven-state Moore machine controlling PWM motor speed and a BCD display.</p>
-            <ul class="mini-details">
-              <li>Debounced push-button speed states</li>
-              <li>PWM duty-cycle output and display feedback</li>
-            </ul>
-            <div class="tag-row"><span>Quartus</span><span>DE10</span><span>Verilog/VHDL</span></div>
-          </div>
-        </article>
-
-        <article class="case-study case-small glass reveal">
-          <div class="small-visual embedded-system" aria-hidden="true">
-            <div class="register-code">
-              <span>RCC_AHB1ENR</span>
-              <span>GPIO_MODER</span>
-              <span>SYST_CSR</span>
-            </div>
-            <div class="mcu">STM32<br>F4XX</div>
-            <div class="board-trace t1"></div>
-            <div class="board-trace t2"></div>
-            <div class="board-trace t3"></div>
-          </div>
-          <div class="small-copy">
-            <span>Embedded firmware</span>
-            <h3>STM32F4xx bare-metal lab</h3>
-            <p>Register-level GPIO and SysTick programming in C, without HAL abstraction.</p>
-            <ul class="mini-details">
-              <li>Direct RCC, GPIO, and SysTick configuration</li>
-              <li>Timing-focused firmware without HAL dependency</li>
-            </ul>
-            <div class="tag-row"><span>C</span><span>Keil</span><span>GPIO</span><span>SysTick</span></div>
-          </div>
-        </article>
-
-        <article class="case-study case-small glass reveal">
-          <div class="small-visual cli-explainer" aria-hidden="true">
-            <div class="cli-bar"><i></i><i></i><i></i></div>
-            <div class="cli-cmd-line">
-              <span class="cli-dollar">$</span>
-              <span> embedded-explainer timer_config.c</span>
-            </div>
-            <div class="cli-detect-row">
-              <span>STM32 HAL</span>
-              <span>ISR ×1</span>
-              <span>Timer</span>
-              <span>volatile ×1</span>
-            </div>
-            <div class="cli-output-lines">
-              <span>84 MHz ÷ (83+1) = 1 MHz tick</span>
-              <span>UIF clears before callback</span>
-              <span>tick_count++ not atomic — read into local</span>
-            </div>
-          </div>
-          <div class="small-copy">
-            <span>AI tooling</span>
-            <h3>embedded-explainer</h3>
-            <p>Feed it an embedded C file. It reads the clock math, figures out the register context, and explains what the hardware is actually doing rather than what the function names suggest.</p>
-            <ul class="mini-details">
-              <li>Scans for STM32 HAL, ISRs, DMA, volatile vars, and RTOS patterns before generating the explanation</li>
-              <li>Depth modes: quick one-liner, line-by-line section walkthrough, or junior-friendly register explanations</li>
-            </ul>
-            <div class="tag-row"><span>Python</span><span>Claude API</span><span>STM32</span><span>CLI</span></div>
-            <div class="case-actions" style="margin-top:1.4rem">
-              <a class="case-link" href="https://github.com/aulsz/embedded-explainer" target="_blank" rel="noreferrer">
-                View on GitHub ↗
-              </a>
-            </div>
-          </div>
-        </article>
-      </div>
-    </section>
-
-    <section class="capabilities section" id="capabilities">
-      <div class="section-heading compact reveal">
-        <div class="section-label">
-          <span>03</span>
-          <p>Capabilities</p>
-        </div>
-        <h2>One system.<br><span>Every layer.</span></h2>
-      </div>
-
-      <div class="bento">
-        <article class="bento-card bento-wide glass reveal">
-          <span class="bento-index">01</span>
-          <div>
-            <h3>Control systems</h3>
-            <p>Feedback architecture, PID tuning, encoder integration, and calibration workflows.</p>
-          </div>
-          <div class="bento-signal" aria-hidden="true">
-            <svg viewBox="0 0 500 120" preserveAspectRatio="none">
-              <path d="M0 82 C60 82 62 28 122 28 S184 96 244 70 S308 34 364 51 S430 72 500 24"/>
-            </svg>
-          </div>
-        </article>
-
-        <article class="bento-card glass reveal">
-          <span class="bento-index">02</span>
-          <div>
-            <h3>Embedded hardware</h3>
-            <p>STM32F4xx, RP2040, ESP32, sensors, motor drivers, and test equipment.</p>
-          </div>
-          <div class="bento-hw-art" aria-hidden="true">
-            <i class="hw-ring r1"></i>
-            <i class="hw-ring r2"></i>
-          </div>
-        </article>
-
-        <article class="bento-card glass reveal">
-          <span class="bento-index">03</span>
-          <div>
-            <h3>Programming</h3>
-            <p>Python, SQL, Pandas, C/C++, MicroPython, JavaScript, and register-level firmware.</p>
-          </div>
-          <div class="bento-code-art" aria-hidden="true">
-            <span>def</span><span>int</span><span>fn()</span><span>0x</span>
-          </div>
-        </article>
-
-        <article class="bento-card glass reveal">
-          <span class="bento-index">04</span>
-          <div>
-            <h3>Digital logic</h3>
-            <p>Finite-state machines, PWM, Quartus Prime, and DE10 FPGA development.</p>
-          </div>
-          <div class="bento-fsm-art" aria-hidden="true">
-            <i class="sn1"></i><i class="sn2"></i><i class="sn3"></i>
-          </div>
-        </article>
-
-        <article class="bento-card bento-accent glass reveal">
-          <span class="bento-index">05</span>
-          <div>
-            <h3>Embedded AI foundations</h3>
-            <p>Sensor-data pipelines, interpretable feature extraction, generated C inference, cross-language verification, and model deployment planning.</p>
-          </div>
-          <div class="orb" aria-hidden="true"></div>
-        </article>
-      </div>
-    </section>
-
-    <section class="timeline section">
-      <div class="section-label reveal">
-        <span>04</span>
-        <p>Experience + education</p>
-      </div>
-
-      <div class="timeline-list">
-        <article class="timeline-row reveal">
-          <time>2025 – 2026</time>
-          <div>
-            <small>Open Source</small>
-            <h3>Contributor — Zephyr RTOS &amp; TFLite Micro</h3>
-          </div>
-          <p>
-            Merged PRs into tensorflow/tflite-micro (typo and variable-naming
-            fixes in core inference headers) and submitted a driver improvement
-            to the Zephyr RTOS kernel. Changes reviewed and accepted by project
-            maintainers.
-          </p>
-        </article>
-
-        <article class="timeline-row reveal">
-          <time>2025</time>
-          <div>
-            <small>GE Aerospace / Forage</small>
-            <h3>Electrical Engineering Simulation</h3>
-          </div>
-          <p>
-            Analyzed avionics electrical systems, developed design plans, and
-            contributed to verification and validation planning.
-          </p>
-        </article>
-
-        <article class="timeline-row reveal">
-          <time>2024 to Now</time>
-          <div>
-            <small>KCLI Brotherhood</small>
-            <h3>Cohort 2 Member</h3>
-          </div>
-          <p>
-            Support safety-rule compliance and operations for an organization
-            of more than twenty members.
-          </p>
-        </article>
-
-        <article class="timeline-row reveal">
-          <time>2028</time>
-          <div>
-            <small>Texas A&M University</small>
-            <h3>B.S. Electrical Systems Engineering Technology</h3>
-          </div>
-          <p>Expected December 2028. Regents Scholar.</p>
-        </article>
-      </div>
-    </section>
-
-    <section class="contact section" id="contact">
-      <div class="contact-card glass reveal">
-        <span class="contact-label">Open to engineering opportunities</span>
-        <h2>Let’s build something<br>that responds.</h2>
-        <p>
-          Interested in embedded systems, intelligent devices, robotics, or hardware-software integration?
-          I’d like to hear about it.
-        </p>
-        <div class="contact-actions">
-          <button class="button button-primary contact-open" type="button" aria-haspopup="dialog" aria-controls="contact-modal">
-            Start a conversation <span>↗</span>
+            Explore selected work ↓
           </button>
-          <a class="button button-secondary glass" href="https://linkedin.com/in/collinsculbert" target="_blank" rel="noreferrer">
-            LinkedIn
-          </a>
+          <button class="btn ghost" style="letter-spacing: -0.9px" data-scroll-target="#contact">
+            <div class="bb-wrap" aria-hidden="true">
+              <div class="bb-beam bb-beam-1"></div>
+              <div class="bb-beam bb-beam-2"></div>
+            </div>
+            Start a conversation
+          </button>
+        </div>
+      </section>
+      <div class="browser" aria-hidden="true" style="margin: 0px; font-weight: 400; width: 1224px">
+        <div class="bb-wrap" aria-hidden="true">
+          <div class="bb-beam bb-beam-1"></div>
+          <div class="bb-beam bb-beam-2"></div>
+        </div>
+        <div class="browser__chrome">
+          <div class="browser__nav">
+            <img src="https://qclay.design/lovable/lumio/Navegation.svg" alt="" style="height:14px;width:auto;opacity:.85" />
+          </div>
+          <div class="browser__url">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="12"
+              height="12"
+              viewBox="0 0 12 12"
+              fill="none"
+              style="position:absolute;left:8px;top:50%;transform:translateY(-50%);width:10.994px;height:10.994px;flex-shrink:0"
+            >
+              <rect x="0.5" y="0.5" width="10.9941" height="10.9941" rx="5.49707" stroke="white" />
+              <path d="M3.39221 5.92828L8.60089 5.92828" stroke="white" stroke-linecap="round" />
+              <path d="M5.99689 3.39343L5.99689 8.60211" stroke="white" stroke-linecap="round" /></svg
+            ><img src="https://qclay.design/lovable/lumio/Candado.svg" alt="" style="height:10px;width:auto;opacity:.85" /> collinsculbert.dev / overview
+          </div>
+          <div class="browser__icons">
+            <img src="https://qclay.design/lovable/lumio/Options.svg" alt="" style="height:16px;width:auto;opacity:.85" />
+          </div>
+        </div>
+        <div class="dashboard">
+          <aside class="sidebar" style="border-width: 0px 1px 0px 0px; padding: 16px; margin: 0px">
+            <div class="agency">
+              <div
+                class="agency__logo"
+                style="display:flex;width:32px;height:32px;padding:0;align-items:center;justify-content:center;border-radius:8px;background:rgba(14,10,7,.10);border:1px solid rgba(14,10,7,.12);overflow:hidden;font-weight:700;font-size:13px"
+              >
+                CC
+              </div>
+              <div class="agency__meta">
+                <div class="k">STUDENT</div>
+                <div class="n">Collins Culbert</div>
+              </div>
+              <div class="agency__unfold">
+                <img src="https://qclay.design/lovable/lumio/Unfold_More.svg" alt="" style="width:16px;height:16px;object-fit:contain;opacity:.5" />
+              </div>
+            </div>
+            <h6>MAIN MENU</h6>
+            <div class="menu">
+              <a class="active" href="#"
+                ><img
+                  src="https://qclay.design/lovable/lumio/material-symbols-light_home-rounded.svg"
+                  alt=""
+                  style="width:14px;height:14px;display:inline-block;vertical-align:middle"
+                />
+                Overview</a
+              >
+              <a href="#"
+                ><img
+                  src="https://qclay.design/lovable/lumio/material-symbols-light_home-rounded_1.svg"
+                  alt=""
+                  style="width:14px;height:14px;display:inline-block;vertical-align:middle"
+                />
+                Work</a
+              >
+              <a href="#"
+                ><img
+                  src="https://qclay.design/lovable/lumio/material-symbols-light_home-rounded_1.svg"
+                  alt=""
+                  style="width:14px;height:14px;display:inline-block;vertical-align:middle"
+                />
+                Capabilities</a
+              >
+              <a href="#"
+                ><img
+                  src="https://qclay.design/lovable/lumio/material-symbols-light_home-rounded_1.svg"
+                  alt=""
+                  style="width:14px;height:14px;display:inline-block;vertical-align:middle"
+                />
+                Timeline</a
+              >
+            </div>
+          </aside>
+          <div class="main">
+            <div class="breadcrumbs" style="gap: 6px">
+              <span>Portfolio</span> <span>›</span> <strong>Overview</strong>
+            </div>
+            <div class="welcome">Hi, I'm Collins Culbert</div>
+            <div class="kpis">
+              <div class="kpi">
+                <div class="inner">
+                  <div>
+                    <div class="label">SENSOR PIPELINE</div>
+                    <div class="val" style="margin-top:12px">1 kHz</div>
+                    <div class="desc">vibration sampling rate</div>
+                  </div>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="44" height="49" viewBox="0 0 44 49" fill="none">
+                    <path d="M1 33L1 49" stroke="#0E0A07" stroke-opacity="0.2" stroke-width="2" />
+                    <path d="M8 0L8 49" stroke="#0E0A07" stroke-width="2" />
+                    <path d="M15 20L15 49" stroke="#0E0A07" stroke-opacity="0.2" stroke-width="2" />
+                    <path d="M22 12L22 49" stroke="#0E0A07" stroke-opacity="0.2" stroke-width="2" />
+                    <path d="M29 30L29 49" stroke="#0E0A07" stroke-opacity="0.2" stroke-width="2" />
+                    <path d="M36 20L36 49" stroke="#0E0A07" stroke-opacity="0.2" stroke-width="2" />
+                    <path d="M43 16L43 49" stroke="#0E0A07" stroke-opacity="0.2" stroke-width="2" />
+                  </svg>
+                </div>
+                <div class="foot">
+                  <svg class="qmark" viewBox="0 0 14 14" fill="none" stroke="rgba(14,10,7,.35)" stroke-width="1.2" width="14" height="14">
+                    <circle cx="7" cy="7" r="6" />
+                    <path d="M7 9.5V10m0-5.5a1.5 1.5 0 0 1 0 3" stroke-linecap="round" /></svg
+                  ><span class="mom"><span class="val">STM32</span> <span class="lbl">platform</span></span>
+                </div>
+              </div>
+              <div class="kpi">
+                <div class="inner">
+                  <div>
+                    <div class="label">ROBOTIC HAND</div>
+                    <div class="val" style="margin-top:12px">10</div>
+                    <div class="desc">servos, closed-loop PID</div>
+                  </div>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="44" height="49" viewBox="0 0 44 49" fill="none">
+                    <path d="M1 33L1 49" stroke="#0E0A07" stroke-opacity="0.2" stroke-width="2" />
+                    <path d="M8 5L8 49" stroke="#0E0A07" stroke-width="2" />
+                    <path d="M15 20L15 49" stroke="#0E0A07" stroke-opacity="0.2" stroke-width="2" />
+                    <path d="M22 35L22 49" stroke="#0E0A07" stroke-opacity="0.2" stroke-width="2" />
+                    <path d="M29 30L29 49" stroke="#0E0A07" stroke-opacity="0.2" stroke-width="2" />
+                    <path d="M36 20L36 49" stroke="#0E0A07" stroke-opacity="0.2" stroke-width="2" />
+                    <path d="M43 9L43 49" stroke="#0E0A07" stroke-opacity="0.2" stroke-width="2" />
+                  </svg>
+                </div>
+                <div class="foot">
+                  <svg class="qmark" viewBox="0 0 14 14" fill="none" stroke="rgba(14,10,7,.35)" stroke-width="1.2" width="14" height="14">
+                    <circle cx="7" cy="7" r="6" />
+                    <path d="M7 9.5V10m0-5.5a1.5 1.5 0 0 1 0 3" stroke-linecap="round" /></svg
+                  ><span class="mom"><span class="val">1st</span> <span class="lbl">place award</span></span>
+                </div>
+              </div>
+              <div class="kpi">
+                <div class="inner">
+                  <div>
+                    <div class="label">GRADUATION</div>
+                    <div class="val" style="margin-top:12px">2028</div>
+                    <div class="desc">B.S. Electrical Systems Eng.</div>
+                  </div>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="44" height="49" viewBox="0 0 44 49" fill="none">
+                    <path d="M1 33L1 49" stroke="#0E0A07" stroke-opacity="0.2" stroke-width="2" />
+                    <path d="M8 3L8 49" stroke="#0E0A07" stroke-width="2" />
+                    <path d="M15 38L15 49" stroke="#0E0A07" stroke-opacity="0.2" stroke-width="2" />
+                    <path d="M22 12L22 49" stroke="#0E0A07" stroke-opacity="0.2" stroke-width="2" />
+                    <path d="M29 21L29 49" stroke="#0E0A07" stroke-opacity="0.2" stroke-width="2" />
+                    <path d="M36 8L36 49" stroke="#0E0A07" stroke-opacity="0.2" stroke-width="2" />
+                    <path d="M43 9L43 49" stroke="#0E0A07" stroke-opacity="0.2" stroke-width="2" />
+                  </svg>
+                </div>
+                <div class="foot">
+                  <svg class="qmark" viewBox="0 0 14 14" fill="none" stroke="rgba(14,10,7,.35)" stroke-width="1.2" width="14" height="14">
+                    <circle cx="7" cy="7" r="6" />
+                    <path d="M7 9.5V10m0-5.5a1.5 1.5 0 0 1 0 3" stroke-linecap="round" /></svg
+                  ><span class="mom"><span class="val">TAMU</span> <span class="lbl">Regents Scholar</span></span>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
-    </section>
-  </main>
-
-  <div class="contact-modal" id="contact-modal" aria-hidden="true" inert>
-    <div class="contact-modal__backdrop" data-contact-close></div>
-    <section class="contact-modal__panel glass" role="dialog" aria-modal="true" aria-labelledby="contact-modal-title">
-      <button class="contact-modal__close" type="button" aria-label="Close contact form" data-contact-close>×</button>
-      <span class="contact-modal__label">Direct message</span>
-      <h2 id="contact-modal-title">Send a note.</h2>
-      <p>
-        Tell me what you’re building, what problem you’re solving, or where I might fit in.
-      </p>
-      <form class="contact-form" action="https://formsubmit.co/coculbert@icloud.com" method="POST">
-        <input type="hidden" name="_subject" value="New portfolio conversation">
-        <input type="hidden" name="_template" value="table">
-        <input type="hidden" name="_next" value="https://aulsz-port.vercel.app/#contact">
-        <input type="text" name="_honey" tabindex="-1" autocomplete="off" aria-hidden="true">
-
-        <label>
-          <span>Name</span>
-          <input type="text" name="name" autocomplete="name" required>
-        </label>
-
-        <label>
-          <span>Email</span>
-          <input type="email" name="email" autocomplete="email" required>
-        </label>
-
-        <label>
-          <span>Message</span>
-          <textarea name="message" rows="5" required></textarea>
-        </label>
-
-        <button class="button button-primary" type="submit">
-          Send message <span>↗</span>
-        </button>
-      </form>
-    </section>
-  </div>
-
-  <footer class="footer">
-    <span>© 2026 Collins Culbert</span>
-    <span>Dallas / College Station</span>
-    <a href="#top">Back to top ↑</a>
-  </footer>
-
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-  <script src="script.js"></script>
-</body>
+      <div class="curtain__edge"></div>
+    </div>
+    <main class="below">
+      <div id="fullpage">
+        <div class="section fp-curtain" data-anchor="hero"></div>
+        <div class="section" data-anchor="profile">
+          <section class="sect s2" data-screen-label="02 Profile" id="profile">
+            <div class="s2-inner">
+              <div class="ovals" aria-hidden="true">
+                <div class="o"></div>
+                <div class="o" style="border-radius:0"></div>
+                <div class="o"></div>
+                <div class="o"></div>
+              </div>
+              <div class="reveal">
+                <div class="grid">
+                  <div>
+                    <span class="eyebrow"><span class="sq"></span>PROFILE</span>
+                  </div>
+                  <div>
+                    <h2>From sensor data to control logic<br />to live demo.</h2>
+                    <p class="lede">
+                      <span class="sub-line">I build systems that can perceive,</span
+                      ><span class="sub-line">decide, and act. My path is electrical</span
+                      ><span class="sub-line">systems, embedded firmware, data tooling,</span
+                      ><span class="sub-line">and AI small enough to run near the</span
+                      ><span class="sub-line">real world. Junior Electrical Systems</span
+                      ><span class="sub-line">Engineering Technology student at Texas</span
+                      ><span class="sub-line">A&amp;M, building toward embedded AI through</span
+                      ><span class="sub-line">controls, sensor integration, and firmware.</span>
+                    </p>
+                  </div>
+                  <div></div>
+                </div>
+              </div>
+              <div class="bottom">
+                <div class="left">
+                  <p>Open to engineering opportunities in embedded systems, robotics, and hardware-software integration</p>
+                  <a class="meet" href="https://aulsz-port.vercel.app/assets/Collins_Culbert_Resume.pdf" download>
+                    Download résumé
+                    <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6">
+                      <path d="M4 10h12 M11 5l5 5-5 5" />
+                    </svg>
+                  </a>
+                </div>
+                <div class="stats">
+                  <div class="stat violet">
+                    <div class="v" data-count="10" data-suffix="" data-format="int">0</div>
+                    <div class="l">SERVO ROBOTIC<br />HAND<br />SYSTEM</div>
+                  </div>
+                  <div class="stat blue">
+                    <div class="v" data-count="1" data-suffix="st" data-format="int">0</div>
+                    <div class="l">BEST<br />PRESENTATION<br />AWARD</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+        <div class="section" data-anchor="how">
+          <section class="sect s3" data-screen-label="03 Selected work" id="work">
+            <div class="s3-grid-lines"><i></i><i></i><i></i><i></i></div>
+            <div class="s3-inner">
+              <div class="s3-head">
+                <span class="corner l">THREE STAGES FROM RAW</span>
+                <span class="corner r">SIGNAL TO A DECISION</span>
+                <div class="eyebrow"><span class="sq"></span>SELECTED WORK</div>
+                <h2>From Raw Signal to Clear<br /><span class="it">Decisions in Seconds</span></h2>
+                <p>
+                  <span class="sub-line">Most vibration monitors hand you raw waveforms to interpret. This</span
+                  ><span class="sub-line">pipeline does the interpreting for you sampling the sensor,</span
+                  ><span class="sub-line">extracting features, and classifying the fault before it fails</span>
+                </p>
+              </div>
+              <div class="cards3">
+                <div class="card3 a">
+                  <div class="conn-list">
+                    <div class="conn">
+                      <div class="bb-wrap" aria-hidden="true">
+                        <div class="bb-beam bb-beam-1"></div>
+                        <div class="bb-beam bb-beam-2"></div>
+                      </div>
+                      <div class="badge stripe" style="background:#635BFF;color:#fff;font-weight:700;font-size:12px">ENC</div>
+                      <div class="meta">
+                        <div class="kicker">Position sensing · AS5600</div>
+                        <div class="name">Magnetic encoder</div>
+                      </div>
+                      <div class="live-pill">LIVE</div>
+                    </div>
+                    <div class="conn">
+                      <div class="bb-wrap" aria-hidden="true">
+                        <div class="bb-beam bb-beam-1"></div>
+                        <div class="bb-beam bb-beam-2"></div>
+                      </div>
+                      <div class="badge qb">ADC</div>
+                      <div class="meta">
+                        <div class="kicker">1 kHz sampling · STM32</div>
+                        <div class="name">Vibration ADC</div>
+                      </div>
+                      <div class="live-pill">LIVE</div>
+                    </div>
+                    <div class="conn">
+                      <div class="bb-wrap" aria-hidden="true">
+                        <div class="bb-beam bb-beam-1"></div>
+                        <div class="bb-beam bb-beam-2"></div>
+                      </div>
+                      <div class="badge mercury">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4">
+                          <circle cx="12" cy="12" r="9" />
+                          <ellipse cx="12" cy="12" rx="4" ry="9" />
+                          <line x1="3" y1="12" x2="21" y2="12" />
+                        </svg>
+                      </div>
+                      <div class="meta">
+                        <div class="kicker">Sensor multiplexing</div>
+                        <div class="name">PCA9548A I²C mux</div>
+                      </div>
+                      <div class="live-pill">LIVE</div>
+                    </div>
+                  </div>
+                  <div class="stamp">01 — SENSE</div>
+                </div>
+                <div class="card3 b">
+                  <div class="insight-card" id="insightCard">
+                    <div class="bb-wrap" aria-hidden="true">
+                      <div class="bb-beam bb-beam-1"></div>
+                      <div class="bb-beam bb-beam-2"></div>
+                    </div>
+                    <div class="insight-head">
+                      <div class="ic">
+                        <img src="https://qclay.design/lovable/lumio/icon-ai.svg" alt="AI" style="width:24px;height:24px" />
+                      </div>
+                      <div>
+                        <div class="k">LATEST RUN</div>
+                        <div class="t">Classification</div>
+                      </div>
+                    </div>
+                    <div class="insight-msg" style="padding: 50px 4px 0px">
+                      Bearing fault detected — crest factor exceeds 2.53, consistent with early-stage mechanical wear
+                    </div>
+                    <div class="anomaly">
+                      <i
+                        ><svg viewBox="0 0 14 14" fill="currentColor"><path d="M7 1 L13 13 H1 Z M7 5v4 M7 11v.5" /></svg
+                      ></i>
+                      <span>Anomaly detected</span>
+                    </div>
+                    <div class="saving">
+                      <div class="lbl">Synthetic holdout accuracy</div>
+                      <div class="v">320 <em>/ 320</em></div>
+                    </div>
+                  </div>
+                  <div class="stamp">02 — PROCESS</div>
+                </div>
+                <div class="card3 c">
+                  <div class="runway">
+                    <div class="bb-wrap" aria-hidden="true">
+                      <div class="bb-beam bb-beam-1"></div>
+                      <div class="bb-beam bb-beam-2"></div>
+                    </div>
+                    <div class="runway-head">
+                      <div class="ic">
+                        <img
+                          src="https://qclay.design/lovable/lumio/icon-cash.svg"
+                          alt="Verification"
+                          style="width:22px;height:22px;filter:invert(23%) sepia(85%) saturate(1600%) hue-rotate(209deg)"
+                        />
+                      </div>
+                      <div>
+                        <div
+                          class="k"
+                          style="font-size:10px;letter-spacing:.1em;font-weight:700;color:rgba(255,255,255,.75)"
+                        >
+                          VERIFICATION
+                        </div>
+                        <div
+                          class="t"
+                          style="font-size:17px;letter-spacing:-0.04em;font-weight:500;color:#fff;margin-top:4px"
+                        >
+                          Python → C parity
+                        </div>
+                      </div>
+                    </div>
+                    <div class="chart">
+                      <div class="badge">80/80 VECTORS MATCHED</div>
+                      <div class="chart-dot"></div>
+                      <svg viewBox="0 0 280 140" preserveAspectRatio="none">
+                        <defs>
+                          <linearGradient id="g1" x1="0" y1="0" x2="0" y2="1">
+                            <stop offset="0%" stop-color="#fff" stop-opacity=".25" />
+                            <stop offset="100%" stop-color="#fff" stop-opacity="0" />
+                          </linearGradient>
+                          <pattern
+                            id="hatch"
+                            width="5"
+                            height="5"
+                            patternUnits="userSpaceOnUse"
+                            patternTransform="rotate(45)"
+                          >
+                            <line x1="0" y1="0" x2="0" y2="5" stroke="rgba(255,255,255,.12)" stroke-width="1.2" />
+                          </pattern>
+                          <clipPath id="chartClip">
+                            <rect class="chart-clip-rect" x="0" y="0" width="0" height="140" />
+                          </clipPath>
+                        </defs>
+                        <g clip-path="url(#chartClip)">
+                          <path
+                            d="M0 110 C 30 100, 60 80, 90 70 C 120 60, 150 55, 180 35 C 210 22, 240 18, 280 16 L 280 140 L 0 140 Z"
+                            fill="url(#g1)"
+                          />
+                          <path
+                            d="M93 120 C 93 78, 210 68, 280 65
+                               L 280 16 C 240 18, 210 22, 180 35 C 150 55, 120 60, 93 70 L 93 120 Z"
+                            fill="url(#hatch)"
+                          />
+                          <path
+                            class="chart-line"
+                            d="M0 110 C 30 100, 60 80, 90 70 C 120 60, 150 55, 180 35 C 210 22, 240 18, 280 16"
+                            stroke="#fff"
+                            stroke-width="2"
+                            fill="none"
+                          />
+                          <path
+                            class="chart-dash"
+                            d="M93 120 C 93 78, 210 68, 280 65"
+                            stroke="rgba(255,255,255,.55)"
+                            stroke-width="1.5"
+                            fill="none"
+                            stroke-dasharray="6 4"
+                          />
+                        </g>
+                      </svg>
+                      <div class="axis">
+                        <span>SAMPLE 0</span><span>20</span><span>40</span><span>80</span>
+                      </div>
+                    </div>
+                    <div class="runway-foot" style="margin: 20px 0px 0px">
+                      <div class="v">Bit-exact</div>
+                      <div class="d">Same decision-tree logic verified in C · zero mismatches</div>
+                    </div>
+                  </div>
+                  <div class="stamp">03 — DEPLOY</div>
+                </div>
+              </div>
+              <div
+                style="text-align:center;color:rgba(255,255,255,.75);font-size:10px;letter-spacing:.1em;font-weight:700;margin-top:-32px"
+              >
+              </div>
+            </div>
+          </section>
+        </div>
+        <div class="section" data-anchor="integrations">
+          <section class="sect s4" data-screen-label="04 Capabilities" id="capabilities">
+            <div class="s4-grid-lines"><i></i><i></i><i></i><i></i></div>
+            <div class="s4-horiz"></div>
+            <div class="s4-inner">
+              <div class="orbit" id="orbit">
+                <div class="tile lumio g5" aria-hidden="true" style="font-family:var(--font-serif);font-style:italic;font-size:34px;color:#fff">
+                  CC
+                </div>
+                <div class="lumio-label" aria-hidden="true">
+                  <div class="n">Collins Culbert</div>
+                  <div class="k">ENGINEERING TOOLKIT</div>
+                </div>
+                <div class="orbit-ring">
+                  <div class="tile g1" aria-hidden="true" style="background:#fff;border:1px solid rgba(14,10,7,.1);color:#0E0A07;font-weight:700;font-size:16px">GitHub</div>
+                  <div
+                    class="tile g2"
+                    data-group="a"
+                    style="background:#2451C4;font-style:italic;font-weight:700;font-size:22px;letter-spacing:-0.04em;color:#fff"
+                  >
+                    <span>Python</span>
+                  </div>
+                  <div
+                    class="tile g3"
+                    data-group="a"
+                    style="background:#14161c;font-family:var(--font-serif);font-style:italic;font-weight:500;font-size:26px;color:#fff"
+                  >
+                    <span>STM32</span>
+                  </div>
+                  <div class="tile g4" data-group="a" style="background:#1d2027;color:#fff;font-weight:700;font-size:34px">
+                    <span>C</span>
+                  </div>
+                  <div class="tile g6" data-group="a" style="background:#0f1115;color:#fff;font-weight:700;font-size:18px"><span>RP2040</span></div>
+                  <div class="tile g7" data-group="a" style="background:#123b4f;color:#fff;font-weight:700;font-size:18px"><span>ESP32</span></div>
+                  <div
+                    class="tile g8"
+                    data-group="a"
+                    style="background:#23262c;font-family:var(--font-serif);font-style:italic;font-weight:500;font-size:26px;color:#fff"
+                  >
+                    <span>µPy</span>
+                  </div>
+                  <div class="tile g9" aria-hidden="true" style="background:#fff;border:1px solid rgba(14,10,7,.1);color:#0E0A07;font-weight:700;font-size:18px">SQL</div>
+                  <div
+                    class="tile g1"
+                    data-group="b"
+                    style="background:#14161c;display:none;color:#fff;font-size:18px;letter-spacing:-0.03em"
+                  >
+                    <span>Quartus</span>
+                  </div>
+                  <div
+                    class="tile g2"
+                    data-group="b"
+                    style="background:#2451C4;display:none;font-family:var(--font-serif);font-style:italic;color:#fff;font-size:22px"
+                  >
+                    <span>Zephyr</span>
+                  </div>
+                  <div class="tile g3" data-group="b" style="background:#1d2027;display:none;color:#fff;font-size:16px">
+                    <span>TFLite</span>
+                  </div>
+                  <div
+                    class="tile g4"
+                    data-group="b"
+                    style="background:#0f1115;display:none;font-family:var(--font-serif);font-style:italic;color:#fff;font-size:22px"
+                  >
+                    <span>Verilog</span>
+                  </div>
+                  <div
+                    class="tile g6"
+                    data-group="b"
+                    style="background:#fff;color:#0E0A07;display:none;font-family:var(--font-serif);font-style:italic;font-size:26px"
+                  >
+                    <span>Keil</span>
+                  </div>
+                  <div
+                    class="tile g7"
+                    data-group="b"
+                    style="background:#123b4f;color:#fff;display:none;font-style:italic;font-weight:700;font-size:20px"
+                  >
+                    <span>GPIO</span>
+                  </div>
+                  <div
+                    class="tile g8"
+                    data-group="b"
+                    style="background:#23262c;color:#fff;display:none;font-family:var(--font-serif);font-style:italic;font-weight:700;font-size:26px"
+                  >
+                    <span>PWM</span>
+                  </div>
+                  <div
+                    class="tile g9"
+                    data-group="b"
+                    style="background:#191b20;color:#fff;display:none;font-weight:700;font-size:16px;letter-spacing:-0.02em"
+                  >
+                    <span>DE10</span>
+                  </div>
+                </div>
+              </div>
+              <div class="filter-list" id="filters">
+                <button class="active" data-grp="a">Sensing</button>
+                <button data-grp="a">Firmware</button>
+                <button data-grp="b">Verification</button>
+                <button data-grp="a">Digital Logic</button>
+                <button data-grp="a">AI / Data</button>
+                <button data-grp="a">Open Source</button>
+              </div>
+              <div class="s4-bottom">
+                <div class="eyebrow"><span class="sq"></span>ENGINEERING TOOLKIT</div>
+                <h2>One System,<br /><span class="it">Every Layer.</span></h2>
+              </div>
+            </div>
+            <div class="sync-stamp">BUILT FOR THE REAL WORLD</div>
+          </section>
+        </div>
+        <div class="section" data-anchor="contact">
+          <section class="sect s5" data-screen-label="05 Contact" id="contact">
+            <div class="s5-inner">
+              <div class="eyebrow"><span class="sq"></span>CONTACT</div>
+              <h2>Let's build something<br /><span class="it">that responds.</span></h2>
+              <p class="lede">
+                Interested in embedded systems, intelligent devices, robotics, or hardware-software integration?
+                I'd like to hear about it.
+              </p>
+              <div class="s5-ctas">
+                <a class="btn primary" href="mailto:coculbert@icloud.com?subject=Let%27s%20talk">
+                  <div class="bb-wrap" aria-hidden="true">
+                    <div class="bb-beam bb-beam-1"></div>
+                    <div class="bb-beam bb-beam-2"></div>
+                  </div>
+                  Start a conversation
+                </a>
+                <a class="btn ghost" href="https://linkedin.com/in/collinsculbert" target="_blank" rel="noreferrer">
+                  <div class="bb-wrap" aria-hidden="true">
+                    <div class="bb-beam bb-beam-1"></div>
+                    <div class="bb-beam bb-beam-2"></div>
+                  </div>
+                  LinkedIn ↗
+                </a>
+              </div>
+            </div>
+            <div class="s5-foot">© 2026 COLLINS CULBERT · DALLAS / COLLEGE STATION</div>
+          </section>
+        </div>
+      </div>
+    </main>
+    <script src="script.js"></script>
+  </body>
 </html>
