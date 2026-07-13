@@ -1997,6 +1997,9 @@ html.fp-enabled body {
    max-width:900px branch)
    -------------------------------------------------------------------- */
 @media (max-width: 900px) {
+  :root {
+    --nav-h: 72px;
+  }
   html.fp-enabled,
   html.fp-enabled body {
     overflow: visible;
@@ -2014,7 +2017,9 @@ html.fp-enabled body {
   }
   .curtain {
     position: relative;
-    height: 100vh;
+    min-height: 100svh;
+    height: auto;
+    padding-bottom: 34px;
   }
   .curtain-spacer {
     display: none;
@@ -2022,39 +2027,131 @@ html.fp-enabled body {
   .sect {
     height: auto;
     min-height: 100vh;
-    padding-top: 90px;
-    padding-bottom: 90px;
+    padding-top: 84px;
+    padding-bottom: 84px;
   }
 
+  .nav {
+    height: var(--nav-h);
+    padding: 0 18px;
+  }
+  .nav .brand {
+    min-width: 0;
+  }
+  .nav .brand span {
+    font-size: clamp(16px, 4.8vw, 20px);
+    white-space: nowrap;
+  }
   .nav .links {
     display: none;
   }
   .nav .right .signin {
     display: none;
   }
+  .nav .right {
+    gap: 12px;
+  }
+  .nav .right .cta {
+    padding: 9px 16px;
+    font-size: 13px;
+  }
   .nav__burger {
     display: flex;
+    width: 28px;
+    height: 20px;
+    color: #0787ff;
   }
 
+  .hero {
+    max-width: none;
+    padding: calc(var(--nav-h) + 34px) 18px 0;
+  }
+  .pill {
+    padding: 7px 13px;
+    font-size: 11.5px;
+  }
   .hero h1 {
-    font-size: 38px !important;
+    margin-top: 12px;
+    font-size: clamp(40px, 12vw, 54px) !important;
+    line-height: 0.98 !important;
   }
   .hero h1 .line2 {
     width: auto !important;
   }
+  .hero p.sub {
+    max-width: 100%;
+    margin-top: 18px;
+    font-size: clamp(17px, 4.8vw, 20px);
+    line-height: 1.35;
+    color: rgba(255, 255, 255, 0.72);
+  }
+  .sub-line {
+    display: inline;
+  }
+  .sub-line::after {
+    content: " ";
+  }
+  .hero .ctas {
+    width: 100%;
+    max-width: 420px;
+    margin-top: 26px;
+    gap: 10px;
+  }
+  .hero .ctas .btn {
+    flex: 1 1 0;
+    min-width: 0;
+    justify-content: center;
+    height: 52px;
+    padding: 0 14px !important;
+    font-size: clamp(13px, 3.8vw, 15px);
+    letter-spacing: -0.04em !important;
+    white-space: nowrap;
+  }
   .browser {
-    margin-top: 40px;
+    width: calc(100vw - 24px) !important;
+    margin-top: 28px;
+    border-radius: 16px 16px 0 0;
+    transform: translateY(24px) scale(1);
+    box-shadow: 0 24px 58px rgba(4, 8, 24, 0.36);
+  }
+  .browser.intro-browser-in {
+    transform: translateY(0) scale(1);
+  }
+  .browser__chrome {
+    height: 36px;
+    padding: 0 10px;
+  }
+  .browser__nav,
+  .browser__icons {
+    transform: scale(0.82);
+    transform-origin: center;
+  }
+  .browser__url {
+    max-width: 68vw;
+    height: 22px;
+    font-size: 10px;
+    padding-left: 18px;
   }
   .dashboard {
-    flex-direction: column;
+    min-height: 235px;
+    max-height: 260px;
+    overflow: hidden;
   }
   .sidebar {
-    width: 100%;
-    border-right: none;
-    border-bottom: 1px solid var(--ink-08);
+    display: none;
+  }
+  .main {
+    padding: 16px;
   }
   .kpis {
     grid-template-columns: 1fr;
+    gap: 8px;
+  }
+  .kpi {
+    padding: 12px;
+  }
+  .kpi .val {
+    font-size: 20px;
   }
 
   .grid {
@@ -2078,9 +2175,40 @@ html.fp-enabled body {
     grid-template-columns: 1fr;
   }
 
+  .s4 {
+    padding: 92px 18px 104px;
+  }
+  .s4-inner {
+    gap: 34px;
+  }
   .orbit {
-    width: 92vw;
-    height: 92vw;
+    width: min(78vw, 330px);
+    height: min(78vw, 330px);
+    margin: 0 auto;
+  }
+  .tile {
+    width: 68px;
+    height: 68px;
+    margin: -34px 0 0 -34px;
+    border-radius: 18px;
+    font-size: 12px;
+  }
+  .tile.lumio {
+    width: 84px;
+    height: 84px;
+    margin: -42px 0 0 -42px;
+    border-radius: 22px;
+  }
+  .tile.g8 span {
+    font-size: 10px;
+    letter-spacing: -0.05em;
+  }
+  .github-tile .github-mark {
+    width: 32px;
+    height: 32px;
+  }
+  .lumio-label {
+    display: none;
   }
   .filter-list {
     display: none;
@@ -2089,7 +2217,14 @@ html.fp-enabled body {
     display: none;
   }
   .s4-bottom h2 {
-    font-size: 30px;
+    font-size: clamp(38px, 12vw, 52px);
+    line-height: 1;
+    text-align: center;
+  }
+  .sync-stamp {
+    bottom: 28px;
+    width: 100%;
+    text-align: center;
   }
 
   .s5 {
