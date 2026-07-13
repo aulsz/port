@@ -5,3 +5,5 @@ assets/orbital-glass.png
 # Local development files
 .DS_Store
 Thumbs.db
+node_modules/
+dist/
