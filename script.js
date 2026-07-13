@@ -833,6 +833,7 @@
         const rot = rotAt(a);
         t.style.transform = `rotate(${a}deg) translateY(${-R * (t._rMul ?? 1)}px) rotate(${-a + rot}deg) scale(${t._sc ?? 0})`;
         t.style.setProperty('--rot', rot + 'deg');
+        t.style.setProperty('--label-rot', -rot + 'deg');
       });
       requestAnimationFrame(frame);
     }
