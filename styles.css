@@ -1198,7 +1198,7 @@ html.fp-enabled body {
 .card3 {
   position: relative;
   border-radius: 18px;
-  border: 1px solid var(--ink-08);
+  border: 1px solid rgba(14, 10, 7, 0.09);
   padding: 22px 22px 54px 22px;
   min-height: 300px;
   display: flex;
@@ -1206,6 +1206,24 @@ html.fp-enabled body {
   opacity: 0;
   transform: translateY(30px);
   transition: opacity 0.7s ease, transform 0.7s var(--ease);
+  overflow: hidden;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.62), 0 22px 56px rgba(56, 28, 18, 0.1);
+  backdrop-filter: blur(22px) saturate(132%);
+  -webkit-backdrop-filter: blur(22px) saturate(132%);
+}
+.card3::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(72% 55% at 18% 0%, rgba(255, 255, 255, 0.34), transparent 62%),
+    linear-gradient(120deg, rgba(255, 255, 255, 0.12), transparent 42%);
+  opacity: 0.85;
+}
+.card3 > * {
+  position: relative;
+  z-index: 1;
 }
 .card3 > .conn-list,
 .card3 > .insight-card,
@@ -1218,13 +1236,19 @@ html.fp-enabled body {
   transform: translateY(0);
 }
 .card3.a {
-  background: #fff;
+  background:
+    radial-gradient(90% 72% at 0% 0%, rgba(255, 255, 255, 0.86), transparent 68%),
+    linear-gradient(145deg, rgba(255, 252, 246, 0.76), rgba(250, 239, 225, 0.56));
 }
 .card3.b,
 .card3.c {
-  background: var(--ink);
-  border-color: rgba(255, 255, 255, 0.08);
+  background:
+    radial-gradient(88% 70% at 18% 4%, rgba(255, 122, 92, 0.16), transparent 62%),
+    radial-gradient(80% 72% at 92% 16%, rgba(255, 214, 169, 0.1), transparent 58%),
+    linear-gradient(145deg, rgba(32, 22, 17, 0.92), rgba(11, 9, 8, 0.9));
+  border-color: rgba(255, 236, 214, 0.16);
   color: #fff;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08), 0 28px 70px rgba(58, 22, 11, 0.24);
 }
 .card3 .stamp {
   position: absolute;
@@ -1240,7 +1264,7 @@ html.fp-enabled body {
 }
 .card3.b .stamp,
 .card3.c .stamp {
-  color: rgba(255, 255, 255, 0.4);
+  color: rgba(255, 228, 204, 0.44);
 }
 .card3 .stamp.s3-reveal {
   opacity: 1;
@@ -1257,9 +1281,10 @@ html.fp-enabled body {
   display: flex;
   align-items: center;
   gap: 12px;
-  border: 1px solid var(--ink-08);
+  border: 1px solid rgba(14, 10, 7, 0.08);
   border-radius: 12px;
   padding: 12px;
+  background: rgba(255, 255, 255, 0.54);
   opacity: 0;
   transform: translateY(14px);
   transition: opacity 0.5s ease, transform 0.5s var(--ease);
@@ -1341,7 +1366,8 @@ html.fp-enabled body {
   width: 36px;
   height: 36px;
   border-radius: 10px;
-  background: rgba(255, 255, 255, 0.08);
+  background: rgba(255, 226, 199, 0.1);
+  border: 1px solid rgba(255, 230, 204, 0.08);
   display: grid;
   place-items: center;
 }
@@ -1349,7 +1375,7 @@ html.fp-enabled body {
   font-size: 9.5px;
   letter-spacing: 0.1em;
   font-weight: 700;
-  color: rgba(255, 255, 255, 0.5);
+  color: rgba(255, 229, 206, 0.58);
 }
 .insight-head .t {
   font-size: 15px;
@@ -1359,7 +1385,7 @@ html.fp-enabled body {
 .insight-msg {
   font-size: 14.5px;
   line-height: 1.55;
-  color: rgba(255, 255, 255, 0.85);
+  color: rgba(255, 248, 240, 0.86);
 }
 .anomaly {
   margin-top: 16px;
@@ -1367,8 +1393,9 @@ html.fp-enabled body {
   align-items: center;
   gap: 6px;
   align-self: flex-start;
-  background: rgba(255, 176, 32, 0.16);
-  color: #ffb020;
+  background: rgba(255, 181, 72, 0.16);
+  color: #ffc36c;
+  border: 1px solid rgba(255, 190, 96, 0.14);
   font-size: 11.5px;
   font-weight: 600;
   padding: 6px 10px;
@@ -1381,7 +1408,7 @@ html.fp-enabled body {
 .saving {
   margin-top: auto;
   padding-top: 20px;
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  border-top: 1px solid rgba(255, 235, 214, 0.12);
   opacity: 0;
   transform: translateY(10px);
   transition: opacity 0.5s ease, transform 0.5s ease;
@@ -1392,7 +1419,7 @@ html.fp-enabled body {
 }
 .saving .lbl {
   font-size: 10.5px;
-  color: rgba(255, 255, 255, 0.5);
+  color: rgba(255, 230, 206, 0.54);
 }
 .saving .v {
   font-size: 24px;
@@ -1402,7 +1429,7 @@ html.fp-enabled body {
 .saving .v em {
   font-style: normal;
   font-size: 13px;
-  color: rgba(255, 255, 255, 0.5);
+  color: rgba(255, 230, 206, 0.52);
   font-weight: 500;
 }
 
@@ -1428,7 +1455,8 @@ html.fp-enabled body {
   width: 36px;
   height: 36px;
   border-radius: 10px;
-  background: rgba(255, 255, 255, 0.08);
+  background: rgba(255, 226, 199, 0.1);
+  border: 1px solid rgba(255, 230, 204, 0.08);
   display: grid;
   place-items: center;
 }
@@ -1473,7 +1501,7 @@ html.fp-enabled body {
   justify-content: space-between;
   margin-top: 6px;
   font-size: 10px;
-  color: rgba(255, 255, 255, 0.4);
+  color: rgba(255, 230, 206, 0.44);
   letter-spacing: 0.04em;
 }
 .runway-foot .v {
@@ -1482,7 +1510,7 @@ html.fp-enabled body {
 }
 .runway-foot .d {
   font-size: 11.5px;
-  color: rgba(255, 255, 255, 0.5);
+  color: rgba(255, 230, 206, 0.54);
   margin-top: 2px;
 }
 
@@ -1781,11 +1809,14 @@ html.fp-enabled body {
 
 .contact-copy,
 .contact-form {
-  border: 1px solid rgba(14,10,7,.1);
+  border: 1px solid rgba(255, 238, 222, 0.54);
   border-radius: 28px;
-  background: rgba(255,255,255,.62);
-  box-shadow: inset 0 1px 0 rgba(255,255,255,.86), 0 30px 80px rgba(16,24,40,.10);
-  backdrop-filter: blur(24px) saturate(150%);
+  background:
+    radial-gradient(88% 72% at 8% 0%, rgba(255, 255, 255, 0.86), transparent 64%),
+    linear-gradient(145deg, rgba(255, 250, 244, 0.7), rgba(255, 235, 224, 0.48));
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.9), 0 26px 70px rgba(88, 38, 18, .12);
+  backdrop-filter: blur(26px) saturate(150%);
+  -webkit-backdrop-filter: blur(26px) saturate(150%);
 }
 
 .contact-copy {
@@ -1827,12 +1858,19 @@ html.fp-enabled body {
   justify-content: center;
   padding: 0 16px;
   border-radius: 999px;
-  border: 1px solid rgba(14,10,7,.1);
+  border: 1px solid rgba(14,10,7,.08);
   color: #0e0a07;
-  background: rgba(255,255,255,.52);
+  background: rgba(255,255,255,.48);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.72);
   font-size: 13px;
   font-weight: 650;
   text-decoration: none;
+  transition: background .2s ease, border-color .2s ease, transform .2s ease;
+}
+.contact-links a:hover {
+  background: rgba(255,255,255,.7);
+  border-color: rgba(14,10,7,.14);
+  transform: translateY(-1px);
 }
 
 .contact-form {
@@ -1857,11 +1895,13 @@ html.fp-enabled body {
 .contact-form input,
 .contact-form textarea {
   width: 100%;
-  border: 1px solid rgba(14,10,7,.12);
+  border: 1px solid rgba(90, 52, 32, .13);
   border-radius: 16px;
   padding: 14px 15px;
   color: #0e0a07;
-  background: rgba(255,255,255,.7);
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.76), rgba(255,249,244,.66));
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.86);
   outline: none;
   font: inherit;
   transition: border-color .2s ease, background .2s ease, box-shadow .2s ease;
@@ -1874,9 +1914,9 @@ html.fp-enabled body {
 
 .contact-form input:focus,
 .contact-form textarea:focus {
-  border-color: rgba(68,95,255,.55);
-  background: #fff;
-  box-shadow: 0 0 0 4px rgba(68,95,255,.08);
+  border-color: rgba(255,122,92,.48);
+  background: rgba(255,255,255,.86);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.92), 0 0 0 4px rgba(255,122,92,.1);
 }
 
 .contact-form .honeypot {
@@ -1891,6 +1931,9 @@ html.fp-enabled body {
   width: 100%;
   margin-top: 4px;
   border: 0;
+  background: linear-gradient(135deg, rgba(18, 12, 9, .96), rgba(62, 35, 24, .94));
+  color: rgba(255, 250, 245, .96);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.12), 0 16px 34px rgba(80, 38, 18, .18);
 }
 
 .site-footer {
