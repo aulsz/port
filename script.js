@@ -1,12 +1,10 @@
-(function () {
+﻿(function () {
   const curtain = document.getElementById('curtain');
   const nav = document.getElementById('nav');
   const s2El = document.querySelector('.s2');
   const s3El = document.querySelector('.s3');
-  const s5El = document.querySelector('.s5');
   let s2Triggered = false;
   let s3Triggered = false;
-  let s5Triggered = false;
 
   /* ---------------- mobile drawer ---------------- */
   const burger = document.getElementById('navBurger');
@@ -16,6 +14,22 @@
     burger.addEventListener('click', () => drawer.classList.add('open'));
     if (drawerClose) drawerClose.addEventListener('click', () => drawer.classList.remove('open'));
     drawer.querySelectorAll('a').forEach((a) => a.addEventListener('click', () => drawer.classList.remove('open')));
+  }
+
+  function getScrollTarget(trigger) {
+    return trigger.dataset.scrollTarget || trigger.getAttribute('href') || '';
+  }
+
+  function bindScrollControls(handler) {
+    document.querySelectorAll('a[href^="#"], [data-scroll-target]').forEach((trigger) => {
+      trigger.addEventListener('click', (event) => {
+        const target = getScrollTarget(trigger);
+        if (!target || target === '#') return;
+        event.preventDefault();
+        handler(target);
+        if (drawer) drawer.classList.remove('open');
+      });
+    });
   }
 
   /* ---------------- helpers ---------------- */
@@ -56,7 +70,7 @@
             const s = document.createElement('span');
             s.className = 'ch' + (ch === ' ' ? ' sp' : '');
             s.style.setProperty('--i', i++);
-            s.textContent = ch === ' ' ? ' ' : ch;
+            s.textContent = ch === ' ' ? '\u00A0' : ch;
             frag.appendChild(s);
           }
           node.replaceChild(frag, n);
@@ -162,7 +176,7 @@
         const s = document.createElement('span');
         s.className = 'ch' + (ch === ' ' ? ' sp' : '');
         s.style.setProperty('--i', ci++);
-        s.textContent = ch === ' ' ? ' ' : ch;
+        s.textContent = ch === ' ' ? '\u00A0' : ch;
         cornerEl.appendChild(s);
       }
     }
@@ -176,7 +190,7 @@
       for (const ch of text) {
         const s = document.createElement('span');
         s.className = 'ch' + (ch === ' ' ? ' sp' : '');
-        s.textContent = ch === ' ' ? ' ' : ch;
+        s.textContent = ch === ' ' ? '\u00A0' : ch;
         spans.push(s);
         cornerR.appendChild(s);
       }
@@ -462,30 +476,6 @@
     }, lastOrbitDelay);
   }
 
-  /* ---------------- section 5: contact reveal ---------------- */
-  function triggerS5() {
-    if (s5Triggered || !s5El) return;
-    s5Triggered = true;
-    s5El.classList.add('s5-in');
-  }
-
-  /* ---------------- anchor / CTA navigation ---------------- */
-  // Wires every internal link (nav, drawer, hero CTAs, "Let's Talk") to a
-  // navigate function appropriate for the current scroll mode (curtain vs.
-  // natural). Buttons with no real href use data-scroll-target instead.
-  function bindScrollLinks(navigateFn) {
-    const links = document.querySelectorAll('a[href^="#"]:not([href="#"]), [data-scroll-target]');
-    links.forEach((el) => {
-      if (el.dataset.scrollBound) return;
-      el.dataset.scrollBound = '1';
-      const hash = el.getAttribute('data-scroll-target') || el.getAttribute('href');
-      el.addEventListener('click', (e) => {
-        e.preventDefault();
-        navigateFn(hash);
-      });
-    });
-  }
-
   /* ---------------- fullpage curtain scroll-jack ("seamless scroll") ---------------- */
   function initFullpage() {
     const wrap = document.getElementById('fullpage');
@@ -502,7 +492,6 @@
         { el: document.querySelector('.s2'), fn: triggerS2 },
         { el: document.querySelector('.s3'), fn: triggerS3 },
         { el: document.querySelector('.s4'), fn: triggerS4 },
-        { el: document.querySelector('.s5'), fn: triggerS5 },
       ];
       const onScroll = () => {
         const vh = window.innerHeight;
@@ -521,11 +510,12 @@
       window.addEventListener('scroll', onScroll, { passive: true });
       window.addEventListener('resize', onScroll, { passive: true });
       onScroll();
-
-      bindScrollLinks((hash) => {
-        const id = hash.replace('#', '');
-        const target = document.getElementById(id) || document.querySelector(`[data-anchor="${id}"]`);
-        target?.scrollIntoView({ behavior: 'smooth' });
+      bindScrollControls((target) => {
+        if (target === '#top' || target === '#hero') {
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+          return;
+        }
+        document.querySelector(target)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
       });
       return;
     }
@@ -554,11 +544,20 @@
       if (idx === 1) triggerS2();
       if (idx === 2) triggerS3();
       if (idx === 3) triggerS4();
-      if (idx === 4) triggerS5();
       setTimeout(() => {
         animating = false;
       }, 1050);
     }
+
+    function sectionIndexForTarget(target) {
+      if (target === '#top' || target === '#hero') return 0;
+      return sections.findIndex((section) => section.matches(target) || section.querySelector(target));
+    }
+
+    bindScrollControls((target) => {
+      const idx = sectionIndexForTarget(target);
+      if (idx >= 0) goTo(idx);
+    });
 
     let wheelLock = false;
     window.addEventListener(
@@ -613,12 +612,6 @@
       },
       { passive: true }
     );
-
-    bindScrollLinks((hash) => {
-      const id = hash.replace('#', '');
-      const idx = sections.findIndex((sec) => sec.dataset.anchor === id || sec.querySelector('#' + CSS.escape(id)));
-      if (idx !== -1) goTo(idx);
-    });
 
     setNavForSection(0);
     setCurtain(false);
