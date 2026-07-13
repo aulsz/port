@@ -43,7 +43,7 @@ body {
 
 body {
   font-family: var(--font-sans);
-  background: var(--cream);
+  background: #07060a;
   color: var(--ink);
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
@@ -308,8 +308,8 @@ p {
   bottom: 0;
   z-index: 50;
   overflow: hidden;
-  background: var(--navy);
-  box-shadow: 0 24px 60px rgba(8, 23, 79, 0.35);
+  background: rgba(7, 6, 10, 0.18);
+  box-shadow: 0 24px 60px rgba(8, 12, 24, 0.26);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -323,18 +323,41 @@ p {
     radial-gradient(80% 60% at 12% 22%, rgba(255, 255, 255, 0.18), transparent 58%),
     radial-gradient(72% 64% at 86% 18%, rgba(255, 177, 114, 0.18), transparent 64%),
     linear-gradient(180deg, #160d0a 0%, #07060a 58%, #020207 100%);
+  opacity: 0.4;
+  mix-blend-mode: soft-light;
 }
-.shader-gradient-root {
-  position: absolute;
-  inset: -4%;
+.site-shader-root {
+  position: fixed;
+  inset: -5%;
   z-index: 0;
   overflow: hidden;
-  opacity: 0.9;
+  opacity: 0.96;
   pointer-events: none;
   transform: translateZ(0);
+  background:
+    radial-gradient(90% 70% at 52% 6%, rgba(255, 122, 92, 0.34), transparent 70%),
+    radial-gradient(80% 60% at 16% 24%, rgba(255, 255, 255, 0.12), transparent 62%),
+    linear-gradient(180deg, #170d0a 0%, #07060a 60%, #020207 100%);
 }
-.shader-gradient-root canvas {
+.site-shader-root canvas {
   display: block;
+}
+.fluted-glass-root {
+  position: absolute;
+  inset: -2%;
+  z-index: 1;
+  overflow: hidden;
+  pointer-events: none;
+  opacity: 0.5;
+  mix-blend-mode: screen;
+  filter: saturate(112%) contrast(104%);
+  transform: translateZ(0);
+}
+.fluted-glass-root > div {
+  position: absolute !important;
+  inset: 0;
+  width: 100% !important;
+  height: 100% !important;
 }
 .curtain__night-sky {
   position: absolute;
@@ -449,7 +472,7 @@ p {
 .curtain__overlay {
   position: absolute;
   inset: 0;
-  z-index: 1;
+  z-index: 2;
   background:
     radial-gradient(88% 55% at 50% 16%, rgba(255, 255, 255, 0.16), transparent 62%),
     linear-gradient(180deg, rgba(18, 8, 6, 0.34) 0%, rgba(16, 9, 10, 0.1) 30%, rgba(7, 6, 11, 0.48) 75%, rgba(1, 2, 7, 0.92) 100%);
@@ -457,7 +480,7 @@ p {
 .curtain__tint {
   position: absolute;
   inset: 0;
-  z-index: 1;
+  z-index: 2;
   background:
     radial-gradient(70% 55% at 50% 30%, rgba(255, 122, 92, 0.12), transparent 70%),
     radial-gradient(40% 42% at 82% 20%, rgba(255, 255, 255, 0.1), transparent 70%);
@@ -526,7 +549,7 @@ p {
 /* Hero content */
 .hero {
   position: relative;
-  z-index: 2;
+  z-index: 3;
   width: 100%;
   max-width: 900px;
   margin: 0 auto;
@@ -654,7 +677,7 @@ p {
   transform: translateY(34px) scale(0.66);
   transform-origin: top center;
   transition: opacity 1s ease, transform 1s var(--ease);
-  z-index: 2;
+  z-index: 3;
 }
 .browser.intro-browser-in {
   opacity: 1;
@@ -837,6 +860,7 @@ p {
 .below {
   position: relative;
   z-index: 1;
+  isolation: isolate;
 }
 #fullpage {
   position: relative;
@@ -861,7 +885,11 @@ html.fp-enabled body {
   height: 100vh;
   width: 100%;
   overflow: hidden;
-  background: var(--cream);
+  background:
+    radial-gradient(80% 55% at 50% 0%, rgba(255, 255, 255, 0.78), rgba(246, 242, 234, 0.58) 52%, rgba(246, 242, 234, 0.42) 100%),
+    linear-gradient(180deg, rgba(246, 242, 234, 0.72), rgba(246, 242, 234, 0.58));
+  backdrop-filter: blur(18px) saturate(115%);
+  -webkit-backdrop-filter: blur(18px) saturate(115%);
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -925,6 +953,9 @@ html.fp-enabled body {
    -------------------------------------------------------------------- */
 .s2 {
   padding: 0 8vw;
+  background:
+    radial-gradient(60% 46% at 18% 18%, rgba(255, 255, 255, 0.7), transparent 68%),
+    linear-gradient(180deg, rgba(246, 242, 234, 0.7), rgba(246, 242, 234, 0.56));
 }
 .s2-inner {
   position: relative;
@@ -1084,6 +1115,9 @@ html.fp-enabled body {
    -------------------------------------------------------------------- */
 .s3 {
   padding: 0 8vw;
+  background:
+    radial-gradient(62% 48% at 80% 20%, rgba(255, 255, 255, 0.68), transparent 70%),
+    linear-gradient(180deg, rgba(246, 242, 234, 0.66), rgba(246, 242, 234, 0.5));
 }
 .s3-grid-lines {
   position: absolute;
@@ -1457,6 +1491,9 @@ html.fp-enabled body {
    -------------------------------------------------------------------- */
 .s4 {
   padding: 0 8vw;
+  background:
+    radial-gradient(52% 42% at 50% 50%, rgba(255, 255, 255, 0.66), transparent 72%),
+    linear-gradient(180deg, rgba(246, 242, 234, 0.58), rgba(246, 242, 234, 0.44));
 }
 .s4-grid-lines {
   position: absolute;
@@ -1712,9 +1749,11 @@ html.fp-enabled body {
   padding: 110px 48px 34px;
   overflow: hidden;
   background:
-    radial-gradient(circle at 18% 18%, rgba(255,255,255,.95), transparent 30%),
-    radial-gradient(circle at 78% 30%, rgba(86,118,255,.16), transparent 34%),
-    linear-gradient(145deg, #f5f7fb 0%, #eef1f7 45%, #ffffff 100%);
+    radial-gradient(circle at 18% 18%, rgba(255,255,255,.82), transparent 30%),
+    radial-gradient(circle at 78% 30%, rgba(255,122,92,.18), transparent 34%),
+    linear-gradient(145deg, rgba(245,247,251,.7) 0%, rgba(238,241,247,.58) 45%, rgba(255,255,255,.68) 100%);
+  backdrop-filter: blur(18px) saturate(118%);
+  -webkit-backdrop-filter: blur(18px) saturate(118%);
 }
 
 .s5::before {
