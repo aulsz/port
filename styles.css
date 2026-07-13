@@ -465,21 +465,21 @@ p {
 /* Browser / dashboard mockup */
 .browser {
   position: relative;
-  margin-top: 68px;
+  margin-top: 34px;
   width: min(1100px, 88vw);
   border-radius: 20px 20px 0 0;
   overflow: hidden;
   background: #f3efe6;
   box-shadow: 0 40px 100px rgba(4, 8, 24, 0.55);
   opacity: 0;
-  transform: translateY(70px) scale(0.8);
+  transform: translateY(50px) scale(0.76);
   transform-origin: top center;
   transition: opacity 1s ease, transform 1s var(--ease);
   z-index: 2;
 }
 .browser.intro-browser-in {
   opacity: 1;
-  transform: translateY(0) scale(0.82);
+  transform: translateY(0) scale(0.72);
 }
 .browser__chrome {
   display: flex;
@@ -515,7 +515,7 @@ p {
 
 .dashboard {
   display: flex;
-  min-height: 320px;
+  min-height: 270px;
   background: #f7f4ee;
   text-align: left;
 }
