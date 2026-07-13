@@ -2108,7 +2108,7 @@ html.fp-enabled body {
     white-space: nowrap;
   }
   .browser {
-    width: calc(100vw - 24px) !important;
+    width: min(720px, calc(100vw - 24px)) !important;
     margin-top: 28px;
     border-radius: 16px 16px 0 0;
     transform: translateY(24px) scale(1);
@@ -2133,25 +2133,44 @@ html.fp-enabled body {
     padding-left: 18px;
   }
   .dashboard {
-    min-height: 235px;
-    max-height: 260px;
-    overflow: hidden;
+    display: block;
+    min-height: 0;
+    max-height: none;
+    overflow: visible;
   }
   .sidebar {
     display: none;
   }
   .main {
-    padding: 16px;
+    padding: 16px 14px 18px;
+  }
+  .breadcrumbs {
+    font-size: 11px;
+  }
+  .welcome {
+    margin-top: 8px;
+    font-size: 18px;
   }
   .kpis {
     grid-template-columns: 1fr;
-    gap: 8px;
+    gap: 10px;
+    margin-top: 14px;
   }
   .kpi {
     padding: 12px;
   }
+  .kpi .inner {
+    align-items: center;
+  }
+  .kpi .label {
+    font-size: 9.5px;
+  }
   .kpi .val {
     font-size: 20px;
+  }
+  .kpi .desc,
+  .kpi .foot {
+    font-size: 11px;
   }
 
   .grid {
