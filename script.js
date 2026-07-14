@@ -18,21 +18,53 @@
 
   const contactForm = document.querySelector('.contact-form');
   if (contactForm) {
-    contactForm.addEventListener('submit', (event) => {
+    const startedAt = contactForm.querySelector('input[name="startedAt"]');
+    const formNote = contactForm.querySelector('.form-note');
+    const submitButton = contactForm.querySelector('button[type="submit"]');
+    if (startedAt) startedAt.value = String(Date.now());
+
+    contactForm.addEventListener('submit', async (event) => {
       event.preventDefault();
       const data = new FormData(contactForm);
       if ((data.get('_honey') || '').toString().trim()) return;
 
-      const name = (data.get('name') || '').toString().trim();
-      const email = (data.get('email') || '').toString().trim();
-      const message = (data.get('message') || '').toString().trim();
-      const recipient = contactForm.dataset.email || 'coculbert@icloud.com';
-      const subject = encodeURIComponent('New portfolio conversation');
-      const body = encodeURIComponent(
-        `Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`
-      );
+      const payload = {
+        name: (data.get('name') || '').toString().trim(),
+        email: (data.get('email') || '').toString().trim(),
+        message: (data.get('message') || '').toString().trim(),
+        startedAt: Number(data.get('startedAt') || 0),
+        website: (data.get('_honey') || '').toString()
+      };
 
-      window.location.href = `mailto:${recipient}?subject=${subject}&body=${body}`;
+      if (submitButton) {
+        submitButton.disabled = true;
+        submitButton.textContent = 'Sending...';
+      }
+      if (formNote) formNote.textContent = 'Sending securely...';
+
+      try {
+        const response = await fetch(contactForm.action, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+          },
+          body: JSON.stringify(payload)
+        });
+        const result = await response.json().catch(() => ({}));
+        if (!response.ok) throw new Error(result.error || 'Message could not be sent.');
+
+        contactForm.reset();
+        if (startedAt) startedAt.value = String(Date.now());
+        if (formNote) formNote.textContent = 'Message sent. I will get back to you soon.';
+      } catch (error) {
+        if (formNote) formNote.textContent = error.message || 'Message could not be sent. Try again in a moment.';
+      } finally {
+        if (submitButton) {
+          submitButton.disabled = false;
+          submitButton.textContent = 'Send message';
+        }
+      }
     });
   }
 
