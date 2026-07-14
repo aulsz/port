@@ -717,7 +717,7 @@ p {
 
 .dashboard {
   display: flex;
-  min-height: 320px;
+  min-height: 430px;
   background: #f7f4ee;
   text-align: left;
 }
@@ -780,6 +780,8 @@ p {
 }
 
 .main {
+  display: flex;
+  flex-direction: column;
   flex: 1;
   padding: 22px 26px;
   min-width: 0;
@@ -852,6 +854,213 @@ p {
 .kpi .mom .lbl {
   color: var(--ink-45);
   font-weight: 500;
+}
+
+.desktop-lower {
+  flex: 1;
+  min-height: 138px;
+  margin-top: 18px;
+  display: grid;
+  grid-template-columns: minmax(0, 1.22fr) minmax(210px, 0.78fr);
+  gap: 14px;
+}
+
+.desktop-card {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(14, 10, 7, 0.08);
+  border-radius: 16px;
+  background:
+    radial-gradient(circle at 12% 0%, rgba(255, 255, 255, 0.86), transparent 34%),
+    linear-gradient(135deg, rgba(255, 255, 255, 0.62), rgba(244, 239, 229, 0.86));
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.75);
+}
+
+.desktop-card::after {
+  content: "";
+  position: absolute;
+  inset: auto -18% -42% 18%;
+  height: 88px;
+  border-radius: 50%;
+  background: rgba(12, 114, 255, 0.08);
+  filter: blur(20px);
+}
+
+.desktop-card__head {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 14px 0;
+  font-size: 12px;
+}
+
+.desktop-card__head strong {
+  font-size: 12px;
+  font-weight: 700;
+  color: rgba(14, 10, 7, 0.74);
+}
+
+.desktop-card__head small {
+  margin-left: auto;
+  color: rgba(14, 10, 7, 0.36);
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-weight: 700;
+}
+
+.desktop-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  background: var(--green);
+  box-shadow: 0 0 0 4px rgba(53, 170, 108, 0.12);
+}
+
+.desktop-dot.blue {
+  background: #2477ff;
+  box-shadow: 0 0 0 4px rgba(36, 119, 255, 0.12);
+}
+
+.build-lines {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  gap: 7px;
+  padding: 18px 14px 12px;
+}
+
+.build-lines span {
+  display: block;
+  width: var(--w);
+  height: 7px;
+  border-radius: 999px;
+  background:
+    linear-gradient(90deg, rgba(14, 10, 7, 0.28), rgba(14, 10, 7, 0.05)),
+    rgba(14, 10, 7, 0.06);
+}
+
+.build-row {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 8px 14px;
+  border-top: 1px solid rgba(14, 10, 7, 0.06);
+  font-size: 11.5px;
+  color: rgba(14, 10, 7, 0.46);
+}
+
+.build-row strong {
+  color: rgba(14, 10, 7, 0.72);
+  font-weight: 700;
+}
+
+.health-card {
+  display: grid;
+  grid-template-columns: 82px 1fr;
+  grid-template-rows: auto 1fr;
+  align-items: center;
+  column-gap: 12px;
+  padding-bottom: 14px;
+}
+
+.health-card .desktop-card__head {
+  grid-column: 1 / -1;
+}
+
+.health-ring {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  width: 72px;
+  height: 72px;
+  margin-left: 14px;
+  border-radius: 50%;
+  background:
+    conic-gradient(from 220deg, #35aa6c 0 76%, rgba(14, 10, 7, 0.08) 76% 100%);
+}
+
+.health-ring::before {
+  content: "";
+  position: absolute;
+  inset: 8px;
+  border-radius: 50%;
+  background: #f7f4ee;
+}
+
+.health-ring span {
+  position: relative;
+  font-size: 15px;
+  font-weight: 800;
+}
+
+.health-card p {
+  position: relative;
+  z-index: 1;
+  margin: 6px 14px 0 0;
+  font-size: 11.5px;
+  line-height: 1.45;
+  color: rgba(14, 10, 7, 0.48);
+}
+
+.screen-dock {
+  align-self: center;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 52px;
+  margin-top: 16px;
+  padding: 7px 10px;
+  border: 1px solid rgba(14, 10, 7, 0.1);
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.56);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.72),
+    0 18px 42px rgba(14, 10, 7, 0.08);
+  backdrop-filter: blur(18px) saturate(1.2);
+  -webkit-backdrop-filter: blur(18px) saturate(1.2);
+}
+
+.dock-app {
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 11px;
+  color: #fff;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.32),
+    0 8px 18px rgba(14, 10, 7, 0.14);
+}
+
+.dock-app.finder { background: linear-gradient(135deg, #6ac4ff, #246eff); }
+.dock-app.safari { background: linear-gradient(135deg, #35d6ff, #1269d6); }
+.dock-app.code { background: linear-gradient(135deg, #4f8fff, #1d4fd8); }
+.dock-app.terminal { background: linear-gradient(135deg, #22252b, #060708); }
+.dock-app.github { background: linear-gradient(135deg, #3a3d44, #111217); }
+.dock-app.mail { background: linear-gradient(135deg, #83baff, #2a62db); }
+
+.dock-separator {
+  width: 1px;
+  height: 28px;
+  margin: 0 3px;
+  background: rgba(14, 10, 7, 0.1);
+}
+
+.dock-status {
+  padding: 0 8px;
+  color: rgba(14, 10, 7, 0.48);
+  font-size: 11px;
+  font-weight: 700;
+  white-space: nowrap;
 }
 
 /* --------------------------------------------------------------------
@@ -2171,6 +2380,56 @@ html.fp-enabled body {
   .kpi .desc,
   .kpi .foot {
     font-size: 11px;
+  }
+  .desktop-lower {
+    grid-template-columns: 1fr;
+    min-height: 0;
+    margin-top: 12px;
+    gap: 10px;
+  }
+  .desktop-card__head {
+    padding: 11px 12px 0;
+  }
+  .build-lines {
+    padding: 12px 12px 8px;
+  }
+  .build-row {
+    padding: 7px 12px;
+  }
+  .health-card {
+    grid-template-columns: 60px 1fr;
+    column-gap: 10px;
+    padding-bottom: 12px;
+  }
+  .health-ring {
+    width: 54px;
+    height: 54px;
+    margin-left: 12px;
+  }
+  .health-ring span {
+    font-size: 12px;
+  }
+  .health-card p {
+    margin-right: 12px;
+    font-size: 11px;
+  }
+  .screen-dock {
+    width: 100%;
+    justify-content: center;
+    gap: 6px;
+    min-height: 48px;
+    margin-top: 12px;
+    padding: 7px;
+    border-radius: 16px;
+  }
+  .dock-app {
+    width: 29px;
+    height: 29px;
+    border-radius: 9px;
+    font-size: 9px;
+  }
+  .dock-status {
+    display: none;
   }
 
   .grid {
