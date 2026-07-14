@@ -28,13 +28,6 @@
       const data = new FormData(contactForm);
       if ((data.get('_honey') || '').toString().trim()) return;
 
-      const payload = {
-        name: (data.get('name') || '').toString().trim(),
-        email: (data.get('email') || '').toString().trim(),
-        message: (data.get('message') || '').toString().trim(),
-        _subject: (data.get('_subject') || 'New portfolio conversation').toString()
-      };
-
       if (submitButton) {
         submitButton.disabled = true;
         submitButton.textContent = 'Sending...';
@@ -44,11 +37,8 @@
       try {
         const response = await fetch(contactForm.action, {
           method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json'
-          },
-          body: JSON.stringify(payload)
+          headers: { 'Accept': 'application/json' },
+          body: data
         });
         const result = await response.json().catch(() => ({}));
         if (!response.ok || result.success === 'false') throw new Error(result.message || 'Message could not be sent.');

@@ -1849,6 +1849,32 @@ html.fp-enabled body {
   transform-origin: center;
   will-change: transform;
 }
+/* Liquid gloss sweep */
+.tile::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: 0;
+  width: 50%;
+  height: 200%;
+  background: linear-gradient(to right, transparent, rgba(255,255,255,0.28) 50%, transparent);
+  transform: skewX(-15deg) translateX(-150%);
+  animation: tile-gloss 2.8s ease-in-out infinite;
+  pointer-events: none;
+  z-index: 2;
+}
+@keyframes tile-gloss {
+  0%   { transform: skewX(-15deg) translateX(-150%); }
+  100% { transform: skewX(-15deg) translateX(350%); }
+}
+.tile.g1::before { animation-delay:    0s; }
+.tile.g2::before { animation-delay: -0.35s; }
+.tile.g3::before { animation-delay: -0.70s; }
+.tile.g4::before { animation-delay: -1.05s; }
+.tile.g6::before { animation-delay: -1.40s; }
+.tile.g7::before { animation-delay: -1.75s; }
+.tile.g8::before { animation-delay: -2.10s; }
+.tile.g9::before { animation-delay: -2.45s; }
 .tile.g8 span {
   font-size: 14px;
   line-height: 1;
