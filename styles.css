@@ -716,8 +716,9 @@ p {
 }
 
 .dashboard {
+  position: relative;
   display: flex;
-  min-height: 430px;
+  min-height: 410px;
   background: #f7f4ee;
   text-align: left;
 }
@@ -780,10 +781,11 @@ p {
 }
 
 .main {
+  position: relative;
   display: flex;
   flex-direction: column;
   flex: 1;
-  padding: 22px 26px;
+  padding: 22px 26px 82px;
   min-width: 0;
 }
 .breadcrumbs {
@@ -858,7 +860,7 @@ p {
 
 .desktop-lower {
   flex: 1;
-  min-height: 138px;
+  min-height: 118px;
   margin-top: 18px;
   display: grid;
   grid-template-columns: minmax(0, 1.22fr) minmax(210px, 0.78fr);
@@ -1009,12 +1011,15 @@ p {
 }
 
 .screen-dock {
-  align-self: center;
+  position: absolute;
+  left: 50%;
+  bottom: 18px;
+  z-index: 6;
+  transform: translateX(-50%);
   display: flex;
   align-items: center;
   gap: 8px;
   min-height: 52px;
-  margin-top: 16px;
   padding: 7px 10px;
   border: 1px solid rgba(14, 10, 7, 0.1);
   border-radius: 18px;
@@ -2351,7 +2356,7 @@ html.fp-enabled body {
     display: none;
   }
   .main {
-    padding: 16px 14px 18px;
+    padding: 16px 14px 72px;
   }
   .breadcrumbs {
     font-size: 11px;
@@ -2414,11 +2419,11 @@ html.fp-enabled body {
     font-size: 11px;
   }
   .screen-dock {
-    width: 100%;
+    width: calc(100% - 28px);
     justify-content: center;
     gap: 6px;
     min-height: 48px;
-    margin-top: 12px;
+    bottom: 12px;
     padding: 7px;
     border-radius: 16px;
   }
