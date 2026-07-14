@@ -101,18 +101,8 @@
             <img src="https://qclay.design/lovable/lumio/Navegation.svg" alt="" style="height:14px;width:auto;opacity:.85" />
           </div>
           <div class="browser__url">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="12"
-              height="12"
-              viewBox="0 0 12 12"
-              fill="none"
-              style="position:absolute;left:8px;top:50%;transform:translateY(-50%);width:10.994px;height:10.994px;flex-shrink:0"
-            >
-              <rect x="0.5" y="0.5" width="10.9941" height="10.9941" rx="5.49707" stroke="white" />
-              <path d="M3.39221 5.92828L8.60089 5.92828" stroke="white" stroke-linecap="round" />
-              <path d="M5.99689 3.39343L5.99689 8.60211" stroke="white" stroke-linecap="round" /></svg
-            ><img src="https://qclay.design/lovable/lumio/Candado.svg" alt="" style="height:10px;width:auto;opacity:.85" /> collinsculbert.dev / overview
+            <span class="browser__lock" aria-hidden="true"></span>
+            <span class="browser__url-text">collinsculbert.dev / overview</span>
           </div>
           <div class="browser__icons">
             <img src="https://qclay.design/lovable/lumio/Options.svg" alt="" style="height:16px;width:auto;opacity:.85" />
@@ -686,10 +676,8 @@
                 </div>
               </div>
 
-              <form class="contact-form" action="https://formsubmit.co/coculbert@icloud.com" method="POST">
+              <form class="contact-form" action="mailto:coculbert@icloud.com" method="POST" enctype="text/plain" data-email="coculbert@icloud.com">
                 <input type="hidden" name="_subject" value="New portfolio conversation">
-                <input type="hidden" name="_template" value="table">
-                <input type="hidden" name="_next" value="https://aulsz-port.vercel.app/#contact">
                 <input class="honeypot" type="text" name="_honey" tabindex="-1" autocomplete="off" aria-hidden="true">
 
                 <label>
@@ -708,6 +696,7 @@
                 </label>
 
                 <button class="btn primary" type="submit">Send message</button>
+                <p class="form-note" aria-live="polite">Opens your email app with the message ready to send.</p>
               </form>
             </div>
             <footer class="site-footer">

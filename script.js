@@ -16,6 +16,26 @@
     drawer.querySelectorAll('a').forEach((a) => a.addEventListener('click', () => drawer.classList.remove('open')));
   }
 
+  const contactForm = document.querySelector('.contact-form');
+  if (contactForm) {
+    contactForm.addEventListener('submit', (event) => {
+      event.preventDefault();
+      const data = new FormData(contactForm);
+      if ((data.get('_honey') || '').toString().trim()) return;
+
+      const name = (data.get('name') || '').toString().trim();
+      const email = (data.get('email') || '').toString().trim();
+      const message = (data.get('message') || '').toString().trim();
+      const recipient = contactForm.dataset.email || 'coculbert@icloud.com';
+      const subject = encodeURIComponent('New portfolio conversation');
+      const body = encodeURIComponent(
+        `Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`
+      );
+
+      window.location.href = `mailto:${recipient}?subject=${subject}&body=${body}`;
+    });
+  }
+
   function getScrollTarget(trigger) {
     return trigger.dataset.scrollTarget || trigger.getAttribute('href') || '';
   }
