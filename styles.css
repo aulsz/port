@@ -718,7 +718,7 @@ p {
 .dashboard {
   position: relative;
   display: flex;
-  min-height: 410px;
+  min-height: 385px;
   background: #f7f4ee;
   text-align: left;
 }
@@ -785,7 +785,7 @@ p {
   display: flex;
   flex-direction: column;
   flex: 1;
-  padding: 22px 26px 82px;
+  padding: 22px 26px 108px;
   min-width: 0;
 }
 .breadcrumbs {
@@ -860,8 +860,8 @@ p {
 
 .desktop-lower {
   flex: 1;
-  min-height: 118px;
-  margin-top: 18px;
+  min-height: 96px;
+  margin-top: 14px;
   display: grid;
   grid-template-columns: minmax(0, 1.22fr) minmax(210px, 0.78fr);
   gap: 14px;
@@ -1013,14 +1013,14 @@ p {
 .screen-dock {
   position: absolute;
   left: 50%;
-  bottom: 18px;
+  bottom: 54px;
   z-index: 6;
   transform: translateX(-50%);
   display: flex;
   align-items: center;
   gap: 8px;
-  min-height: 52px;
-  padding: 7px 10px;
+  min-height: 48px;
+  padding: 6px 10px;
   border: 1px solid rgba(14, 10, 7, 0.1);
   border-radius: 18px;
   background: rgba(255, 255, 255, 0.56);
@@ -1034,9 +1034,9 @@ p {
 .dock-app {
   display: grid;
   place-items: center;
-  width: 34px;
-  height: 34px;
-  border-radius: 11px;
+  width: 31px;
+  height: 31px;
+  border-radius: 10px;
   color: #fff;
   font-size: 11px;
   font-weight: 800;
