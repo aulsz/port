@@ -32,15 +32,14 @@
         name: (data.get('name') || '').toString().trim(),
         email: (data.get('email') || '').toString().trim(),
         message: (data.get('message') || '').toString().trim(),
-        startedAt: Number(data.get('startedAt') || 0),
-        website: (data.get('_honey') || '').toString()
+        _subject: (data.get('_subject') || 'New portfolio conversation').toString()
       };
 
       if (submitButton) {
         submitButton.disabled = true;
         submitButton.textContent = 'Sending...';
       }
-      if (formNote) formNote.textContent = 'Sending securely...';
+      if (formNote) formNote.textContent = 'Sending...';
 
       try {
         const response = await fetch(contactForm.action, {
@@ -52,13 +51,13 @@
           body: JSON.stringify(payload)
         });
         const result = await response.json().catch(() => ({}));
-        if (!response.ok) throw new Error(result.error || 'Message could not be sent.');
+        if (!response.ok || result.success === 'false') throw new Error(result.message || 'Message could not be sent.');
 
         contactForm.reset();
         if (startedAt) startedAt.value = String(Date.now());
-        if (formNote) formNote.textContent = 'Message sent. I will get back to you soon.';
+        if (formNote) formNote.textContent = 'Message sent — I\'ll get back to you soon.';
       } catch (error) {
-        if (formNote) formNote.textContent = error.message || 'Message could not be sent. Try again in a moment.';
+        if (formNote) formNote.textContent = error.message || 'Could not send. Try again in a moment.';
       } finally {
         if (submitButton) {
           submitButton.disabled = false;
