@@ -618,6 +618,8 @@
     );
 
     window.addEventListener('keydown', (e) => {
+      const tag = document.activeElement?.tagName;
+      if (tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT' || document.activeElement?.isContentEditable) return;
       if (['ArrowDown', 'PageDown', ' '].includes(e.key)) {
         e.preventDefault();
         goTo(current + 1);
