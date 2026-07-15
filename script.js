@@ -26,7 +26,7 @@
     contactForm.addEventListener('submit', async (event) => {
       event.preventDefault();
       const data = new FormData(contactForm);
-      if ((data.get('_honey') || '').toString().trim()) return;
+      if ((data.get('botcheck') || '').toString().trim()) return;
 
       if (submitButton) {
         submitButton.disabled = true;
@@ -41,7 +41,7 @@
           body: data
         });
         const result = await response.json().catch(() => ({}));
-        if (!response.ok || result.success === 'false') throw new Error(result.message || 'Message could not be sent.');
+        if (!response.ok || !result.success) throw new Error(result.message || 'Message could not be sent.');
 
         contactForm.reset();
         if (startedAt) startedAt.value = String(Date.now());
