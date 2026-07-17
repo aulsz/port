@@ -184,6 +184,7 @@
 
     setTimeout(() => animateCount(document.querySelector('.stat.violet .v')), 1350);
     setTimeout(() => animateCount(document.querySelector('.stat.blue .v')), 1650);
+    setTimeout(() => animateCount(document.querySelector('.stat.green .v')), 1950);
   }
 
   /* ---------------- section 3: "how it works" reveal ---------------- */
