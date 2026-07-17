@@ -1338,6 +1338,9 @@ html.fp-enabled body {
 .s2.s2-in .stat.blue {
   transition-delay: 1.3s;
 }
+.s2.s2-in .stat.green {
+  transition-delay: 1.5s;
+}
 .stat .v {
   font-size: 40px;
   font-weight: 600;
@@ -1348,6 +1351,9 @@ html.fp-enabled body {
 }
 .stat.blue .v {
   color: var(--accent);
+}
+.stat.green .v {
+  color: #16a34a;
 }
 .stat .l {
   margin-top: 6px;
